@@ -21,15 +21,17 @@ define(['jquery',
 				cellRange,
 				cells;
 			
-			that.$el.css({'background-color':'transparent'});
-			cellRange = that.collection.determineRowsAndColumns();
+			that.$el.css({
+				'background-color':'transparent'
+				'border':'1px solid red'});
+/*			cellRange = that.collection.determineRowsAndColumns();
 			that.createScales(cellRange);
 			that.createColorScale();
 			that.createSVG(that.width, that.height);
 			that.drawBackground(cellRange);
 			that.collection.createCellData(cellRange);
 			cells = that.collection.getCells();
-			that.renderGrid(cells);
+			that.renderGrid(cells); */
 		};
 
 			
@@ -38,7 +40,8 @@ define(['jquery',
 				.attr('width',width)
 				.attr('height', height);
 		};
-												
+		
+		/*										
 		that.drawBackground = function(range) {
 						
 			that.bgWidth = ((range.horizontal.length) * (that.cellSize ));
@@ -60,7 +63,9 @@ define(['jquery',
 			that.background.transition().duration(1500).style('fill', cellColor);
 		};
 							
-							
+		
+
+
 		that.createScales = function(range) {
 			var xDomain = range.horizontal;
 			that.xDomain = xDomain;
@@ -244,6 +249,7 @@ define(['jquery',
 				return '#' + hex;
 		};
 		
+	*/	
 		
 		that.assignCollection = function(collection) {
 			that.collection = collection;

@@ -37,9 +37,9 @@ define(['jquery',
 					color = $element.css('background-color');
 				
 				var 
-					collection = new CellBlockCollection(),
+					//collection = new CellBlockCollection(),
 					view = new CellBlockView({el: '.' + className})
-				
+				/*
 				collection.assignProperties({
 					width: width,
 					height: height,
@@ -48,12 +48,9 @@ define(['jquery',
 				});
 				
 				view.assignCollection(collection);
-				
+				*/
 				view.render();
-				window.setInterval(function(){view.changeColorOfACell();}, 1);
-				window.setInterval(function(){view.changeBackgroundColor();}, 1500);
-				window.setInterval(function(){view.moveCell('x');}, 200);
-				window.setInterval(function(){view.moveCell('y');}, 200);
+
 							
 			})
 

@@ -26,11 +26,11 @@ define(['jquery',
 
 		that.gridsterConfiguration = {
 					widget_margins: [5, 5],
-					widget_base_dimensions: [100, 55],
+					widget_base_dimensions: [40, 40],
 					autogenerate_stylesheet: true,
 					resize: {
 						enabled: true,
-						max_size: [8, 8],
+						max_size: [25, 10],
 						min_size: [1, 1]
 						}
 		};
