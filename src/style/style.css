@@ -36,8 +36,29 @@ font-size: 28px
 	margin:auto;
 	margin-top:30px;
 	text-align:center;
-	border:1px dotted gray;
 }
+
+.placeholder-box {
+	border: 2px dotted #E6E6E6;
+
+	margin-top: 50px;
+	margin-bottom:50px;
+	padding-top:20px;
+	text-align:center;
+	font-size: 96px;
+	vertical-align: middle;
+	height: 160px
+
+}
+
+
+.button-wrapper {
+	position: relative;
+	width: 650px;
+ 	margin:auto;
+ 	margin-top: 15px;
+}
+
 
 .controls {
 	margin-bottom: 20px;
@@ -114,17 +135,6 @@ border: 1px dotted #B2B2B2;
 
 
 
-.placeholder-box {
-	border: 2px dotted #E6E6E6;
-
-	margin-top: 50px;
-	margin-bottom:50px;
-	padding-top:20px;
-	text-align:center;
-	font-size: 96px;
-	vertical-align: middle;
-	height: 160px
-}
 
 .cancel-box {
 	position: absolute;
@@ -145,11 +155,6 @@ border: 1px dotted #B2B2B2;
 	color: gray;
 }
 
-.button-wrapper {
-	position: relative;
- 	margin-top: 15px;
- 	margin-left: 100px;
-}
 
 .selector-box {
 	border: 2px dotted #D8D8D8;

@@ -41,7 +41,7 @@ define(['jquery',
 			'click .addBlock': 'getNewSelectorBox',
 			'click .freeze-block': 'freezeBlocks',
 			'click .cancel-box': 'cancelWidget',
-			'click .color-box' : 'triggerColorPick',
+			//'click .color-box' : 'triggerColorPick',
 			'mouseover .gs-w': 'showCancelButton',
 			'mouseleave .gs-w': 'hideCancelButton',
 			'mouseover .selector-box': 'highlightBoxes',
@@ -140,7 +140,6 @@ define(['jquery',
 		that.widgetTemplate = 
 							'<div class="{{index}}">' +
 								'<i class="hidden cancel-box fa fa-times"></i>' +
-								'<i class="hidden color-box fa fa-paint-brush"></i>' +
 							'</div>';
 
 		
@@ -153,7 +152,7 @@ define(['jquery',
 							'</div>' +
 						'</div>';
 
-		that.selectorData = {'selectorbox': [1,2,3,4,5,6,7,8,9,10]}
+		that.selectorData = {'selectorbox': [1,2,3,4]};//,5,6,7,8,9,10]}
 
 						
 		that.gridTemplate =  '<ul class="{{currentElement}}"></ul>';
@@ -177,13 +176,9 @@ define(['jquery',
 			$(event.target).find('.color-box').addClass('hidden');
 		};			
 
+
 		that.bindGridsterToElement = function(index) {
 			that.gridster[index] = $(".gridster > ul." + index).gridster(that.gridsterConfiguration).data('gridster');
-		};
-
-
-		that.triggerColorPick = function(event) {
-			$(event.target).trigger('getColor');
 		};
 
 

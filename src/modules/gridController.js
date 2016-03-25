@@ -20,7 +20,6 @@ define(['jquery',
 		
 			that.cellBlockController = new CellBlockController();
 			that.gridCreator = new GridCreator();
-			
 			that.gridCreator.on('gridCreated', function() {
 				this.cellBlockController.getAllBlocks();
 			}, that);

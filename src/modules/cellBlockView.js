@@ -1,13 +1,11 @@
 define(['jquery',
 	'backbone',
 	'underscore',
-	'd3',
-	'modules/cellBlockCollection'
+	'd3'
 ], function($,
 	Backbone,
 	_,
-	d3,
-	CellCollection
+	d3
 	) {
 
 	var CellBlockView = function() {
@@ -15,6 +13,9 @@ define(['jquery',
 		var that = {};
 
 		that.instanceID = 'view' + Date.now();
+		that.edges = 15;
+		that.CIRCLE_COORDINATES_COUNT = 3600,
+
 		
 		that.render = function() {
 			var 
@@ -22,242 +23,209 @@ define(['jquery',
 				cells;
 			
 			that.$el.css({
-				'background-color':'transparent'
+				'background-color':'transparent',
 				'border':'1px solid red'});
-/*			cellRange = that.collection.determineRowsAndColumns();
-			that.createScales(cellRange);
-			that.createColorScale();
-			that.createSVG(that.width, that.height);
-			that.drawBackground(cellRange);
-			that.collection.createCellData(cellRange);
-			cells = that.collection.getCells();
-			that.renderGrid(cells); */
+			that.determineWidthAndHeight();
+			that.createSVG();
+			that.renderChart();
+			that.animateChart();
 		};
 
 			
-		that.createSVG = function(width, height) {
+		that.createSVG = function() {
 			that.svg = d3.select(that.el).append('svg')
-				.attr('width',width)
-				.attr('height', height);
+				.attr('width',that.width)
+				.attr('height', that.height);
 		};
-		
-		/*										
-		that.drawBackground = function(range) {
-						
-			that.bgWidth = ((range.horizontal.length) * (that.cellSize ));
-			that.bgHeight = ((range.vertical.length) * (that.cellSize));
-			var ranNum = Math.random();
-			
-			that.background = that.svg.append('rect')
-			.attr('width',that.bgWidth) 
-			.attr('height', that.bgHeight)
-			.style('fill', that.randomColorScale(ranNum))
-			.attr('opacity', 0.5);
-		};
-						
-						
-		that.changeBackgroundColor = function() {
-			var ranNum = Math.random();
-			var cellColor = that.getColor(ranNum);
-			
-			that.background.transition().duration(1500).style('fill', cellColor);
-		};
-							
-		
 
 
-		that.createScales = function(range) {
-			var xDomain = range.horizontal;
-			that.xDomain = xDomain;
-			var xRange = _.map(xDomain, function(position) {
-				return position * that.cellSize;
-			});
-			var yDomain = range.vertical;
-			that.yDomain = yDomain;
-			var yRange = _.map(yDomain, function(position) {
-				return position * that.cellSize;
-			});
-			
-			that.xScale = d3.scale.ordinal()
-			.domain(xDomain)
-			.range(xRange);
-			
-			that.yScale = d3.scale.ordinal()
-			.domain(yDomain)
-			.range(yRange);
-			
+		that.determineWidthAndHeight = function() {
+			that.height = that.$el.height();
+			that.width = that.$el.width();
+			that.centreX = that.width/2;
+			that.centreY = that.height/2;
 		};
-								
-																	
-		that.renderGrid =  function(cells) {
-			that.selection = that.svg.selectAll('placeholder').data(cells,  function (d) { return d.id });
-			
-			that.selection.enter()
-				.append('rect')
-				.attr('class', function(d) {return d.class + ' ' + that.instanceID;})
-				.attr('id', function(d) {return d.id})
-				.attr('width', function(d) {return d.width;})
-				.attr('height', function(d) {return d.height;})
-				.attr('x', function(d) {return that.xScale(d.x);})
-				.attr('y', function(d) {return that.yScale(d.y);})
-				.attr('opacity',1)
-				.style('fill', function(d) {return that.getColor(d.colorValue);});
-			
-		};
-										
-										
-		that.changeColorOfACell = function(){
-			
-			var cellToBeChanged = that.pickRandomCell();
-			var ranNum = Math.random();
-			var cellColor = that.getColor(ranNum);
-			
-			d3.select(cellToBeChanged)
-				.transition().duration(800)
-				.style('fill', cellColor);
-		};
-											
-											
-		that.validateCoordinates = function(coordinates) {
-			
-			if (coordinates.x < 0) {
-				coordinates.x *= -1;
-			}
-			if (coordinates.y < 0) {
-				coordinates.y *= -1;
-			}    
-			if (coordinates.x > d3.max(that.xDomain)) {
-				coordinates.x -= 1;
-			}
-			if (coordinates.y > d3.max(that.yDomain)) {
-				coordinates.y -= 1;
-			}
-			
-			return coordinates;
-		};
-												
-												
-		that.moveCell = function(direction) {
-				
-			var
-				coordinates,
-				cellToBeMoved = that.collection.getRandomCellModel(),
-				cellID = '#' + cellToBeMoved.get('id'),
-				selectedCell = d3.select(cellID);
 
-			coordinates = that.getNewCoordinates(cellToBeMoved);
-			coordinates = that.validateCoordinates(coordinates);
-			cellToBeMoved.set({'x':coordinates.x})
-			cellToBeMoved.set({'y':coordinates.y})
-			
-			if (direction === 'x') {
-				selectedCell.transition("x").duration(2000)
-				.attr('x', that.xScale(coordinates.x))
-				.each("start", lock)
-				.each("end", unlock);
-			} else {
-				selectedCell.transition("y").duration(2000)
-				.attr('y', that.yScale(coordinates.y))
-				.each("start", lock)
-				.each("end", unlock);
-			}
-			
-			function lock (d, i) {
-				d3.select(this).classed({ cell: false, locked: true}); 
-			}
-			
-			function unlock (d, i) {
-				d3.select(this).classed({cell: true, locked: false});
-			}  
+
+		that.createScales = function(axisData) {
+
+			that.xScale = that.createXScales(axisData);
+			that.yScale = that.createYScales(axisData);
 		};
 		
 
-		that.getNewCoordinates = function(cell) {
-			
-			var
-				coordinates = {},
-				cellSize = cell.get('cellSize'),
-				currentX = cell.get('x'),
-				currentY = cell.get('y');
-				
-			coordinates.x = currentX + that.getPlusOrMinus();
-			coordinates.y = currentY + that.getPlusOrMinus();
-			
-			return coordinates;
-		};	
-			
-			
-		that.pickRandomCell = function() {
-			
+		that.renderChart = function() {
+
+			that.svg.selectAll('*').remove()
+
 			var 
-				cells = d3.selectAll('.' + that.instanceID)[0], 
-				numOfCells = cells.length,
-				randomNumber = Math.floor(Math.random() * numOfCells),
-				randomCell = cells[randomNumber];
-			
-			return randomCell;
+				radius = that.width * (2/5),
+				subRadius = radius /4, 
+				subRadii = _.range(subRadius, subRadius * 4, subRadius),
+				indices = that.getIndicesForPolygonCoordinates(that.edges),
+				circleCoordinates = that.createCircleCoordinates(radius),
+				axisData = that.createObjects(circleCoordinates, indices, true),
+				gridData = [];
+
+			that.createScales(axisData);
+			gridData.push(axisData);
+			gridData.push(that.createObjects(circleCoordinates, indices));
+			subRadii.forEach( function(subRadius) {
+				var subRadiusCoordinates = that.createCircleCoordinates(subRadius);
+				gridData.push(that.createObjects(subRadiusCoordinates, indices));
+			});
+
+
+
+			gridData.forEach(function(dataEntry) {
+			that.svg.selectAll('linePlaceholder')
+			.data(dataEntry)
+			.enter()
+			.append('line')
+			.attr('x1', function(d) {return d.x1})
+			.attr('y1', function(d) {return d.y1})
+			.attr('x2', function(d) {return d.x2})
+			.attr('y2', function(d) {return d.y2})
+			.style('stroke', 'gray')
+			.style('stroke-width',1);
+
+			})
+			polygonData = that.createPolygonData(that.edges);
+			that.polygon = that.svg.selectAll("polygonPlaceholder")
+			.data([polygonData])
+			.enter()
+			.append("polygon")
+			.attr("points",function(d) {
+				return d.map(function(d,i) {
+					return [that.xScale[i](d.data), that.yScale[i](d.data)].join(",");
+			}).join(" ");
+			})
+			.attr('class', 'polygon')
+			.attr("stroke","blue")
+			.attr('fill', 'blue')
+			.attr('opacity', 0.3)
+			.attr('stroke-opacity',0.5)
+			.attr("stroke-width",2);
+
+
+
 		};
-		
-		that.getPlusOrMinus = function() {
-			var sign = Math.random() < 0.5 ? -1 : 1;
-			return sign;
-		};
-		
-		that.createColorScale = function() {
-			
-			var color = that.color;
-			
-			if (color === 'rgb(230, 230, 230)') {
-				return;
+
+
+		that.getIndicesForPolygonCoordinates = function() {
+
+			var interval = Math.ceil(that.CIRCLE_COORDINATES_COUNT/that.edges);
+			var indices = _.range(0,that.CIRCLE_COORDINATES_COUNT,interval)
+	 
+			if (that.edges % 2 !== 0) {
+				indices = indices.map( function(i) {
+					i = (i + 2700) % that.CIRCLE_COORDINATES_COUNT;
+					return i;
+				})
 			}
-			
-			var bright = d3.rgb(color);
-			var sBright = bright.brighter();
-			var ssBright = sBright.brighter();
-			var sssBright = ssBright.brighter();
-			var ssssBright = sssBright.brighter();
-			
-			that.colorScale = d3.scale.linear()
-				.domain([0, 0.5, 0.65, 0.8, 0.9, 1])
-				.range([color, bright, sBright, ssBright, sssBright, ssssBright]);
+			return indices;
 		};
-		
-		
-		that.getColor = function(ranNum) {
-			
-			if (that.colorScale) {
-				var perc = Math.random();
-				
-				if (perc > 0.975) {
-					return that.randomColorScale(ranNum)
+
+
+
+		that.createCircleCoordinates = function(radius){
+			var 
+				circleCoordinates = {},
+				xValues = [that.centreX],
+				yValues = [that.centreY],
+				steps = that.CIRCLE_COORDINATES_COUNT;
+
+			for (var i = 0; i < steps; i++) {
+				xValues[i] = (that.centreX + radius * Math.cos(2 * Math.PI * i / steps));
+				yValues[i] = (that.centreY + radius * Math.sin(2 * Math.PI * i / steps));
+			}
+
+			circleCoordinates.x = xValues;
+			circleCoordinates.y = yValues;
+
+			return circleCoordinates;
+		};
+
+
+		that.createObjects = function(circleCoordinates, indices, getCentre) {
+
+			var objectContainer = [];	
+
+			indices.forEach(function(entry,i) {
+				var 
+					obj = {},
+					x1 = circleCoordinates['x'][indices[((i  + 1) % that.edges)]],
+					y1 = circleCoordinates['y'][indices[((i  + 1) % that.edges)]],    
+					x2 = circleCoordinates['x'][indices[i]],
+					y2 = circleCoordinates['y'][indices[i]];
+
+				if(getCentre === true) {
+					x1 = that.centreX;
+					y1 = that.centreY;
 				}
-				
-				return that.colorScale(ranNum);
-			}
-			
-			return that.randomColorScale(ranNum);
-			
+
+				obj.x1 = x1;
+				obj.y1 = y1;
+				obj.x2 = x2
+				obj.y2 = y2
+				objectContainer.push(obj)
+			}) 
+
+			return objectContainer;
+		};
+
+
+		that.createYScales = function(axisData) {
+			var yScales = [];
+			axisData.forEach(function(obj){
+			var yScale = d3.scale.linear()
+			        .domain([0, 4])
+			        .range([obj.y1, obj.y2]);
+			yScales.push(yScale)                
+			})
+			return yScales;
 		}
-			
-		
-		that.randomColorScale = function(ranNum) {
-				var n = Math.floor(ranNum*255*255*255);
-				var hex = Number(n).toString(16);
-				while(hex.length < 6) {
-					hex = "0"+hex;
-				}
-				return '#' + hex;
+
+		that.createXScales = function(axisData) {
+			var xScales = [];
+			axisData.forEach(function(obj){
+			var xScale = d3.scale.linear()
+			        .domain([0, 4])
+			        .range([obj.x1, obj.x2]);
+			xScales.push(xScale)                
+			})
+			return xScales;
 		};
-		
-	*/	
-		
-		that.assignCollection = function(collection) {
-			that.collection = collection;
-			that.width = that.collection.getWidth();
-			that.height = that.collection.getHeight();
-			that.cellSize = that.collection.getCellSize();
-			that.color = that.collection.getColor();
+
+
+		that.createPolygonData = function() {
+
+			var polygonData = _.range(that.edges).map(function(i){
+			var ranNum = Math.random() * 4;
+			return {'data': ranNum};
+			})
+			return polygonData;
 		};
+
+
+		that.animateChart = function() {
+
+		setInterval(function() {
+
+			that.polygon.data([that.createPolygonData(that.edges)])
+				.transition()
+				.duration(1000)
+				.attr('fill', 'blue')
+				.attr("points",function(d) {
+						return d.map(function(d,i) {
+							return [that.xScale[i](d.data), that.yScale[i](d.data)].join(",");
+					}).join(" ");
+				})
+
+			},1100)
+
+		};
+
 			
 		that = new (Backbone.View.extend(that))();
 		that.constructor.apply(that, arguments);
@@ -265,6 +233,8 @@ define(['jquery',
 		return that;
 	};
 	
+
+
 	return CellBlockView;
 
 });

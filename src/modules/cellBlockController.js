@@ -25,6 +25,7 @@ define(['jquery',
 		
 		that.getAllBlocks = function() {
 			
+
 			var blocks = $('.gs-w');
 			
 			blocks.each(function(i, element) {
@@ -49,6 +50,7 @@ define(['jquery',
 				
 				view.assignCollection(collection);
 				*/
+
 				view.render();
 
 							
