@@ -3,17 +3,19 @@ define(['jquery',
 	'backbone',
 	'underscore',
 	'modules/gridController',
-	'colorpicker'
+	'socket'
 ], function($,
 	Backbone,
 	_,
-	GridController
+	GridController,
+	io
 	) {
 
 	var app = {
 
 		init : function() {
 
+			var socket = io();
 			var gridController = new GridController();
 						
 		}
