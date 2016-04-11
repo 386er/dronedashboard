@@ -38,18 +38,8 @@ define(['jquery',
 					color = $element.css('background-color');
 				
 				var 
-					//collection = new CellBlockCollection(),
 					view = new CellBlockView({el: '.' + className})
-				/*
-				collection.assignProperties({
-					width: width,
-					height: height,
-					cellSize: 12,
-					color: color
-				});
-				
-				view.assignCollection(collection);
-				*/
+
 
 				view.render();
 
