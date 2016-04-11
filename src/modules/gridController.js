@@ -11,15 +11,14 @@ define(['jquery',
 	GridCreator
 	) {
 
-	var GridController = function() {
+	var GridController = function(numberOfStreams) {
 
 		var that = {};
-		
-		
+
 		that.initialize = function() {
 		
 			that.cellBlockController = new CellBlockController();
-			that.gridCreator = new GridCreator();
+			that.gridCreator = new GridCreator(numberOfStreams);
 			that.gridCreator.on('gridCreated', function() {
 				this.cellBlockController.getAllBlocks();
 			}, that);

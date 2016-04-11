@@ -16,8 +16,13 @@ define(['jquery',
 		init : function() {
 
 			var socket = io();
-			var gridController = new GridController();
-						
+			socket.on('init', function(data){
+				console.log('Number of sockets available:',data);
+				var gridController = new GridController(data);
+			})
+			socket.on('spiderData', function(data){
+				console.log(data);						
+			})			
 		}
 	};
 

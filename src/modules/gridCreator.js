@@ -16,7 +16,7 @@ define(['jquery',
 	) {
 
 
-	var GridCreator = function() {
+	var GridCreator = function(numberOfStreams) {
 		
 		var 
 			that = {}, my = {};
@@ -41,7 +41,6 @@ define(['jquery',
 			'click .addBlock': 'getNewSelectorBox',
 			'click .freeze-block': 'freezeBlocks',
 			'click .cancel-box': 'cancelWidget',
-			//'click .color-box' : 'triggerColorPick',
 			'mouseover .gs-w': 'showCancelButton',
 			'mouseleave .gs-w': 'hideCancelButton',
 			'mouseover .selector-box': 'highlightBoxes',
@@ -152,7 +151,7 @@ define(['jquery',
 							'</div>' +
 						'</div>';
 
-		that.selectorData = {'selectorbox': [1,2,3,4]};//,5,6,7,8,9,10]}
+		that.selectorData = {'selectorbox': _.range(1, numberOfStreams + 1)};
 
 						
 		that.gridTemplate =  '<ul class="{{currentElement}}"></ul>';

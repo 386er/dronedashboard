@@ -2,6 +2,7 @@ var express = require("express");
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var _ = require('underscore');
 app.use(express.static(__dirname));
 /*var projectId = process.env.GCLOUD_PROJECT_ID; // E.g. 'grape-spaceship-123'
 var auth = process.env.GCLOUD_AUTH_FILE
@@ -46,7 +47,26 @@ var getHeightData = function() {
 
 
 
+var createSpiderChartData = function(dimensions) {
+
+	var 
+		dataObject = {},
+		dimensions = _.range(0,dimensions);
+		dimensions.forEach(function(element) {
+			dataObject[element] = Math.random();
+		})
+
+	return dataObject;
+};
+
+
+createSpiderChartData();
+
 io.on('connection', function (socket) {
+
+
+
+	socket.emit('init', function() {return 2;}());
 
 /*	function poll() {
 		subscription.pull({maxResults:1}, function(err, messages) {
@@ -93,11 +113,29 @@ io.on('connection', function (socket) {
 	}, 1500);*/
 
 
+
+
+
+
+
+
+
+
   setInterval(function () {
 /*  		var height = getHeightData()
-  		console.log(height)*/
-    	socket.volatile.emit('random', Math.random());
+  		console.log(height)
+    */	socket.volatile.emit('spiderDataOne', createSpiderChartData(9));
 	}, 1000);
+
+
+  setInterval(function () {
+/*  		var height = getHeightData()
+  		console.log(height)
+    */	socket.volatile.emit('spiderDataTwo', createSpiderChartData(5));
+	}, 1000);
+
+
+
 
 
 });
