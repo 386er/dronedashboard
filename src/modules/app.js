@@ -16,9 +16,9 @@ define(['jquery',
 		init : function() {
 
 			var socket = io();
-			socket.on('init', function(data){
-				console.log('Number of sockets available:',data);
-				var gridController = new GridController(data);
+			socket.on('init', function(numberOfStreams){
+				console.log('Number of sockets available:',numberOfStreams);
+				var gridController = new GridController(numberOfStreams);
 			})
 			socket.on('spiderData', function(data){
 				console.log(data);						
