@@ -19,6 +19,7 @@ define(['jquery',
 		
 			that.cellBlockController = new CellBlockController();
 			that.gridCreator = new GridCreator(numberOfStreams);
+			that.gridCreator.getNewSelectorBox();
 			that.gridCreator.on('gridCreated', function() {
 				this.cellBlockController.getAllBlocks();
 			}, that);

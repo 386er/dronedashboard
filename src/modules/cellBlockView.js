@@ -22,7 +22,7 @@ define(['jquery',
 
 			var ranNum = Math.random();
 
-			if(ranNum > 0.999) {
+			if(ranNum < 0.999) {
 				that.chart = new SpiderChart();
 			} else {
 				that.chart = new TimeSeriesChart();

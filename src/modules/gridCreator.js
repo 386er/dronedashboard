@@ -3,14 +3,12 @@ define(['jquery',
 	'backbone',
 	'underscore',
 	'mustache',
-	'colorpicker',
 	'gridster',
 	'd3'
 ], function($,
 	Backbone,
 	_,
 	Mustache,
-	colorpicker,
 	Gridster,
 	d3
 	) {
@@ -55,8 +53,8 @@ define(['jquery',
 			],
 
 			2:  [
-					[6, 2],
-					[6, 1]
+					[6, 6],
+					[6, 6]
 			],
 
 			3: [
@@ -160,6 +158,8 @@ define(['jquery',
 
 		
 		that.data = {'currentElement' : 0};
+
+
 
 		that.showCancelButton = function(event) {
 
@@ -288,7 +288,6 @@ define(['jquery',
 				widget = [template].concat(widget)
 				that.gridster[index].add_widget.apply(that.gridster[index], widget)  
 			});			
-			$('.' + index).find('div').colorPicker({animationSpeed:0});
 
 			if( $('.freeze-block').hasClass('locked')) {
 				$('.freeze-block').removeClass('locked');
