@@ -20,15 +20,15 @@ define(['jquery',
 
 		that.initialize = function() {
 
-			var ranNum = Math.random();
+			var element = that.el,
+				type = $(element).data('type');
 
-			if(ranNum < 0.999) {
+			if(type === 'spider') {
 				that.chart = new SpiderChart();
 			} else {
 				that.chart = new TimeSeriesChart();
 			}
-
-			that.chart.assignElement(that.el);
+			that.chart.assignElement(element);
 		}
 
 		

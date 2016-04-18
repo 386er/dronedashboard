@@ -39,6 +39,7 @@ define(['jquery',
 			'click .addBlock': 'getNewSelectorBox',
 			'click .freeze-block': 'freezeBlocks',
 			'click .cancel-box': 'cancelWidget',
+			'click .chart': 'selectChartType',
 			'mouseover .gs-w': 'showCancelButton',
 			'mouseleave .gs-w': 'hideCancelButton',
 			'mouseover .selector-box': 'highlightBoxes',
@@ -49,7 +50,7 @@ define(['jquery',
 		that.widgetsConfiguration = {
 
 			1 : [
-					[6, 3]
+					[6, 6]
 			],
 
 			2:  [
@@ -58,16 +59,16 @@ define(['jquery',
 			],
 
 			3: [
-					[3, 2],
-					[3, 2],
-					[6, 1]
+					[6, 6],
+					[6, 6],
+					[6, 6]
 			],
 
 			4:  [
-					[3, 2],
-					[3, 2],
-					[3, 1],
-					[3, 1],
+					[5, 5],
+					[5, 5],
+					[5, 5],
+					[5, 5],
 			],
 
 			5:  [
@@ -136,8 +137,8 @@ define(['jquery',
 
 		that.widgetTemplate = 
 							'<div class="{{index}}">' +
-								'<i class="hidden spider-chart fa fa-asterisk"></i>' +
-								'<i class="hidden line-chart fa fa-line-chart"></i>' +
+								'<i class="hidden  chart spider-chart fa fa-asterisk"></i>' +
+								'<i class="hidden chart line-chart fa fa-line-chart"></i>' +
 								'<i class="hidden cancel-box fa fa-times"></i>' +
 							'</div>';
 
@@ -181,6 +182,21 @@ define(['jquery',
 		};			
 
 
+		that.selectChartType = function(event) {
+			var target = $(event.target),
+				parent = target.parent();
+
+			parent.data('data-type', undefined);
+			parent.find('.chart').removeClass('selected');
+			target.addClass('selected')
+			if(target.hasClass('line-chart')) {
+				parent.attr('data-type', 'line');
+			} else {
+				parent.attr('data-type','spider');
+			}
+		};
+
+
 		that.bindGridsterToElement = function(index) {
 			that.gridster[index] = $(".gridster > ul." + index).gridster(that.gridsterConfiguration).data('gridster');
 		};
@@ -220,7 +236,7 @@ define(['jquery',
 			}
 
 			that.$el.off();
-			$(document.body).off('dblclick');		
+		//	$(document.body).off('dblclick');		
 			that.removeStylingfromBlocks();
 
 			var keys = _.keys(that.gridster);

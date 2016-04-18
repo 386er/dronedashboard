@@ -154,6 +154,17 @@ border: 1px dotted #B2B2B2;
 }
 
 
+
+
+.chart.selected {
+	color: blue;
+}
+
+.chart.selected:hover {
+	color: orange;
+}
+
+
 .selector-box {
 	border: 2px dotted #D8D8D8;
 	display:block;
