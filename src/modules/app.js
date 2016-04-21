@@ -7,7 +7,7 @@ define(['jquery',
 ], function($,
 	Backbone,
 	_,
-	GridController,
+	ChartController,
 	io
 	) {
 
@@ -18,7 +18,7 @@ define(['jquery',
 			var socket = io();
 			socket.on('init', function(numberOfStreams){
 				console.log('Number of sockets available:',numberOfStreams);
-				var gridController = new GridController(numberOfStreams);
+				var gridController = new ChartController(numberOfStreams);
 			})
 			socket.on('spiderData', function(data){
 				console.log(data);						

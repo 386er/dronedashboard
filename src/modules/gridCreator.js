@@ -40,6 +40,7 @@ define(['jquery',
 			'click .freeze-block': 'freezeBlocks',
 			'click .cancel-box': 'cancelWidget',
 			'click .chart': 'selectChartType',
+
 			'mouseover .gs-w': 'showCancelButton',
 			'mouseleave .gs-w': 'hideCancelButton',
 			'mouseover .selector-box': 'highlightBoxes',
@@ -235,8 +236,7 @@ define(['jquery',
 				return;
 			}
 
-			that.$el.off();
-		//	$(document.body).off('dblclick');		
+			that.$el.off();		
 			that.removeStylingfromBlocks();
 
 			var keys = _.keys(that.gridster);
@@ -291,7 +291,7 @@ define(['jquery',
 			var
 				index = that.data.currentElement,
 				html = Mustache.to_html(that.gridTemplate, that.data),
-				numOfElements = parseInt(event.target.dataset.key),
+				numOfElements = numberOfStreams,
 				parent = $(event.target.parentElement.parentElement);
 				
 			parent.removeClass('placeholder-box');

@@ -2,35 +2,60 @@
 define(['jquery',
 	'backbone',
 	'underscore',
-	'modules/cellBlockController',
-	'modules/gridCreator'
+	'modules/gridCreator',
+	'modules/CellBlockView'
 ], function($,
 	Backbone,
 	_,
 	CellBlockController,
-	GridCreator
+	GridCreator,
+	CellBlockView
 	) {
 
-	var GridController = function(numberOfStreams) {
+	var ChartController = function(numberOfStreams) {
 
 		var that = {};
 
 		that.initialize = function() {
 		
-			that.cellBlockController = new CellBlockController();
 			that.gridCreator = new GridCreator(numberOfStreams);
 			that.gridCreator.getNewSelectorBox();
+			that.cellBlockController = new CellBlockController();
 			that.gridCreator.on('gridCreated', function() {
-				this.cellBlockController.getAllBlocks();
+				that.getAllBlocks();
 			}, that);
 			
 		};
 		
+
+
+		that.createView = function(element) { 
+
+			var
+					className = element.classList[0],
+					view = new CellBlockView({el: '.' + className})
+				view.render();
+			};
+		
+		
+		that.getAllBlocks = function() {
+			
+			var blocks = $('.gs-w');
+
+			blocks.each(function(i, element) { 
+				that.createView(element);
+			})
+		};
+		
+
+
+
+
 		that = new (Backbone.View.extend(that))();
 		return that;
 		
 	};
 
-	return GridController;
+	return ChartController;
 
 });
