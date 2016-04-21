@@ -48,7 +48,7 @@ define(['jquery',
 			'click .selector-box': 'bindBox'
 		};
 		
-		that.widgetsConfiguration = {
+		/*that.widgetsConfiguration = {
 
 			1 : [
 					[6, 6]
@@ -73,11 +73,11 @@ define(['jquery',
 			],
 
 			5:  [
-					[3, 1],
-					[1, 3],
-					[1, 3],
-					[1, 3],
-					[3, 2]
+					[5, 5],
+					[5, 5],
+					[5, 5],
+					[5, 5],
+					[5, 5]
 			],
 
 			6:  [
@@ -134,7 +134,23 @@ define(['jquery',
 					[3, 1],
 					[6, 1]
 			]				
+		};*/
+
+
+		that.getWidgetConfiguration = function(numberOfStreams) {
+
+			var widgetsConfiguration = [];
+
+			for (var i = 0; i < numberOfStreams; i++) {
+				widgetsConfiguration.push([5,5])
+			}
+
+			return widgetsConfiguration;
 		};
+
+
+
+
 
 		that.widgetTemplate = 
 							'<div class="{{index}}">' +
@@ -284,26 +300,29 @@ define(['jquery',
 		};
 		
 		
-		that.bindBox = function(event) { 
+		that.bindBox = function() { 
+
 
 			that.data.currentElement += 1;
 			
 			var
 				index = that.data.currentElement,
 				html = Mustache.to_html(that.gridTemplate, that.data),
-				numOfElements = numberOfStreams,
-				parent = $(event.target.parentElement.parentElement);
+				parent = $('.placeholder-box'),
+				widgetsConfiguration = that.getWidgetConfiguration(numberOfStreams);
 				
 			parent.removeClass('placeholder-box');
 			parent.addClass('gridster')
 			parent.html(html)
 			that.bindGridsterToElement(index);
+		
+			widgetsConfiguration.forEach( function(widget, i){
+					var template = Mustache.to_html(that.widgetTemplate, {'index': 'indx_' + index + '_' + (i + 1)});
+					widget = [template].concat(widget)
+					that.gridster[index].add_widget.apply(that.gridster[index], widget)  
+				});
 
-			$.each(that.widgetsConfiguration[numOfElements], function(i, widget){
-				var template = Mustache.to_html(that.widgetTemplate, {'index': 'indx_' + index + '_' + (i + 1)});
-				widget = [template].concat(widget)
-				that.gridster[index].add_widget.apply(that.gridster[index], widget)  
-			});			
+
 
 			if( $('.freeze-block').hasClass('locked')) {
 				$('.freeze-block').removeClass('locked');

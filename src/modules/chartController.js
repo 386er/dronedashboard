@@ -19,6 +19,7 @@ define(['jquery',
 		
 			that.gridsterController = new GridsterController(numberOfStreams);
 			that.gridsterController.getNewSelectorBox();
+			that.gridsterController.bindBox();
 			that.gridsterController.on('gridCreated', function() {
 				that.getAllBlocks();
 			}, that);

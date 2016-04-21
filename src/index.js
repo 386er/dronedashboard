@@ -66,7 +66,7 @@ io.on('connection', function (socket) {
 
 
 
-	socket.emit('init', function() {return 5;}());
+	socket.emit('init', function() {return 10;}());
 
 /*	function poll() {
 		subscription.pull({maxResults:1}, function(err, messages) {
