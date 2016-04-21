@@ -2,7 +2,7 @@
 define(['jquery',
 	'backbone',
 	'underscore',
-	'modules/gridController',
+	'modules/chartController',
 	'socket'
 ], function($,
 	Backbone,
@@ -18,7 +18,7 @@ define(['jquery',
 			var socket = io();
 			socket.on('init', function(numberOfStreams){
 				console.log('Number of sockets available:',numberOfStreams);
-				var gridController = new ChartController(numberOfStreams);
+				var chartController = new ChartController(numberOfStreams);
 			})
 			socket.on('spiderData', function(data){
 				console.log(data);						

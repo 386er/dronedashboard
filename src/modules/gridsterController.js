@@ -14,7 +14,7 @@ define(['jquery',
 	) {
 
 
-	var GridCreator = function(numberOfStreams) {
+	var GridsterController = function(numberOfStreams) {
 		
 		var 
 			that = {}, my = {};
@@ -316,7 +316,7 @@ define(['jquery',
 		return that;
 	};
 	
-	return GridCreator;
+	return GridsterController;
 	
 });
 	

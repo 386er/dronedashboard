@@ -2,14 +2,13 @@
 define(['jquery',
 	'backbone',
 	'underscore',
-	'modules/gridCreator',
-	'modules/CellBlockView'
+	'modules/gridsterController',
+	'modules/chartView'
 ], function($,
 	Backbone,
 	_,
-	CellBlockController,
-	GridCreator,
-	CellBlockView
+	GridsterController,
+	ChartView
 	) {
 
 	var ChartController = function(numberOfStreams) {
@@ -18,22 +17,20 @@ define(['jquery',
 
 		that.initialize = function() {
 		
-			that.gridCreator = new GridCreator(numberOfStreams);
-			that.gridCreator.getNewSelectorBox();
-			that.cellBlockController = new CellBlockController();
-			that.gridCreator.on('gridCreated', function() {
+			that.gridsterController = new GridsterController(numberOfStreams);
+			that.gridsterController.getNewSelectorBox();
+			that.gridsterController.on('gridCreated', function() {
 				that.getAllBlocks();
 			}, that);
 			
-		};
-		
+		};		
 
 
 		that.createView = function(element) { 
 
 			var
 					className = element.classList[0],
-					view = new CellBlockView({el: '.' + className})
+					view = new ChartView({el: '.' + className})
 				view.render();
 			};
 		
@@ -47,8 +44,6 @@ define(['jquery',
 			})
 		};
 		
-
-
 
 
 		that = new (Backbone.View.extend(that))();
