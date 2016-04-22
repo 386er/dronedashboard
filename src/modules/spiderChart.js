@@ -13,7 +13,7 @@ define(['jquery',
 		var that = {};
 
 		that.instanceID = 'spiderChart' + Date.now();
-		that.edges = 22;
+		that.edges = 49;
 		that.CIRCLE_COORDINATES_COUNT = 3600,
 
 		
@@ -67,7 +67,7 @@ define(['jquery',
 		that.renderLabels = function(edges) {
 			var 
 				edges = _.range(1,edges + 1),
-				radius = that.width * 0.47;
+				radius = that.width * 0.47; // TODO Refactor whole block to function with radius as parameter
 				indices = that.getIndicesForPolygonCoordinates(that.edges),
 				circleCoordinates = that.createCircleCoordinates(radius),
 				labelData = that.createObjects(circleCoordinates, indices, true);

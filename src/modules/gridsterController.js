@@ -4,13 +4,15 @@ define(['jquery',
 	'underscore',
 	'mustache',
 	'gridster',
-	'd3'
+	'd3',
+	'modules/chartView'
 ], function($,
 	Backbone,
 	_,
 	Mustache,
 	Gridster,
-	d3
+	d3,
+	ChartView
 	) {
 
 
@@ -28,7 +30,7 @@ define(['jquery',
 					autogenerate_stylesheet: true,
 					resize: {
 						enabled: true,
-						max_size: [25, 10],
+						max_size: [35, 10],
 						min_size: [1, 1]
 						}
 		};
@@ -48,93 +50,16 @@ define(['jquery',
 			'click .selector-box': 'bindBox'
 		};
 		
-		/*that.widgetsConfiguration = {
+		
 
-			1 : [
-					[6, 6]
-			],
 
-			2:  [
-					[6, 6],
-					[6, 6]
-			],
+		that.createView = function(element) { 
 
-			3: [
-					[6, 6],
-					[6, 6],
-					[6, 6]
-			],
-
-			4:  [
-					[5, 5],
-					[5, 5],
-					[5, 5],
-					[5, 5],
-			],
-
-			5:  [
-					[5, 5],
-					[5, 5],
-					[5, 5],
-					[5, 5],
-					[5, 5]
-			],
-
-			6:  [
-					[3, 1],
-					[1, 3],
-					[1, 3],
-					[1, 3],
-					[3, 2],
-					[6, 1]
-			],
-
-			7:  [
-					[3, 1],
-					[1, 3],
-					[1, 3],
-					[1, 3],
-					[3, 2],
-					[3, 1],
-					[3, 1]
-			],
-
-			8:  [
-					[3, 1],
-					[1, 3],
-					[1, 3],
-					[1, 3],
-					[3, 2],
-					[3, 1],
-					[3, 1],
-					[6, 1]
-			],
-
-			9:  [
-					[3, 1],
-					[1, 3],
-					[1, 3],
-					[1, 3],
-					[3, 2],
-					[3, 1],
-					[3, 1],
-					[3, 1],
-					[3, 1]
-			],
-
-			10:  [
-					[3, 1],
-					[1, 3],
-					[1, 3],
-					[1, 3],
-					[3, 2],
-					[3, 1],
-					[3, 1],
-					[3, 1],
-					[3, 1],
-					[6, 1]
-			]				
-		};*/
+			var
+					className = element.classList[0],
+					view = new ChartView({el: '.' + className})
+				view.render();
+			};
 
 
 		that.getWidgetConfiguration = function(numberOfStreams) {
@@ -147,8 +72,6 @@ define(['jquery',
 
 			return widgetsConfiguration;
 		};
-
-
 
 
 
@@ -211,6 +134,10 @@ define(['jquery',
 			} else {
 				parent.attr('data-type','spider');
 			}
+
+/*			that.removeStyingFromElement(parent);
+			that.createView(parent[0]);*/
+
 		};
 
 
@@ -265,12 +192,20 @@ define(['jquery',
 		};
 		
 
+		that.removeStyingFromElement = function(element) {
+
+			$(element).find('span').toggleClass('hidden');
+			$(element).find('div').toggleClass('no-hover');
+			$(element).children().css({'border':'transparent'});
+			$(element).find('i').remove();
+			$(element).find('span').remove();
+		};
+
 		
 		that.removeStylingfromBlocks = function() {
-			that.$el.find('.placeholder-box').remove();
-			$('.gridster').find('span').toggleClass('hidden');
-			$('.gridster').find('div').toggleClass('no-hover');
-			$('.gridster').children().css({'border':'transparent'});
+
+			var elements = $('.gridster')[0];
+			that.removeStyingFromElement(elements)
 			$('.gs-w').css({'border':'transparent'});
 			$('.addBlock').toggleClass('hidden');
 			$('.freeze-block').toggleClass('hidden');

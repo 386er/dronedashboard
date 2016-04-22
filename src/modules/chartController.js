@@ -14,26 +14,17 @@ define(['jquery',
 	var ChartController = function(numberOfStreams) {
 
 		var that = {};
+		
+		that.gridsterController = new GridsterController(numberOfStreams);
+
 
 		that.initialize = function() {
-		
-			that.gridsterController = new GridsterController(numberOfStreams);
 			that.gridsterController.getNewSelectorBox();
 			that.gridsterController.bindBox();
 			that.gridsterController.on('gridCreated', function() {
 				that.getAllBlocks();
 			}, that);
-			
 		};		
-
-
-		that.createView = function(element) { 
-
-			var
-					className = element.classList[0],
-					view = new ChartView({el: '.' + className})
-				view.render();
-			};
 		
 		
 		that.getAllBlocks = function() {
@@ -41,7 +32,7 @@ define(['jquery',
 			var blocks = $('.gs-w');
 
 			blocks.each(function(i, element) { 
-				that.createView(element);
+				that.gridsterController.createView(element);
 			})
 		};
 		
