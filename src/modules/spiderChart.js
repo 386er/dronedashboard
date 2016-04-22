@@ -18,9 +18,6 @@ define(['jquery',
 
 		
 		that.render = function() {
-			that.$el.css({
-				'background-color':'transparent',
-				'border':'1px solid red'});
 			that.determineWidthAndHeight();
 			that.createSVG();
 			that.renderChart();
@@ -49,16 +46,24 @@ define(['jquery',
 
 
 		that.createScales = function(axisData) {
-
 			that.xScale = that.createXScales(axisData);
 			that.yScale = that.createYScales(axisData);
 		};
 		
 
 		that.renderChart = function() {
+			var 
+				gridData = that.createGridData(),
+				polygonData = that.createPolygonData(that.edges);
 
 			that.svg.selectAll('*').remove()
+			that.renderSpiderGrid(gridData);
+			that.polygon = that.renderPolygon(polygonData);
+		};
 
+
+
+		that.createGridData = function() {
 			var 
 				radius = that.width * (2/5),
 				subRadius = radius /4, 
@@ -76,8 +81,13 @@ define(['jquery',
 				gridData.push(that.createObjects(subRadiusCoordinates, indices));
 			});
 
+			return gridData;
+		}
 
 
+
+
+		that.renderSpiderGrid = function(gridData) {
 			gridData.forEach(function(dataEntry) {
 			that.svg.selectAll('linePlaceholder')
 				.data(dataEntry)
@@ -89,25 +99,31 @@ define(['jquery',
 				.attr('y2', function(d) {return d.y2})
 				.style('stroke', 'gray')
 				.style('stroke-width',1);
-
 			})
-			polygonData = that.createPolygonData(that.edges);
-			that.polygon = that.svg.selectAll("polygonPlaceholder")
-				.data([polygonData])
-				.enter()
-				.append("polygon")
-				.attr("points",function(d) {
-					return d.map(function(d,i) {
-						return [that.xScale[i](d.data), that.yScale[i](d.data)].join(",");
-					}).join(" ");
-				})
-				.attr('class', 'polygon')
-				.attr("stroke","blue")
-				.attr('fill', 'blue')
-				.attr('opacity', 0.3)
-				.attr('stroke-opacity',0.5)
-				.attr("stroke-width",2);
 		};
+
+
+		that.renderPolygon = function(polygonData) {
+
+			var polygon = that.svg.selectAll("polygonPlaceholder")
+							.data([polygonData])
+							.enter()
+							.append("polygon")
+							.attr("points",function(d) {
+								return d.map(function(d,i) {
+									return [that.xScale[i](d.data), that.yScale[i](d.data)].join(",");
+								}).join(" ");
+							})
+							.attr('class', 'polygon')
+							.attr("stroke","blue")
+							.attr('fill', 'blue')
+							.attr('opacity', 0.3)
+							.attr('stroke-opacity',0.5)
+							.attr("stroke-width",2);
+			return polygon;
+		}
+
+
 
 
 		that.getIndicesForPolygonCoordinates = function() {
