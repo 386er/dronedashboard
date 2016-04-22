@@ -13,7 +13,7 @@ define(['jquery',
 		var that = {};
 
 		that.instanceID = 'spiderChart' + Date.now();
-		that.edges = 15;
+		that.edges = 22;
 		that.CIRCLE_COORDINATES_COUNT = 3600,
 
 		
@@ -58,8 +58,30 @@ define(['jquery',
 
 			that.svg.selectAll('*').remove()
 			that.renderSpiderGrid(gridData);
+			that.renderLabels(that.edges);
 			that.polygon = that.renderPolygon(polygonData);
 		};
+
+
+
+		that.renderLabels = function(edges) {
+			var 
+				edges = _.range(1,edges + 1),
+				radius = that.width * 0.47;
+				indices = that.getIndicesForPolygonCoordinates(that.edges),
+				circleCoordinates = that.createCircleCoordinates(radius),
+				labelData = that.createObjects(circleCoordinates, indices, true);
+
+
+				that.svg.selectAll('textPlaceholder')
+					.data(labelData)
+					.enter()
+					.append('text')
+					.attr('class', 'spider-label')
+					.attr('x', function(d) {return d.x2 - 6})
+					.attr('y', function(d) {return d.y2 + 6})
+					.text(function(d,i) {return i + 1});
+		};	
 
 
 

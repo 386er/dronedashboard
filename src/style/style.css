@@ -231,7 +231,8 @@ border: 1px dotted #B2B2B2;
 	stroke: #D8D8D8;
 	shape-rendering: crispEdges;
 	}
-
+	
+.spider-label,
 .x,
 .y {
 	font-family: arial;
