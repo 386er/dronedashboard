@@ -44,7 +44,7 @@ define(['jquery',
 			'click .chart': 'selectChartType',
 
 			'mouseover .gs-w': 'showCancelButton',
-			'mouseleave .gs-w': 'hideCancelButton',
+			'mouseleave .gs-w': 'hideSelectButtons',
 			'mouseover .selector-box': 'highlightBoxes',
 			'mouseleave .selector-box': 'unhighlightBoxes',
 			'click .selector-box': 'bindBox'
@@ -115,7 +115,7 @@ define(['jquery',
 		};
 		
 
-		that.hideCancelButton = function(event) {
+		that.hideSelectButtons = function(event) {
 			$(event.target).find('.cancel-box').addClass('hidden');
 			$(event.target).find('.line-chart').addClass('hidden');
 			$(event.target).find('.spider-chart').addClass('hidden');
