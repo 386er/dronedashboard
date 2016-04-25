@@ -3,16 +3,18 @@ define(['jquery',
 	'underscore',
 	'd3',
 	'modules/spiderChart',
-	'modules/timeSeriesChart'
+	'modules/timeSeriesChart',
+	'modules/barChart'
 ], function($,
 	Backbone,
 	_,
 	d3,
 	SpiderChart,
-	TimeSeriesChart
+	TimeSeriesChart,
+	BarChart
 	) {
 
-	var CellBlockView = function() {
+	var ChartView = function() {
 		
 		var that = {};
 		that.instanceID = 'view' + Date.now();
@@ -25,8 +27,10 @@ define(['jquery',
 
 			if(type === 'spider') {
 				that.chart = new SpiderChart();
-			} else {
+			} else if (type === 'line') {
 				that.chart = new TimeSeriesChart();
+			} else {
+				that.chart = new BarChart();
 			}
 			that.chart.assignElement(element);
 		}
@@ -45,6 +49,6 @@ define(['jquery',
 	
 
 
-	return CellBlockView;
+	return ChartView;
 
 });
