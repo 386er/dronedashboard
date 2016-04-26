@@ -77,7 +77,8 @@ define(['jquery',
 
 		that.widgetTemplate = 
 							'<div class="{{index}}">' +
-								'<i class="hidden  chart spider-chart fa fa-asterisk"></i>' +
+								'<i class="hidden chart bar-chart fa fa-bar-chart"></i>' +
+								'<i class="hidden chart spider-chart fa fa-asterisk"></i>' +
 								'<i class="hidden chart line-chart fa fa-line-chart"></i>' +
 								'<i class="hidden cancel-box fa fa-times"></i>' +
 							'</div>';
@@ -109,9 +110,11 @@ define(['jquery',
 			$('.cancel-box').not(buttons).addClass('hidden');
 			$('.line-chart').not(buttons).addClass('hidden');
 			$('.spider-chart').not(buttons).addClass('hidden');
+			$('.bar-chart').not(buttons).addClass('hidden');
 			$(event.target).find('.cancel-box').removeClass('hidden');
 			$(event.target).find('.line-chart').removeClass('hidden');
 			$(event.target).find('.spider-chart').removeClass('hidden');
+			$(event.target).find('.bar-chart').removeClass('hidden');
 		};
 		
 
@@ -119,6 +122,7 @@ define(['jquery',
 			$(event.target).find('.cancel-box').addClass('hidden');
 			$(event.target).find('.line-chart').addClass('hidden');
 			$(event.target).find('.spider-chart').addClass('hidden');
+			$(event.target).find('.bar-chart').addClass('hidden');
 		};			
 
 
@@ -129,10 +133,12 @@ define(['jquery',
 			parent.data('data-type', undefined);
 			parent.find('.chart').removeClass('selected');
 			target.addClass('selected')
-			if(target.hasClass('line-chart')) {
+			if (target.hasClass('line-chart')) {
 				parent.attr('data-type', 'line');
-			} else {
+			} else if (target.hasClass('spider-chart'))  {
 				parent.attr('data-type','spider');
+			} else {
+				parent.attr('data-type','bar');
 			}
 
 /*			that.removeStyingFromElement(parent);

@@ -13,10 +13,10 @@ define(['jquery',
 
 		that = {};
 
-		that.instanceID = 'spiderChart' + Date.now();
-		that.n = 150;
-		that.CIRCLE_COORDINATES_COUNT = 3600,
-		that.margin = {top:10, bottom:10, left:10, right:10};
+		that.instanceID = 'barChart' + Date.now();
+		that.n = 30;
+		that.margin = {top:10, bottom:20, left:15, right:10};
+
 
 		that.determineWidthAndHeight = function() {
 			var 
@@ -30,23 +30,38 @@ define(['jquery',
 
 		that.createSVG = function() {
 			that.svg = d3.select(that.el).append('svg')
-				.attr('width',that.width)
-				.attr('height', that.height);
+				.attr('width', that.width + that.margin.left + that.margin.right)
+				.attr('height', that.height + that.margin.top + that.margin.bottom);
 		};
 		
 
 		that.createYScale = function() {
 			that.y = d3.scale.linear()
 				.domain([0, 1])
-				.range([0, that.height]);	
+				.range([that.height - that.margin.top - that.margin.bottom, 0]);	
 		};		
 
 
 		that.createXScale = function() {
 			that.x = d3.scale.ordinal()
 				.domain(_.range(that.n))
-				.rangePoints([0, that.width]);	
+				.rangeRoundBands([that.margin.left, that.width - that.margin.right]);	
 		};
+
+
+		that.createScales = function() {
+			that.createXScale();
+			that.createYScale();
+		};
+
+
+		that.createXAxis = function() {
+			that.axisX = that.svg.append("g")
+				.attr("class", "x axis")
+				.attr("transform", "translate(0," + that.height + ")")
+				.call(d3.svg.axis().scale(that.x).orient("bottom"));
+			};
+
 
 
 		that.determinBarWidth = function() {
@@ -69,13 +84,14 @@ define(['jquery',
 				.data(data)
 				.enter()
 				.append('rect')
+				.attr('class','bar')
+				.attr('fill','steelblue')
+				.attr('stroke', 'black')
 				.attr('x', function(d,i) {return that.x(i)})
 				.attr('y', function(d) {return that.height - that.y(d)})
 				.attr('height', function(d) {return that.y(d)})
 				.attr('width', that.barWidth);
-
-
-		}
+		};
 
 
 
@@ -83,8 +99,8 @@ define(['jquery',
 			that.determineWidthAndHeight();
 			that.determinBarWidth();
 			that.createSVG();
-			that.createXScale();
-			that.createYScale();
+			that.createScales();
+			that.createXAxis();
 			that.renderBars();
 					
 		};
