@@ -13,8 +13,9 @@ define(['jquery',
 		var that = {};
 
 		that.instanceID = 'spiderChart' + Date.now();
-		that.edges = 49;
+		that.edges = 20;
 		that.CIRCLE_COORDINATES_COUNT = 3600,
+		that.margin = {top: 20, right: 20, bottom: 20, left: 20};
 
 		
 		that.render = function() {
@@ -31,15 +32,17 @@ define(['jquery',
 
 			
 		that.createSVG = function() {
-			that.svg = d3.select(that.el).append('svg')
-				.attr('width',that.width)
-				.attr('height', that.height);
+			that.svg = d3.select(that.el).append("svg").attr('class','svg')
+				.attr("width", that.width + that.margin.left + that.margin.right)
+				.attr("height", that.height + that.margin.top + that.margin.bottom)
+				.append("g")
+				.attr("transform", "translate(" + that.margin.left + "," + that.margin.top + ")");
 		};
 
 
 		that.determineWidthAndHeight = function() {
-			that.height = that.$el.height();
-			that.width = that.$el.width();
+			that.height = that.$el.height() - that.margin.top - that.margin.bottom;
+			that.width = that.$el.width() - that.margin.left - that.margin.right;
 			that.centreX = that.width/2;
 			that.centreY = that.height/2;
 		};
@@ -245,6 +248,8 @@ define(['jquery',
 
 
 		that.animateChart = function() {
+
+					console.log('Chart was called with InstaceID: ', that.instanceID)	
 
 		setInterval(function() {
 
