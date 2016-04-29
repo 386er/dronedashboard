@@ -225,6 +225,7 @@ define(['jquery',
 			return yScales;
 		}
 
+
 		that.createXScales = function(axisData) {
 			var xScales = [];
 			axisData.forEach(function(obj){
@@ -248,8 +249,6 @@ define(['jquery',
 
 
 		that.animateChart = function() {
-
-					console.log('Chart was called with InstaceID: ', that.instanceID)	
 
 		setInterval(function() {
 

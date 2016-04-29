@@ -14,8 +14,9 @@ define(['jquery',
 		that = {};
 
 		that.instanceID = 'barChart' + Date.now()
-		that.n = 30;
+		that.n = 15;
 		that.margin = {top:20, bottom:30, left:15, right:10};
+		that.counter = 0;
 
 
 		that.determineWidthAndHeight = function() {
@@ -73,7 +74,7 @@ define(['jquery',
 		that.getRandomData = function(n) {
 			var randomData = [];
 			for (var i=0; i<that.n; i++) {
-				randomData.push({'value': Math.random(), 'index': i + that.instanceID})
+				randomData.push({'value': Math.random(), 'index': Math.random() })
 			}
 			return randomData;
 		};
@@ -82,17 +83,20 @@ define(['jquery',
 		that.renderBars = function() {
 			that.data = that.getRandomData();
 
-			that.svg.selectAll('rect')
-				.data(that.data, function(d) { return d.index;})
-				.enter()
+			that.rect = that.svg.selectAll('.' + that.instanceID)
+				.data(that.data, function(d) {return d.index});
+
+			that.rect.enter()
 				.append('rect')
-				.attr('class','bar')
+				.attr('class','bar ' + that.instanceID)
 				.attr('fill','steelblue')
 				.attr('stroke', '#E6E6E6')
 				.attr('x', function(d,i) {return that.x(i)})
 				.attr('y', function(d) {return that.height - that.y(d.value)})
 				.attr('height', function(d) {return that.y(d.value)})
 				.attr('width', that.barWidth);
+
+
 		};
 
 
@@ -104,57 +108,12 @@ define(['jquery',
 			that.createScales();
 			that.createXAxis();
 			that.renderBars();
-			/*that.moveBarChart();*/
-					
 		};
 
 
 		that.assignElement = function(el) {
 			that.setElement(el);
 		};
-
-
-
-		that.moveBarChart = function() {
-
-			that.data.shift();
-			that.data.push({'value': Math.random(), 'index': that.n})
-			that.n++;
-
-			that.rect = that.svg.selectAll('rect')
-					.data(that.data, function(d) { return d.index;});
-
-			that.rect.exit()
-				.transition()
-				.duration(600)
-				.style('opacity', 0)
-				.each('end', function() {that.after()});
-		};
-
-
-		that.after = function() {
-			console.log('Chart was called with InstaceID: ', that.instanceID)
-
-			that.rect.exit().remove();
-			that.rect.transition(600)
-				.attr('x', function(d,i) {return that.x(i)})
-
-			 that.rect.enter()
-				.append('rect')
-				.attr('class','bar')
-				.attr('fill','steelblue')
-				.attr('stroke', '#E6E6E6')
-				.attr('x', function(d,i) {return that.x(i)})
-				.attr('y', function(d) {return that.height - that.y(d.value)})
-				.attr('height', function(d) {return that.y(d.value)})
-				.attr('width', that.barWidth)
-				.style('opacity', 0)
-				.transition(600)
-				.style('opacity', 1)
-				.each('end', function() {that.moveBarChart()})
-
-		};
-
 
 			
 		that = new (Backbone.View.extend(that))();
