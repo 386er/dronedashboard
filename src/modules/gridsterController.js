@@ -30,7 +30,7 @@ define(['jquery',
 					autogenerate_stylesheet: true,
 					resize: {
 						enabled: true,
-						max_size: [35, 10],
+						max_size: [35, 11],
 						min_size: [1, 1]
 						}
 		};
@@ -40,13 +40,13 @@ define(['jquery',
 		that.events = {
 			'click .addBlock': 'getNewSelectorBox',
 			'click .freeze-block': 'freezeBlocks',
-			'click .cancel-box': 'cancelWidget',
+			'click .cancel-button': 'cancelWidget',
 			'click .chart': 'selectChartType',
 
 			'mouseover .gs-w': 'showCancelButton',
 			'mouseleave .gs-w': 'hideSelectButtons',
 			'mouseover .selector-box': 'highlightBoxes',
-			'mouseleave .selector-box': 'unhighlightBoxes',
+/*			'mouseleave .selector-box': 'unhighlightBoxes',*/
 			'click .selector-box': 'bindBox'
 		};
 		
@@ -77,10 +77,14 @@ define(['jquery',
 
 		that.widgetTemplate = 
 							'<div class="{{index}}">' +
-								'<i class="hidden chart bar-chart fa fa-bar-chart"></i>' +
-								'<i class="hidden chart spider-chart fa fa-asterisk"></i>' +
-								'<i class="hidden chart line-chart fa fa-line-chart"></i>' +
-								'<i class="hidden cancel-box fa fa-times"></i>' +
+								'<div class="widget-header">' +
+									'<i class="hidden chart bar-chart fa fa-bar-chart"></i>' +
+									'<i class="hidden chart spider-chart fa fa-asterisk"></i>' +
+									'<i class="hidden chart line-chart fa fa-line-chart"></i>' +
+									'<i class="hidden chart cancel-button fa fa-times"></i>' +
+								'</div>' +
+								'<div class="chart-container">' +
+								'</div>' +
 							'</div>';
 
 		
@@ -107,19 +111,21 @@ define(['jquery',
 
 			var buttons = event.target.parentElement.children;
 
-			$('.cancel-box').not(buttons).addClass('hidden');
+/*			$('.cancel-button').not(buttons).addClass('hidden');
 			$('.line-chart').not(buttons).addClass('hidden');
 			$('.spider-chart').not(buttons).addClass('hidden');
-			$('.bar-chart').not(buttons).addClass('hidden');
-			$(event.target).find('.cancel-box').removeClass('hidden');
+			$('.bar-chart').not(buttons).addClass('hidden');*/
+			$('.chart').not(buttons).addClass('hidden');
+			$(event.target).find('.chart').removeClass('hidden');
+/*			$(event.target).find('.cancel-button').removeClass('hidden');
 			$(event.target).find('.line-chart').removeClass('hidden');
 			$(event.target).find('.spider-chart').removeClass('hidden');
-			$(event.target).find('.bar-chart').removeClass('hidden');
+			$(event.target).find('.bar-chart').removeClass('hidden');*/
 		};
 		
 
 		that.hideSelectButtons = function(event) {
-			$(event.target).find('.cancel-box').addClass('hidden');
+			$(event.target).find('.cancel-button').addClass('hidden');
 			$(event.target).find('.line-chart').addClass('hidden');
 			$(event.target).find('.spider-chart').addClass('hidden');
 			$(event.target).find('.bar-chart').addClass('hidden');
@@ -141,9 +147,6 @@ define(['jquery',
 				parent.attr('data-type','bar');
 			}
 
-/*			that.removeStyingFromElement(parent);
-			that.createView(parent[0]);*/
-
 		};
 
 
@@ -157,7 +160,7 @@ define(['jquery',
 			that.$el.find('.sub-wrapper').append(html);
 		};
 		
-		that.highlightBoxes = function() {
+/*		that.highlightBoxes = function() {
 			var 
 				box = event.target,
 				outerBox = $(event.target).parent(),
@@ -171,12 +174,12 @@ define(['jquery',
 				console.log(classes)
 				
 			
-		}
+		}*/
 		
-		that.unhighlightBoxes = function() {
+/*		that.unhighlightBoxes = function() {
 			
 			$('.select').removeClass('select');
-		}
+		}*/
 		
 		
 		that.freezeBlocks = function() {
@@ -227,7 +230,7 @@ define(['jquery',
 					i = parseInt(ul.attr('class')),
 					numOfBlocks = that.$el.find('.gridster').length;
 				
-				if (ul.children().length < 2) {
+/*				if (ul.children().length < 2) {
 					that.gridster[i].destroy();
 					ul.parents('.gridster').fadeOut(10).remove();
 
@@ -235,9 +238,10 @@ define(['jquery',
 						that.$el.find('.freeze-block').addClass('locked');
 					}
 					return;
-				}
+				}*/
 
-				that.gridster[i].remove_widget(event.target.parentElement, 10);		
+				//TODO trigger mouseup event to resize Element
+				that.gridster[i].remove_widget($(event.target).closest('.gs-w'), 10);
 		};
 		
 		

@@ -20,10 +20,10 @@ define(['jquery',
 		that.instanceID = 'view' + Date.now();
 
 
-		that.initialize = function() {
+		that.assignType = function() {
 
-			var element = that.el,
-				type = $(element).data('type');
+			var	type = that.$el.find('.widget-header').data('type'),
+				element = that.$el.find('.chart-container');
 
 			if(type === 'spider') {
 				that.chart = new SpiderChart();
@@ -33,10 +33,11 @@ define(['jquery',
 				that.chart = new BarChart();
 			}
 			that.chart.assignElement(element);
-		}
+		};
 
 		
 		that.render = function() {
+			that.assignType();
 			that.chart.render();
 		};
 

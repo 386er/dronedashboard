@@ -103,6 +103,7 @@ padding-top: 10px;
 
 .gs-w {
 border: 1px dotted #B2B2B2;
+/*border-radius: 10px 10px 0px 0px;*/
 }
 
 .freeze-block,
@@ -132,8 +133,21 @@ border: 1px dotted #B2B2B2;
 
 
 
+.widget-header {
+	height: 50px;
+	border-bottom: 1px solid gray;
+	margin:0px;
+}
 
-.cancel-box {
+.chart-container {
+	display: flex;
+	height: calc(100% - 50px);
+
+}
+
+
+
+.cancel-button {
 	position: absolute;
 	color:#424242;
 	right: 15px;
@@ -164,48 +178,17 @@ border: 1px dotted #B2B2B2;
 .bar-chart:hover,
 .line-chart:hover,
 .spider-chart:hover,
-.cancel-box:hover{
+.cancel-button:hover{
 	color: gray;
 }
 
 
-
-
 .chart.selected {
-	color: blue;
-}
-
-.chart.selected:hover {
 	color: orange;
 }
 
-
-.selector-box {
-	border: 2px dotted #D8D8D8;
-	display:block;
-	position: relative;
-	float:left;
-	color:gray;
-	margin: 0px 70px 30px 0px;
-	width:30px !important;
-	height:30px !important;
-	font-size:50px;
-	text-align: center;
-	font-weight: bold;
-	padding: 6px 3px 0 3px;
-}
-
-.selector-box.select {
-	background-color: whitesmoke;
-	border: 2px dotted whitesmoke
-	
-}
-
-
-.selector-box:hover {
-	border: 2px dotted whitesmoke;
-	color:gray;
-	cursor: pointer;
+.chart.selected:hover {
+	color: black;
 }
 
 
