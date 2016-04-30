@@ -25,7 +25,7 @@ define(['jquery',
 		that.el ='.wrapper';
 
 		that.gridsterConfiguration = {
-					widget_margins: [5, 5],
+					widget_margins: [7, 7],
 					widget_base_dimensions: [40, 40],
 					autogenerate_stylesheet: true,
 					resize: {
