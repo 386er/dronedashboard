@@ -22,7 +22,7 @@ define(['jquery',
 			socket.on('spiderData', function(data){
 				console.log(data);						
 			})*/			
-			var chartController = new ChartController(4);
+			var chartController = new ChartController(5);
 		}
 	};
 

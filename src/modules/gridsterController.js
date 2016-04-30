@@ -35,18 +35,14 @@ define(['jquery',
 						}
 		};
 		
-		that.gridster = {};
+		that.gridster = undefined;
 		
 		that.events = {
-			'click .addBlock': 'getNewSelectorBox',
 			'click .freeze-block': 'freezeBlocks',
 			'click .cancel-button': 'cancelWidget',
 			'click .chart': 'selectChartType',
-
 			'mouseover .gs-w': 'showCancelButton',
 			'mouseleave .gs-w': 'hideSelectButtons',
-			'mouseover .selector-box': 'highlightBoxes',
-/*			'mouseleave .selector-box': 'unhighlightBoxes',*/
 			'click .selector-box': 'bindBox'
 		};
 		
@@ -56,10 +52,10 @@ define(['jquery',
 		that.createView = function(element) { 
 
 			var
-					className = element.classList[0],
-					view = new ChartView({el: '.' + className})
-				view.render();
-			};
+				className = element.classList[0],
+				view = new ChartView({el: '.' + className});
+			view.render();
+		};
 
 
 		that.getWidgetConfiguration = function(numberOfStreams) {
@@ -88,47 +84,24 @@ define(['jquery',
 							'</div>';
 
 		
-		that.selectorTemplate = 
-						'<div class="placeholder-box" style="left:10px">' +
-							'<div class="button-wrapper">' +
-								'{{#selectorbox}}' +
-								'<a class="selector-box {{.}}" data-key="{{.}}"></a>' +
-								'{{/selectorbox}}' +
-							'</div>' +
-						'</div>';
+		that.selectorTemplate = '<div class="placeholder-box" style="left:10px"> </div>';
 
-		that.selectorData = {'selectorbox': _.range(1, numberOfStreams + 1)};
 
 						
-		that.gridTemplate =  '<ul class="{{currentElement}}"></ul>';
+		that.gridTemplate =  '<ul class="1"></ul>';
 
 		
-		that.data = {'currentElement' : 0};
-
-
 
 		that.showCancelButton = function(event) {
-
 			var buttons = event.target.parentElement.children;
-
-/*			$('.cancel-button').not(buttons).addClass('hidden');
-			$('.line-chart').not(buttons).addClass('hidden');
-			$('.spider-chart').not(buttons).addClass('hidden');
-			$('.bar-chart').not(buttons).addClass('hidden');*/
 			$('.chart').not(buttons).addClass('hidden');
 			$(event.target).find('.chart').removeClass('hidden');
-/*			$(event.target).find('.cancel-button').removeClass('hidden');
-			$(event.target).find('.line-chart').removeClass('hidden');
-			$(event.target).find('.spider-chart').removeClass('hidden');
-			$(event.target).find('.bar-chart').removeClass('hidden');*/
+
 		};
 		
 
 		that.hideSelectButtons = function(event) {
-			$(event.target).find('.cancel-button').addClass('hidden');
-			$(event.target).find('.line-chart').addClass('hidden');
-			$(event.target).find('.spider-chart').addClass('hidden');
-			$(event.target).find('.bar-chart').addClass('hidden');
+			$(event.target).find('.chart').addClass('hidden');
 		};			
 
 
@@ -150,38 +123,12 @@ define(['jquery',
 		};
 
 
-		that.bindGridsterToElement = function(index) {
-			that.gridster[index] = $(".gridster > ul." + index).gridster(that.gridsterConfiguration).data('gridster');
+		that.bindGridsterToElement = function() {
+			that.gridster = $(".gridster > ul.1").gridster(that.gridsterConfiguration).data('gridster');
 		};
 
 
-		that.getNewSelectorBox = function() {
-			var html = Mustache.render(that.selectorTemplate, that.selectorData)
-			that.$el.find('.sub-wrapper').append(html);
-		};
-		
-/*		that.highlightBoxes = function() {
-			var 
-				box = event.target,
-				outerBox = $(event.target).parent(),
-				numOfBoxes = box.dataset.key,
-				rangeBoxes = _.range(1,parseInt(numOfBoxes) + 1),
-				classes = _.map(rangeBoxes, function(num){ return '.' + num ; });
-				
-			_.forEach(classes, function(entry){
-				$(outerBox).find(entry).addClass('select');
-			})	
-				console.log(classes)
-				
 			
-		}*/
-		
-/*		that.unhighlightBoxes = function() {
-			
-			$('.select').removeClass('select');
-		}*/
-		
-		
 		that.freezeBlocks = function() {
 
 			if ( !$('.gridster').length) {
@@ -190,13 +137,7 @@ define(['jquery',
 
 			that.$el.off();		
 			that.removeStylingfromBlocks();
-
-			var keys = _.keys(that.gridster);
-			keys.forEach(function(key){
-				if (that.gridster[key] !== undefined) {
-					that.gridster[key].disable();
-				}
-			})
+			that.gridster.disable();
 			that.trigger('gridCreated');
 		};
 		
@@ -227,56 +168,32 @@ define(['jquery',
 		that.cancelWidget = function(event) {
 				var 
 					ul = $(event.target).parents('ul'),
-					i = parseInt(ul.attr('class')),
-					numOfBlocks = that.$el.find('.gridster').length;
-				
-/*				if (ul.children().length < 2) {
-					that.gridster[i].destroy();
-					ul.parents('.gridster').fadeOut(10).remove();
-
-					if (numOfBlocks < 2){
-						that.$el.find('.freeze-block').addClass('locked');
-					}
-					return;
-				}*/
+					i = parseInt(ul.attr('class'));
 
 				//TODO trigger mouseup event to resize Element
-				that.gridster[i].remove_widget($(event.target).closest('.gs-w'), 10);
+				that.gridster.remove_widget($(event.target).closest('.gs-w'), 10);
 		};
 		
 		
 		that.bindBox = function() { 
 
-
-			that.data.currentElement += 1;
-			
 			var
-				index = that.data.currentElement,
-				html = Mustache.to_html(that.gridTemplate, that.data),
-				parent = $('.placeholder-box'),
+				html = that.gridTemplate,
+				parent = $('.gridster'),
 				widgetsConfiguration = that.getWidgetConfiguration(numberOfStreams);
 				
-			parent.removeClass('placeholder-box');
-			parent.addClass('gridster')
 			parent.html(html)
-			that.bindGridsterToElement(index);
+			that.bindGridsterToElement();
 		
 			widgetsConfiguration.forEach( function(widget, i){
-					var template = Mustache.to_html(that.widgetTemplate, {'index': 'indx_' + index + '_' + (i + 1)});
+					var template = Mustache.to_html(that.widgetTemplate, {'index': 'indx_1' + '_' + (i + 1)});
 					widget = [template].concat(widget)
-					that.gridster[index].add_widget.apply(that.gridster[index], widget)  
-				});
-
-
-
-			if( $('.freeze-block').hasClass('locked')) {
-				$('.freeze-block').removeClass('locked');
-			}
+					that.gridster.add_widget.apply(that.gridster, widget)  
+			});
 		};
 				
 		
 		that = new (Backbone.View.extend(that))();
-		
 		return that;
 	};
 	

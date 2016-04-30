@@ -19,7 +19,6 @@ define(['jquery',
 
 
 		that.initialize = function() {
-			that.gridsterController.getNewSelectorBox();
 			that.gridsterController.bindBox();
 			that.gridsterController.on('gridCreated', function() {
 				that.getAllBlocks();
