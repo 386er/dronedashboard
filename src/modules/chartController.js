@@ -3,11 +3,13 @@ define(['jquery',
 	'backbone',
 	'underscore',
 	'modules/gridsterController',
+	'modules/headerController',
 	'modules/chartView'
 ], function($,
 	Backbone,
 	_,
 	GridsterController,
+	HeaderController,
 	ChartView
 	) {
 
@@ -16,6 +18,7 @@ define(['jquery',
 		var that = {};
 		
 		that.gridsterController = new GridsterController(numberOfStreams);
+		that.headerController = new HeaderController();
 
 
 		that.initialize = function() {
@@ -23,6 +26,10 @@ define(['jquery',
 			that.gridsterController.on('gridCreated', function() {
 				that.getAllBlocks();
 			}, that);
+
+			that.headerController.on('freezeDashboard', function() {
+				that.gridsterController.freezeBlocks();
+			});
 		};		
 		
 		

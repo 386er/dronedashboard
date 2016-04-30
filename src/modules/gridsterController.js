@@ -38,12 +38,10 @@ define(['jquery',
 		that.gridster = undefined;
 		
 		that.events = {
-			'click .freeze-block': 'freezeBlocks',
 			'click .cancel-button': 'cancelWidget',
 			'click .chart': 'selectChartType',
 			'mouseover .gs-w': 'showCancelButton',
 			'mouseleave .gs-w': 'hideSelectButtons',
-			'click .selector-box': 'bindBox'
 		};
 		
 		
@@ -63,7 +61,7 @@ define(['jquery',
 			var widgetsConfiguration = [];
 
 			for (var i = 0; i < numberOfStreams; i++) {
-				widgetsConfiguration.push([5,5])
+				widgetsConfiguration.push([5,6])
 			}
 
 			return widgetsConfiguration;
@@ -158,7 +156,6 @@ define(['jquery',
 			that.removeStyingFromElement(elements)
 			$('.gs-w').css({'border':'transparent'});
 			$('.addBlock').toggleClass('hidden');
-			$('.freeze-block').toggleClass('hidden');
 			$('.gridster ul').css({'background-color':'transparent'});
 			$('i').remove();
 			$('span').remove();

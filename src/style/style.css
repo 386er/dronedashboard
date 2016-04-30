@@ -18,22 +18,64 @@ body {
 	margin:0px;
 }
 
+html {
+    overflow-y:scroll;
+}
+
 
 .header {
-background-color: gray;
-color: white;
-width: 100%;
-height: 90px;
-font-family: 'Oswald';
-font-weight: bold;
-font-size: 28px;
-padding-top: 10px;
+	background-color: #4E4E4E;
+	color: white;
+	width: 100%;
+	height: 90px;
+	font-family: 'Oswald';
+	font-weight: bold;
+	font-size: 28px;
+	padding-top: 10px;
 }
 
 .title-container {
-    margin-left: 110px;
+    left: 110px;
     font-size: 50px;
+    position: absolute;
+    top: 15px;
 }
+
+.launcher {
+	position: absolute;
+	left: 80%;
+	font-size: 30px;
+	top: 35px;
+	width:190px;
+}
+
+.launcher:hover {
+	color:#FFC65D;
+	cursor: pointer;
+}
+
+.launcher-label {
+font-size:20px;
+font-family:Arial;
+position:relative;
+float:left;
+font-weight: 600;	
+}
+
+.launcher-icon {
+ float:right;
+ top:-5px;
+}
+
+
+.locked,
+.locked:hover 
+{
+	color: #717171;
+	cursor:default;
+}	
+
+
 
 .wrapper {
 	width:90%;
@@ -42,27 +84,6 @@ padding-top: 10px;
 	margin:auto;
 	margin-top:30px;
 	text-align:center;
-}
-
-.placeholder-box {
-	border: 2px dotted #E6E6E6;
-
-	margin-top: 50px;
-	margin-bottom:50px;
-	padding-top:20px;
-	text-align:center;
-	font-size: 96px;
-	vertical-align: middle;
-	height: 160px
-
-}
-
-
-.button-wrapper {
-	position: relative;
-	width: 650px;
- 	margin:auto;
- 	margin-top: 15px;
 }
 
 
@@ -75,11 +96,9 @@ padding-top: 10px;
 /*/
 
 .gridster ul {
-	background-color: #7E7E8C;
-	border: 2px solid gray;
-	padding-bottom: 5px;
-	border-radius:5px;
-	box-shadow: inset 3px 3px 10px 0px #616161
+	background-color: #C7C7C7;
+	border: 1px solid gray;
+	border-radius: 8px;
 }
 
 .gridster div {
@@ -88,7 +107,6 @@ padding-top: 10px;
 	text-align: center;
 	line-height: 100%;
 }
-
 
 .gridster {
 	margin: 0 auto;
@@ -103,33 +121,9 @@ padding-top: 10px;
 
 .gs-w {
 border: 1px dotted #B2B2B2;
-/*border-radius: 10px 10px 0px 0px;*/
-}
-
-.freeze-block,
-.addBlock {
-	margin-top: 50px !important;
-	margin:auto;
-	position: relative;
-	display: block;
-	font-size: 70px !important;
-	cursor: pointer;
-	width:80px;
-	color:gray;
-}
-
-.freeze-block:hover,
-.addBlock:hover {
-	color:black;
 }
 
 
-.locked,
-.locked:hover 
-{
-	color: #E6E6E6;
-	cursor:default;
-}	
 
 
 
@@ -144,7 +138,6 @@ border: 1px dotted #B2B2B2;
 	height: calc(100% - 50px);
 
 }
-
 
 
 .cancel-button {
@@ -192,7 +185,6 @@ border: 1px dotted #B2B2B2;
 }
 
 
-
 .gridster .gs-w {
 	background: #E6E6E6;
 	cursor: pointer;
@@ -201,7 +193,6 @@ border: 1px dotted #B2B2B2;
 .gridster .player {
 	background: #BBB;
 }
-
 
 .gridster .preview-holder {
 	border: none!important;
