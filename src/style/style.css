@@ -96,8 +96,8 @@ font-weight: 600;
 /*/
 
 .gridster ul {
-	background-color: #C7C7C7;
-	border: 1px solid gray;
+	background-color: #F1F0F0;
+	border: 1px solid #C7C2C2;
 	border-radius: 8px;
 }
 
@@ -125,13 +125,18 @@ border: 1px dotted #B2B2B2;
 
 
 
-
-
 .widget-header {
 	height: 50px;
 	border-bottom: 1px solid gray;
 	margin:0px;
+	-webkit-transition: background-color 800ms, -webkit-transform 800ms;
+    transition: background-color 800ms, transform 800ms;
 }
+
+.widget-header:hover {
+	background-color: #C5C5C5;
+}
+
 
 .chart-container {
 	display: flex;
@@ -186,7 +191,8 @@ border: 1px dotted #B2B2B2;
 
 
 .gridster .gs-w {
-	background: #E6E6E6;
+	border-radius: 4px 4px 0px 0px;
+	background: #DCDCDC;
 	cursor: pointer;
 }
 
