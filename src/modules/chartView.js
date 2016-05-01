@@ -4,14 +4,16 @@ define(['jquery',
 	'd3',
 	'modules/charts/spiderChart',
 	'modules/charts/timeSeriesChart',
-	'modules/charts/barChart'
+	'modules/charts/barChart',
+	'modules/charts/scatterChart'
 ], function($,
 	Backbone,
 	_,
 	d3,
 	SpiderChart,
 	TimeSeriesChart,
-	BarChart
+	BarChart,
+	ScatterChart
 	) {
 
 	var ChartView = function() {
@@ -31,7 +33,7 @@ define(['jquery',
 				that.chart = new TimeSeriesChart();
 			} else {
 				that.chart = new BarChart();
-			}
+			} 
 			that.chart.assignElement(element);
 		};
 
