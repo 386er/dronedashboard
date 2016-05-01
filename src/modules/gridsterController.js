@@ -38,7 +38,7 @@ define(['jquery',
 		that.gridster = undefined;
 		
 		that.events = {
-			'click .cancel-button': 'cancelWidget',
+			'click .cancel-chart': 'cancelWidget',
 			'click .chart': 'selectChartType',
 			'mouseover .gs-w': 'showCancelButton',
 			'mouseleave .gs-w': 'hideSelectButtons',
@@ -56,15 +56,13 @@ define(['jquery',
 		};
 
 
-		that.getWidgetConfiguration = function(numberOfStreams) {
+		that.getWidgets = function(numberOfStreams) {
 
-			var widgetsConfiguration = [];
-
+			var widgets = [];
 			for (var i = 0; i < numberOfStreams; i++) {
-				widgetsConfiguration.push([5,6])
+				widgets.push([5,6])
 			}
-
-			return widgetsConfiguration;
+			return widgets;
 		};
 
 
@@ -75,18 +73,14 @@ define(['jquery',
 									'<i class="hidden chart bar-chart fa fa-bar-chart"></i>' +
 									'<i class="hidden chart spider-chart fa fa-asterisk"></i>' +
 									'<i class="hidden chart line-chart fa fa-line-chart"></i>' +
-									'<i class="hidden chart cancel-button fa fa-times"></i>' +
+									'<i class="hidden chart cancel-chart fa fa-times"></i>' +
 								'</div>' +
 								'<div class="chart-container">' +
 								'</div>' +
 							'</div>';
 
-		
-		that.selectorTemplate = '<div class="placeholder-box" style="left:10px"> </div>';
-
-
-						
-		that.gridTemplate =  '<ul class="1"></ul>';
+								
+		that.gridTemplate =  '<ul></ul>';
 
 		
 
@@ -122,7 +116,7 @@ define(['jquery',
 
 
 		that.bindGridsterToElement = function() {
-			that.gridster = $(".gridster > ul.1").gridster(that.gridsterConfiguration).data('gridster');
+			that.gridster = $(".gridster > ul").gridster(that.gridsterConfiguration).data('gridster');
 		};
 
 
@@ -141,7 +135,6 @@ define(['jquery',
 		
 
 		that.removeStyingFromElement = function(element) {
-
 			$(element).find('span').toggleClass('hidden');
 			$(element).find('div').toggleClass('no-hover');
 			$(element).children().css({'border':'transparent'});
@@ -151,11 +144,9 @@ define(['jquery',
 
 		
 		that.removeStylingfromBlocks = function() {
-
 			var elements = $('.gridster')[0];
 			that.removeStyingFromElement(elements)
 			$('.gs-w').css({'border':'transparent'});
-			$('.addBlock').toggleClass('hidden');
 			$('.gridster ul').css({'background-color':'transparent'});
 			$('i').remove();
 			$('span').remove();
@@ -163,27 +154,18 @@ define(['jquery',
 		
 		
 		that.cancelWidget = function(event) {
-				var 
-					ul = $(event.target).parents('ul'),
-					i = parseInt(ul.attr('class'));
-
-				//TODO trigger mouseup event to resize Element
-				that.gridster.remove_widget($(event.target).closest('.gs-w'), 10);
+			//TODO trigger mouseup event to resize Element
+			that.gridster.remove_widget($(event.target).closest('.gs-w'), 10);
 		};
 		
 		
 		that.bindBox = function() { 
 
-			var
-				html = that.gridTemplate,
-				parent = $('.gridster'),
-				widgetsConfiguration = that.getWidgetConfiguration(numberOfStreams);
-				
-			parent.html(html)
+			var widgets = that.getWidgets(numberOfStreams);
 			that.bindGridsterToElement();
 		
-			widgetsConfiguration.forEach( function(widget, i){
-					var template = Mustache.to_html(that.widgetTemplate, {'index': 'indx_1' + '_' + (i + 1)});
+			widgets.forEach( function(widget, i){
+					var template = Mustache.to_html(that.widgetTemplate, {'index': 'indx_' +  (i + 1)});
 					widget = [template].concat(widget)
 					that.gridster.add_widget.apply(that.gridster, widget)  
 			});

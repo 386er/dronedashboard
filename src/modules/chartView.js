@@ -2,9 +2,9 @@ define(['jquery',
 	'backbone',
 	'underscore',
 	'd3',
-	'modules/spiderChart',
-	'modules/timeSeriesChart',
-	'modules/barChart'
+	'modules/charts/spiderChart',
+	'modules/charts/timeSeriesChart',
+	'modules/charts/barChart'
 ], function($,
 	Backbone,
 	_,

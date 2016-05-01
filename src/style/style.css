@@ -145,7 +145,7 @@ border: 1px dotted #B2B2B2;
 }
 
 
-.cancel-button {
+.cancel-chart {
 	position: absolute;
 	color:#424242;
 	right: 15px;
@@ -176,7 +176,7 @@ border: 1px dotted #B2B2B2;
 .bar-chart:hover,
 .line-chart:hover,
 .spider-chart:hover,
-.cancel-button:hover{
+.cancel-chart:hover{
 	color: gray;
 }
 
