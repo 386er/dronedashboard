@@ -120,17 +120,17 @@ font-weight: 600;
 }
 
 .gs-w {
-border: 1px dotted #B2B2B2;
+border: 1px dotted #6B6B6B;
 }
 
 
 
 .widget-header {
 	height: 50px;
-	border-bottom: 1px solid gray;
+	border-bottom: 1px dotted #6B6B6B;
 	margin:0px;
-	-webkit-transition: background-color 800ms, -webkit-transform 800ms;
-    transition: background-color 800ms, transform 800ms;
+	-webkit-transition: background-color 500ms, -webkit-transform 500ms;
+	transition: background-color 500ms, transform 500ms;
 }
 
 .widget-header:hover {
@@ -146,29 +146,21 @@ border: 1px dotted #B2B2B2;
 
 
 .cancel-chart {
-	position: absolute;
-	color:#424242;
 	right: 15px;
 	top: 15px;
 }
 
 .line-chart {
-	position: absolute;
-	color:#424242;
 	right: 40px;
 	top: 15px;
 }
 
 .spider-chart {
-	position: absolute;
-	color:#424242;
 	right: 70px;
 	top: 15px;
 }
 
 .bar-chart {
-	position: absolute;
-	color:#424242;
 	right: 100px;
 	top: 15px;
 }
@@ -178,15 +170,30 @@ border: 1px dotted #B2B2B2;
 .spider-chart:hover,
 .cancel-chart:hover{
 	color: gray;
+	border: 1px solid gray;
 }
 
 
+.chart {
+	-webkit-transition: color 400ms, -webkit-transform 400ms;
+	transition: color 400ms, transform 400ms;
+	transition: display 0.4s, opacity 0.4s linear;
+	padding: 4px;
+	border:1px solid #424242;
+	position: absolute;
+	color:#424242;
+	border-radius:2px;
+	top: 15px;
+}
+
 .chart.selected {
-	color: orange;
+	color: #C5C5C5;
+	background-color: #424242;
+	border: 1px solid #424242;
 }
 
 .chart.selected:hover {
-	color: black;
+	color: white;
 }
 
 
@@ -207,6 +214,10 @@ border: 1px dotted #B2B2B2;
 
 .hidden {
 	display: none !important;
+}
+
+.transparent {
+	opacity:0.2;
 }
 
 .no-hover {

@@ -70,10 +70,10 @@ define(['jquery',
 		that.widgetTemplate = 
 							'<div class="{{index}}">' +
 								'<div class="widget-header">' +
-									'<i class="hidden chart bar-chart fa fa-bar-chart"></i>' +
-									'<i class="hidden chart spider-chart fa fa-asterisk"></i>' +
-									'<i class="hidden chart line-chart fa fa-line-chart"></i>' +
-									'<i class="hidden chart cancel-chart fa fa-times"></i>' +
+									'<i class="transparent chart bar-chart fa fa-bar-chart"></i>' +
+									'<i class="transparent chart spider-chart fa fa-asterisk"></i>' +
+									'<i class="transparent chart line-chart fa fa-line-chart"></i>' +
+									'<i class="transparent chart cancel-chart fa fa-times"></i>' +
 								'</div>' +
 								'<div class="chart-container">' +
 								'</div>' +
@@ -86,14 +86,14 @@ define(['jquery',
 
 		that.showCancelButton = function(event) {
 			var buttons = event.target.parentElement.children;
-			$('.chart').not(buttons).addClass('hidden');
-			$(event.target).find('.chart').removeClass('hidden');
+			$('.chart').not(buttons).addClass('transparent');
+			$(event.target).find('.chart').removeClass('transparent');
 
 		};
 		
 
 		that.hideSelectButtons = function(event) {
-			$(event.target).find('.chart').addClass('hidden');
+			$(event.target).find('.chart').addClass('transparent');
 		};			
 
 
