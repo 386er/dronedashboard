@@ -129,8 +129,8 @@ border: 1px dotted #6B6B6B;
 	height: 50px;
 	border-bottom: 1px dotted #6B6B6B;
 	margin:0px;
-	-webkit-transition: background-color 500ms, -webkit-transform 500ms;
-	transition: background-color 500ms, transform 500ms;
+	-webkit-transition: background-color 400ms, -webkit-transform 400ms;
+	transition: background-color 400ms, transform 400ms;
 }
 
 .widget-header:hover {
@@ -151,17 +151,17 @@ border: 1px dotted #6B6B6B;
 }
 
 .line-chart {
-	right: 40px;
+	right: 42px;
 	top: 15px;
 }
 
 .spider-chart {
-	right: 70px;
+	right: 74px;
 	top: 15px;
 }
 
 .bar-chart {
-	right: 100px;
+	right: 104px;
 	top: 15px;
 }
 
@@ -184,12 +184,14 @@ border: 1px dotted #6B6B6B;
 	color:#424242;
 	border-radius:2px;
 	top: 15px;
+	box-shadow: 2px 2px 2px 0px gray;
 }
 
 .chart.selected {
 	color: #C5C5C5;
 	background-color: #424242;
 	border: 1px solid #424242;
+	box-shadow: inset 2px 2px 2px 0px black;
 }
 
 .chart.selected:hover {
@@ -217,7 +219,7 @@ border: 1px dotted #6B6B6B;
 }
 
 .transparent {
-	opacity:0.2;
+	opacity:0.15;
 }
 
 .no-hover {
