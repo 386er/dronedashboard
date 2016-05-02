@@ -11,7 +11,7 @@ define(['jquery',
 	var BarChart = function() {
 		
 
-		that = {};
+		var that = {};
 
 		that.instanceID = 'barChart' + Date.now()
 		that.n = 15;
@@ -83,12 +83,12 @@ define(['jquery',
 		that.renderBars = function() {
 			that.data = that.getRandomData();
 
-			that.rect = that.svg.selectAll('.' + that.instanceID)
+			that.rect = that.svg.selectAll('rect')
 				.data(that.data, function(d) {return d.index});
 
 			that.rect.enter()
 				.append('rect')
-				.attr('class','bar ' + that.instanceID)
+				.attr('class','bar')
 				.attr('fill','steelblue')
 				.attr('stroke', '#E6E6E6')
 				.attr('x', function(d,i) {return that.x(i)})
@@ -108,11 +108,72 @@ define(['jquery',
 			that.createScales();
 			that.createXAxis();
 			that.renderBars();
+			that.animateChart();
 		};
+
+
+
+		that.moveBarChart = function() {
+
+			that.data.shift();
+					that.data.push({'value': Math.random(), 'index': Math.random()})
+			that.rect = that.svg.selectAll('rect')
+				.data(that.data, function(d) {return d.index});
+
+			that.rect.exit()
+				.transition()
+				.duration(600)
+				.style('opacity', 0)
+				.each('end', function() {
+
+					that.rect.exit().remove();
+
+					that.rect
+						.transition()
+						.duration(600)
+						.attr('x', function(d,i) {return that.x(i)})
+
+					that.rect = that.svg.selectAll('rect')
+							.data(that.data, function(d) {return d.index});
+
+
+					that.rect.enter()
+						.append('rect')
+						.attr('class','bar')
+						.attr('fill','steelblue')
+						.attr('stroke', '#E6E6E6')
+						.attr('x', function(d,i) {return that.x(i)})
+						.attr('y', function(d) {return that.height - that.y(d.value)})
+						.attr('height', function(d) {return that.y(d.value)})
+						.attr('width', that.barWidth)
+						.style('opacity', 0)
+						.transition()
+						.delay(600)
+						.duration(600)
+						.style('opacity', 1)
+
+				});
+
+			
+
+
+
+		}
 
 
 		that.assignElement = function(el) {
 			that.setElement(el);
+		};
+
+
+		that.animateChart = function() {
+
+		setInterval(function() {
+
+			that.moveBarChart();
+			
+			},1900)
+
 		};
 
 			

@@ -177,9 +177,9 @@ border: 1px dotted #6B6B6B;
 
 
 .chart {
-	-webkit-transition: color 400ms, -webkit-transform 400ms;
-	transition: color 400ms, transform 400ms;
-	transition: display 0.4s, opacity 0.4s linear;
+	-webkit-transition: color 200ms, -webkit-transform 200ms;
+	transition: color 200ms, transform 200ms;
+	transition: display 200ms, opacity 200ms linear;
 	padding: 4px;
 	border:1px solid #424242;
 	position: absolute;

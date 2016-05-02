@@ -16,16 +16,23 @@ define(['jquery',
 			that = {}, my = {};
 		
 		that.el ='.header';
-
+		that.isLauncherLocked = false;
 		
 		that.events = {
 			'click .launcher': 'freezeDashboard',
 		};
 		
+
 		
 		that.freezeDashboard = function() {
+
+			if (that.isLauncherLocked === true) {
+				return;
+			}
+
 			that.trigger('freezeDashboard');
 			that.$el.find('.launcher').addClass('locked')
+			that.isLauncherLocked = true;
 		};
 
 		
