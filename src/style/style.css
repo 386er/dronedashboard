@@ -167,6 +167,12 @@ border: 1px dotted #6B6B6B;
 	top: 15px;
 }
 
+.scatter-chart {
+	right: 136px;
+	top: 15px;
+}
+
+.scatter-chart:hover,
 .bar-chart:hover,
 .line-chart:hover,
 .spider-chart:hover,
@@ -238,7 +244,7 @@ border: 1px dotted #6B6B6B;
 .axis path,
 .axis line {
 	fill: transparent;
-	stroke: #D8D8D8;
+	stroke: gray;
 	shape-rendering: crispEdges;
 	}
 	

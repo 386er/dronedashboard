@@ -11,12 +11,13 @@ define(['jquery',
 	var ScatterChart = function() {
 		
 
-		that = {};
+		var that = {};
 
 		that.instanceID = 'scatterChart' + Date.now()
-/*		that.n = 15;*/
+		that.data = [];
 		that.margin = {top:20, bottom:30, left:15, right:10};
 		that.counter = 0;
+		that.mean = {};
 
 
 		that.determineWidthAndHeight = function() {
@@ -26,6 +27,11 @@ define(['jquery',
 
 			that.height = height - that.margin.top - that.margin.bottom;
 			that.width = width - that.margin.left - that.margin.right;
+		};
+
+
+		that.getRandomArbitrary = function(min, max) {
+ 		   return Math.random() * (max - min) + min;
 		};
 		
 
@@ -80,11 +86,15 @@ define(['jquery',
 			that.createYAxis();
 		};
 
+		that.createRandomDistribution = function() {
 
+			that.meanX = that.getRandomArbitrary(-0.5,0.5),
+			that.meanY = that.getRandomArbitrary(-0.5,0.5),
+			that.sdX = that.getRandomArbitrary(0.1,0.6),
+			that.sdY = that.getRandomArbitrary(0.1,0.6);
 
-		that.getRandomDate = function() {
-			var randomDate = {'x': Math.random(), 'y': Math.random() };
-			return randomDate;
+			that.randomX = d3.random.normal(that.meanX, that.sdX);
+			that.randomY = d3.random.normal(that.meanY, that.sdY);	
 		};
 
 
@@ -117,6 +127,35 @@ define(['jquery',
 
 
 
+		that.appendDataPoint = function() {
+
+			var dataPoint = {'x': that.randomX(), 'y':that.randomY()};
+			that.data.push(dataPoint);
+
+			that.svg.selectAll('circle')
+				.data(that.data)
+				.enter()
+				.append('circle')
+				.attr('cx', function(d) { return that.x(d.x)})
+				.attr('cy', function(d) { return that.y(d.y)})
+				.attr('r', 2)
+				.style('opacity',0)
+				.transition()
+				.duration(400)
+				.style('opacity', 1)
+		};
+
+
+		that.animateChart = function() {
+
+			setInterval(function() {
+
+				that.appendDataPoint();
+				
+				},500)
+
+		};
+
 
 
 		that.render = function() {
@@ -125,6 +164,8 @@ define(['jquery',
 			that.createScales();
 			that.createAxes();
 			that.renderGrid();
+			that.createRandomDistribution()
+			that.animateChart();
 		};
 
 

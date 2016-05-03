@@ -31,9 +31,11 @@ define(['jquery',
 				that.chart = new SpiderChart();
 			} else if (type === 'line') {
 				that.chart = new TimeSeriesChart();
-			} else {
+			} else if (type === 'bar') {
 				that.chart = new BarChart();
-			} 
+			} else {
+				that.chart = new ScatterChart();
+			}
 			that.chart.assignElement(element);
 		};
 

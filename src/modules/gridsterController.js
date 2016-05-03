@@ -19,7 +19,7 @@ define(['jquery',
 	var GridsterController = function(numberOfStreams) {
 		
 		var 
-			that = {}, my = {};
+			that = {}, my = {}; // TODO implement that - my logic in every module 
 		
 		
 		that.el ='.wrapper';
@@ -70,6 +70,7 @@ define(['jquery',
 		that.widgetTemplate = 
 							'<div class="{{index}}">' +
 								'<div class="widget-header">' +
+									'<i class="transparent chart scatter-chart fa fa-th-large"></i>' +
 									'<i class="transparent chart bar-chart fa fa-bar-chart"></i>' +
 									'<i class="transparent chart spider-chart fa fa-asterisk"></i>' +
 									'<i class="transparent chart line-chart fa fa-line-chart"></i>' +
@@ -108,8 +109,10 @@ define(['jquery',
 				parent.attr('data-type', 'line');
 			} else if (target.hasClass('spider-chart'))  {
 				parent.attr('data-type','spider');
-			} else {
+			} else if (target.hasClass('bar-chart'))  {
 				parent.attr('data-type','bar');
+			} else {
+				parent.attr('data-type','scatter');		
 			}
 
 		};
