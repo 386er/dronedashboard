@@ -2,6 +2,7 @@ define(['jquery',
 	'backbone',
 	'underscore',
 	'd3',
+	'modules/chartHeaderView',
 	'modules/charts/spiderChart',
 	'modules/charts/timeSeriesChart',
 	'modules/charts/barChart',
@@ -10,6 +11,7 @@ define(['jquery',
 	Backbone,
 	_,
 	d3,
+	ChartHeaderView,
 	SpiderChart,
 	TimeSeriesChart,
 	BarChart,
@@ -22,11 +24,8 @@ define(['jquery',
 		that.instanceID = 'view' + Date.now();
 
 
-		that.assignType = function() {
-
-			var	type = that.$el.find('.widget-header').data('type'),
-				element = that.$el.find('.chart-container');
-
+		that.createChart = function() {
+			var	type = that.$el.find('.widget-header').data('type');
 			if(type === 'spider') {
 				that.chart = new SpiderChart();
 			} else if (type === 'line') {
@@ -36,12 +35,32 @@ define(['jquery',
 			} else {
 				that.chart = new ScatterChart();
 			}
+		};
+
+
+		that.createHeader = function() {
+			that.header = new ChartHeaderView();
+		};
+
+
+		that.assignChartElement = function() {
+			var	element = that.$el.find('.chart-container');
 			that.chart.assignElement(element);
 		};
 
+
+		that.assignHeaderElement = function() {
+			var	element = that.$el.find('.widget-header');
+			that.header.assignElement(element);
+		};
+
+
 		
 		that.render = function() {
-			that.assignType();
+			that.createChart();
+			that.assignChartElement();
+			that.createHeader()
+			that.assignHeaderElement();
 			that.chart.render();
 		};
 

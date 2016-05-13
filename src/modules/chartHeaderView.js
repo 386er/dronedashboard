@@ -11,9 +11,22 @@ define(['jquery',
 		var that = {};
 		that.instanceID = 'chartHeaderView' + Date.now();
 
-		
-		that.render = function() {
+
+		that.events = {
+			'dblclick': 'setLine'
 		};
+
+
+		that.assignElement = function(el) {
+			that.setElement(el);
+		};
+
+
+		that.setLine = function() {
+			that.$el.html('PETER')
+		}
+
+		
 
 	
 		that = new (Backbone.View.extend(that))();
