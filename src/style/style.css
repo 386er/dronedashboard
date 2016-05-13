@@ -150,25 +150,26 @@ border: 1px dotted #6B6B6B;
 .cancel-chart {
 	right: 15px;
 	top: 15px;
+	width:15px;
 }
 
 .line-chart {
-	right: 42px;
+	right: 44px;
 	top: 15px;
 }
 
 .spider-chart {
-	right: 74px;
+	right: 76px;
 	top: 15px;
 }
 
 .bar-chart {
-	right: 104px;
+	right: 106px;
 	top: 15px;
 }
 
 .scatter-chart {
-	right: 136px;
+	right: 138px;
 	top: 15px;
 }
 
