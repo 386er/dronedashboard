@@ -5,14 +5,14 @@ define(['jquery',
 	'mustache',
 	'gridster',
 	'd3',
-	'modules/chartView'
+	'modules/chartController'
 ], function($,
 	Backbone,
 	_,
 	Mustache,
 	Gridster,
 	d3,
-	ChartView
+	ChartController
 	) {
 
 
@@ -51,7 +51,7 @@ define(['jquery',
 
 			var
 				className = element.classList[0],
-				view = new ChartView({el: '.' + className});
+				view = new ChartController({el: '.' + className});
 			view.render();
 		};
 
@@ -105,6 +105,7 @@ define(['jquery',
 			parent.data('data-type', undefined);
 			parent.find('.chart').removeClass('selected');
 			target.addClass('selected')
+			
 			if (target.hasClass('line-chart')) {
 				parent.attr('data-type', 'line');
 			} else if (target.hasClass('spider-chart'))  {

@@ -168,11 +168,11 @@ define(['jquery',
 
 		that.animateChart = function() {
 
-		setInterval(function() {
+			setInterval(function() {
 
-			that.moveBarChart();
-			
-			},1900)
+				that.moveBarChart();
+				
+				},1900)
 
 		};
 

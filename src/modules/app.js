@@ -2,12 +2,12 @@
 define(['jquery',
 	'backbone',
 	'underscore',
-	'modules/chartController',
+	'modules/dashboardController',
 	'socket'
 ], function($,
 	Backbone,
 	_,
-	ChartController,
+	DashboardController,
 	io
 	) {
 
@@ -22,7 +22,7 @@ define(['jquery',
 			socket.on('spiderData', function(data){
 				console.log(data);						
 			})*/			
-			var chartController = new ChartController(5);
+			var dashboardController = new DashboardController(5);
 		}
 	};
 

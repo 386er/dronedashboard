@@ -1,53 +1,58 @@
-
 define(['jquery',
 	'backbone',
 	'underscore',
-	'modules/gridsterController',
-	'modules/headerController',
-	'modules/chartView'
+	'd3',
+	'modules/charts/spiderChart',
+	'modules/charts/timeSeriesChart',
+	'modules/charts/barChart',
+	'modules/charts/scatterChart'
 ], function($,
 	Backbone,
 	_,
-	GridsterController,
-	HeaderController,
-	ChartView
+	d3,
+	SpiderChart,
+	TimeSeriesChart,
+	BarChart,
+	ScatterChart
 	) {
 
-	var ChartController = function(numberOfStreams) {
-
+	var ChartController = function() {
+		
 		var that = {};
-		
-		that.gridsterController = new GridsterController(numberOfStreams);
-		that.headerController = new HeaderController();
+		that.instanceID = 'view' + Date.now();
 
 
-		that.initialize = function() {
-			that.gridsterController.bindBox();
-			that.gridsterController.on('gridCreated', function() {
-				that.getAllBlocks();
-			}, that);
+		that.assignType = function() {
 
-			that.headerController.on('freezeDashboard', function() {
-				that.gridsterController.freezeBlocks();
-			});
-		};		
-		
-		
-		that.getAllBlocks = function() {
-			
-			var blocks = $('.gs-w');
+			var	type = that.$el.find('.widget-header').data('type'),
+				element = that.$el.find('.chart-container');
 
-			blocks.each(function(i, element) { 
-				that.gridsterController.createView(element);
-			})
+			if(type === 'spider') {
+				that.chart = new SpiderChart();
+			} else if (type === 'line') {
+				that.chart = new TimeSeriesChart();
+			} else if (type === 'bar') {
+				that.chart = new BarChart();
+			} else {
+				that.chart = new ScatterChart();
+			}
+			that.chart.assignElement(element);
 		};
+
 		
+		that.render = function() {
+			that.assignType();
+			that.chart.render();
+		};
 
-
+	
 		that = new (Backbone.View.extend(that))();
+		that.constructor.apply(that, arguments);
+			
 		return that;
-		
 	};
+	
+
 
 	return ChartController;
 
