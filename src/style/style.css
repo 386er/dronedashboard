@@ -139,6 +139,24 @@ border: 1px dotted #6B6B6B;
 	border-radius: 5px 5px 0px 0px;
 }
 
+.widget-header > input {
+margin: 3px 3px 3px 3px;
+border: 0px;
+background-color: transparent;
+height: calc(100% - 6px);
+width: calc(100% - 6px);
+font-family: 'Oswald';
+font-size: 16px;
+border-radius: 5px 5px 0px 0px;
+-webkit-transition: background-color 600ms, -webkit-transform 600ms;
+transition: background-color 600ms, transform 600ms;
+}
+
+.widget-header > input:focus {
+    outline: none !important;
+    background-color:#ECECEC;
+}
+
 
 .chart-container {
 	display: flex;

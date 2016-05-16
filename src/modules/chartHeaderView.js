@@ -12,18 +12,17 @@ define(['jquery',
 		that.instanceID = 'chartHeaderView' + Date.now();
 
 
-		that.events = {
-			'dblclick': 'setLine'
-		};
+		that.template = '<input value="   "></input>'
 
 
 		that.assignElement = function(el) {
 			that.setElement(el);
+			that.setLine();
 		};
 
 
 		that.setLine = function() {
-			that.$el.html('PETER')
+			that.$el.html(that.template)
 		}
 
 		
