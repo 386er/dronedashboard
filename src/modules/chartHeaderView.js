@@ -12,7 +12,7 @@ define(['jquery',
 		that.instanceID = 'chartHeaderView' + Date.now();
 
 
-		that.template = '<input value="   "></input>'
+		that.template = '<input value=""></input>'
 
 
 		that.assignElement = function(el) {

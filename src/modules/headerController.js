@@ -31,7 +31,10 @@ define(['jquery',
 			}
 
 			that.trigger('freezeDashboard');
-			that.$el.find('.launcher').addClass('locked')
+			that.$el.find('.launcher').addClass('locked');
+			that.$el.find('.launcher').find('.launcher-label').html('Unlock Dashboard');
+			that.$el.find('.launcher').find('.fa').removeClass('fa-lock');
+			that.$el.find('.launcher').find('.fa').addClass('fa-unlock')
 			that.isLauncherLocked = true;
 		};
 

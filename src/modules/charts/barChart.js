@@ -14,7 +14,7 @@ define(['jquery',
 		var that = {};
 
 		that.instanceID = 'barChart' + Date.now()
-		that.n = 15;
+		that.n = 25;
 		that.margin = {top:20, bottom:30, left:15, right:10};
 		that.counter = 0;
 
@@ -48,7 +48,7 @@ define(['jquery',
 		that.createXScale = function() {
 			that.x = d3.scale.ordinal()
 				.domain(_.range(that.n))
-				.rangeRoundBands([0, that.width]);	
+				.rangeRoundBands([0, that.width], 0.3);	
 		};
 
 
@@ -65,11 +65,6 @@ define(['jquery',
 				.call(d3.svg.axis().scale(that.x).orient("bottom"));
 			};
 
-
-
-		that.determinBarWidth = function() {
-			that.barWidth = that.width/(that.n) * 0.95;
-		};
 
 		that.getRandomData = function(n) {
 			var randomData = [];
@@ -94,7 +89,7 @@ define(['jquery',
 				.attr('x', function(d,i) {return that.x(i)})
 				.attr('y', function(d) {return that.height - that.y(d.value)})
 				.attr('height', function(d) {return that.y(d.value)})
-				.attr('width', that.barWidth);
+				.attr('width', that.x.rangeBand());
 
 
 		};
@@ -103,7 +98,6 @@ define(['jquery',
 
 		that.render = function() {
 			that.determineWidthAndHeight();
-			that.determinBarWidth();
 			that.createSVG();
 			that.createScales();
 			that.createXAxis();
@@ -145,7 +139,7 @@ define(['jquery',
 						.attr('x', function(d,i) {return that.x(i)})
 						.attr('y', function(d) {return that.height - that.y(d.value)})
 						.attr('height', function(d) {return that.y(d.value)})
-						.attr('width', that.barWidth)
+						.attr('width', that.x.rangeBand())
 						.style('opacity', 0)
 						.transition()
 						.delay(600)

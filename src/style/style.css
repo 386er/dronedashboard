@@ -45,14 +45,22 @@ html {
 	position: absolute;
 	left: 80%;
 	font-size: 30px;
-	top: 35px;
-	width:190px;
+	top: 30px;
+	width:220px;
+	padding: 12px 10px 2px 8px;
+	border: 1px solid #9C9C9C;
+	color:#D2D2D2;
+	border-radius: 5px;
+	box-shadow: 2px 2px 2px 0px #3C3C3C;
 }
 
 .launcher:hover {
-	color:#FFC65D;
+	color: white;
+	border: 1px solid white;
 	cursor: pointer;
 }
+
+
 
 .launcher-label {
 font-size:20px;
@@ -73,7 +81,14 @@ font-weight: 600;
 {
 	color: #717171;
 	cursor:default;
+	border: 1px solid gray;
+	background-color: #9C9C9C;
+	box-shadow: inset 2px 2px 2px 0px #656565;
 }	
+
+.locked:hover {
+	color:gray;
+}
 
 
 
@@ -140,11 +155,12 @@ border: 1px dotted #6B6B6B;
 }
 
 .widget-header > input {
-margin: 3px 3px 3px 3px;
+margin: 6px 6px 3px 6px;
 border: 0px;
+padding: 0px 6px 0px 3px;
 background-color: transparent;
-height: calc(100% - 6px);
-width: calc(100% - 6px);
+height: calc(100% - 9px);
+width: calc(100% - 21px);
 font-family: 'Oswald';
 font-size: 16px;
 border-radius: 5px 5px 0px 0px;
@@ -167,28 +183,23 @@ transition: background-color 600ms, transform 600ms;
 
 .cancel-chart {
 	right: 15px;
-	top: 15px;
 	width:15px;
 }
 
 .line-chart {
 	right: 44px;
-	top: 15px;
 }
 
 .spider-chart {
 	right: 76px;
-	top: 15px;
 }
 
 .bar-chart {
 	right: 106px;
-	top: 15px;
 }
 
 .scatter-chart {
 	right: 138px;
-	top: 15px;
 }
 
 .scatter-chart:hover,
