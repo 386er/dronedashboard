@@ -19,18 +19,18 @@ define(['jquery',
 		that.isLauncherLocked = false;
 		
 		that.events = {
-			'click .launcher': 'freezeDashboard',
+			'click .launcher': 'lockDashboard',
 		};
 		
 
 		
-		that.freezeDashboard = function() {
+		that.lockDashboard = function() {
 
 			if (that.isLauncherLocked === true) {
 				return;
 			}
 
-			that.trigger('freezeDashboard');
+			that.trigger('dashboardLocked');
 			that.$el.find('.launcher').addClass('locked');
 			that.$el.find('.launcher').find('.launcher-label').html('Unlock Dashboard');
 			that.$el.find('.launcher').find('.fa').removeClass('fa-lock');
