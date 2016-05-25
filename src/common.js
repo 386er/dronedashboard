@@ -10,7 +10,8 @@ require.config({
 		mustache: 'library/mustache',
 		gridster: 'library/jquery.gridster',
 		d3: 'library/d3',
-		socket: 'library/socket.io-1.4.0'
+		socket: 'library/socket.io-1.4.0',
+		text: 'library/text'
 	},
 	shim:{
 		d3:{

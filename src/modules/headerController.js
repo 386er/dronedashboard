@@ -2,11 +2,13 @@
 define(['jquery',
 	'backbone',
 	'underscore',
-	'mustache'
+	'mustache',
+	'text!modules/templates/launcherTemplate.html'
 ], function($,
 	Backbone,
 	_,
-	Mustache
+	Mustache,
+	LauncherTemplate
 	) {
 
 
@@ -17,11 +19,20 @@ define(['jquery',
 		
 		that.el ='.header';
 		that.isLauncherLocked = false;
+
 		
 		that.events = {
 			'click .launcher': 'lockDashboard',
+			'click .launcher.locked': 'unLockDashboard'
 		};
 		
+
+		that.render = function() {
+
+			var currentState = {'isLocked': that.isLauncherLocked};
+			var html = Mustache.to_html(LauncherTemplate, currentState);
+			that.$el.find('.launcher-container').html(html);
+		}
 
 		
 		that.lockDashboard = function() {
@@ -29,13 +40,19 @@ define(['jquery',
 			if (that.isLauncherLocked === true) {
 				return;
 			}
-
 			that.trigger('dashboardLocked');
-			that.$el.find('.launcher').addClass('locked');
-			that.$el.find('.launcher').find('.launcher-label').html('Unlock Dashboard');
-			that.$el.find('.launcher').find('.fa').removeClass('fa-lock');
-			that.$el.find('.launcher').find('.fa').addClass('fa-unlock')
 			that.isLauncherLocked = true;
+			that.render();
+		};
+
+		that.unLockDashboard = function() {
+
+			if (that.isLauncherLocked === false) {
+				return;
+			}
+			that.trigger('dashboardUnLocked');
+			that.isLauncherLocked = false;
+			that.render();
 		};
 
 		

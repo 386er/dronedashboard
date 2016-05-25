@@ -25,6 +25,7 @@ define(['jquery',
 				that.getAllBlocks();
 			}, that);
 
+			that.headerController.render();
 			that.headerController.on('dashboardLocked', function() {
 				that.gridsterController.freezeBlocks();
 			});
