@@ -5,14 +5,20 @@ define(['jquery',
 	'mustache',
 	'gridster',
 	'd3',
-	'modules/chartController'
+	'modules/chartView',
+	'modules/chartModelCollection',
+	'modules/chartModel',
+	'text!modules/templates/widgetTemplate.html'
 ], function($,
 	Backbone,
 	_,
 	Mustache,
 	Gridster,
 	d3,
-	ChartController
+	ChartView,
+	ChartModelCollection,
+	ChartModel,
+	WidgetTemplate
 	) {
 
 
@@ -31,11 +37,12 @@ define(['jquery',
 					resize: {
 						enabled: true,
 						max_size: [35, 11],
-						min_size: [1, 1]
+						min_size: [4, 4]
 						}
 		};
 		
 		that.gridster = undefined;
+		that.collection = new ChartModelCollection();
 		
 		that.events = {
 			'click .cancel-chart': 'cancelWidget',
@@ -47,11 +54,14 @@ define(['jquery',
 		
 
 
-		that.createView = function(element) { 
+		that.createChartView = function(element) { 
 
 			var
-				className = element.classList[0],
-				view = new ChartController({el: '.' + className});
+				elementID = element.id,
+				view = new ChartView({el: '#' + elementID});
+				chartModel = that.collection.get(elementID);
+
+			view.assignModel(chartModel);	
 			view.render();
 		};
 
@@ -67,18 +77,8 @@ define(['jquery',
 
 
 
-		that.widgetTemplate = 
-							'<div class="{{index}}">' +
-								'<div class="widget-header">' +
-									'<i class="transparent chart scatter-chart fa fa-th-large"></i>' +
-									'<i class="transparent chart bar-chart fa fa-bar-chart"></i>' +
-									'<i class="transparent chart spider-chart fa fa-asterisk"></i>' +
-									'<i class="transparent chart line-chart fa fa-line-chart"></i>' +
-									'<i class="transparent chart cancel-chart fa fa-times"></i>' +
-								'</div>' +
-								'<div class="chart-container">' +
-								'</div>' +
-							'</div>';
+		that.widgetTemplate = WidgetTemplate; 
+							
 
 								
 		that.gridTemplate =  '<ul></ul>';
@@ -99,23 +99,18 @@ define(['jquery',
 
 
 		that.selectChartType = function(event) {
-			var target = $(event.target),
-				parent = target.parent();
 
-			parent.data('data-type', undefined);
+			var 
+				target = $(event.target),
+				targetType = target.data('type')
+				parent = target.parent(),
+				widget = parent.parent(),
+				widgetID = widget[0].id;
+
 			parent.find('.chart').removeClass('selected');
 			target.addClass('selected')
-			
-			if (target.hasClass('line-chart')) {
-				parent.attr('data-type', 'line');
-			} else if (target.hasClass('spider-chart'))  {
-				parent.attr('data-type','spider');
-			} else if (target.hasClass('bar-chart'))  {
-				parent.attr('data-type','bar');
-			} else {
-				parent.attr('data-type','scatter');		
-			}
-
+			parent.attr('data-type', targetType);
+			that.collection.get(widgetID).set({'chart-type':targetType});
 		};
 
 
@@ -125,7 +120,7 @@ define(['jquery',
 
 
 			
-		that.freezeBlocks = function() {
+		that.lockCharts = function() {
 
 			if ( !$('.gridster').length) {
 				return;
@@ -138,7 +133,7 @@ define(['jquery',
 		};
 		
 
-		that.removeStyingFromElement = function(element) {
+		that.removeStylingFromElement = function(element) {
 			$(element).find('span').toggleClass('hidden');
 			$(element).find('div').toggleClass('no-hover');
 			$(element).children().css({'border':'transparent'});
@@ -149,7 +144,7 @@ define(['jquery',
 		
 		that.removeStylingfromBlocks = function() {
 			var elements = $('.gridster')[0];
-			that.removeStyingFromElement(elements)
+			that.removeStylingFromElement(elements)
 			$('.gs-w').css({'border':'transparent'});
 			$('.gridster ul').css({'background-color':'transparent'});
 			$('i').remove();
@@ -163,16 +158,20 @@ define(['jquery',
 		};
 		
 		
-		that.bindBox = function() { 
+		that.enterWidgets = function() { 
 
 			var widgets = that.getWidgets(numberOfStreams);
 			that.bindGridsterToElement();
 		
 			widgets.forEach( function(widget, i){
-					var template = Mustache.to_html(that.widgetTemplate, {'index': 'indx_' +  (i + 1)});
+					var template = Mustache.to_html(that.widgetTemplate, {'index': (i + 1)});
 					widget = [template].concat(widget)
-					that.gridster.add_widget.apply(that.gridster, widget)  
-			});
+					that.gridster.add_widget.apply(that.gridster, widget);
+
+					var chartModel = new ChartModel({'chart-type':'scatter', 'id': i+1, 'label': i + 1});
+					that.collection.add(chartModel);
+
+			}); 
 		};
 				
 		

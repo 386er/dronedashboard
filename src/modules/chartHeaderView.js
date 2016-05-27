@@ -1,9 +1,13 @@
 define(['jquery',
 	'backbone',
-	'underscore'
+	'underscore',
+	'mustache',
+	'text!modules/templates/chartHeaderTemplate.html'
 ], function($,
 	Backbone,
-	_
+	_,
+	Mustache,
+	Template
 	) {
 
 	var ChartView = function() {
@@ -12,20 +16,20 @@ define(['jquery',
 		that.instanceID = 'chartHeaderView' + Date.now();
 
 
-		that.template = '<input value=""></input>'
-
-
 		that.assignElement = function(el) {
 			that.setElement(el);
-			that.setLine();
 		};
 
 
-		that.setLine = function() {
-			that.$el.html(that.template)
-		}
+		that.assignModel = function(model) {
+			that.model = model;
+		};
 
-		
+
+		that.render = function() {
+			var html = Mustache.to_html(Template, {'label': that.model.get('label')});
+			that.$el.html(html)
+		};
 
 	
 		that = new (Backbone.View.extend(that))();

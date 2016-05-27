@@ -20,24 +20,24 @@ define(['jquery',
 
 
 		that.initialize = function() {
-			that.gridsterController.bindBox();
+			that.gridsterController.enterWidgets();
 			that.gridsterController.on('gridCreated', function() {
-				that.getAllBlocks();
+				that.bindChartsToWidget();
 			}, that);
 
 			that.headerController.render();
 			that.headerController.on('dashboardLocked', function() {
-				that.gridsterController.freezeBlocks();
+				that.gridsterController.lockCharts();
 			});
 		};		
 		
 		
-		that.getAllBlocks = function() {
+		that.bindChartsToWidget = function() {
 			
-			var blocks = $('.gs-w');
+			var charts = $('.gs-w');
 
-			blocks.each(function(i, element) { 
-				that.gridsterController.createView(element);
+			charts.each(function(i, element) { 
+				that.gridsterController.createChartView(element);
 			})
 		};
 		

@@ -18,14 +18,18 @@ define(['jquery',
 	ScatterChart
 	) {
 
-	var ChartController = function() {
+	var ChartView = function() {
 		
 		var that = {};
 		that.instanceID = 'view' + Date.now();
 
 
 		that.createChart = function() {
-			var	type = that.$el.find('.widget-header').data('type');
+
+			var	
+				type = that.model.get('chart-type'),
+				element = that.$el.find('.chart-container');
+
 			if(type === 'spider') {
 				that.chart = new SpiderChart();
 			} else if (type === 'line') {
@@ -35,33 +39,29 @@ define(['jquery',
 			} else {
 				that.chart = new ScatterChart();
 			}
-		};
 
-
-		that.createHeader = function() {
-			that.header = new ChartHeaderView();
-		};
-
-
-		that.assignChartElement = function() {
-			var	element = that.$el.find('.chart-container');
 			that.chart.assignElement(element);
 		};
 
 
-		that.assignHeaderElement = function() {
+		that.createHeader = function() {
 			var	element = that.$el.find('.widget-header');
-			that.header.assignElement(element);
+			that.headerView = new ChartHeaderView();
+			that.headerView.assignElement(element);
+			that.headerView.assignModel(that.model);
 		};
 
 
-		
+		that.assignModel = function(model) {
+			that.model = model;
+		}
+
+
 		that.render = function() {
 			that.createChart();
-			that.assignChartElement();
 			that.createHeader()
-			that.assignHeaderElement();
 			that.chart.render();
+			that.headerView.render();
 		};
 
 	
@@ -73,6 +73,6 @@ define(['jquery',
 	
 
 
-	return ChartController;
+	return ChartView;
 
 });
