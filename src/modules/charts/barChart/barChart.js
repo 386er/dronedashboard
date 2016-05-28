@@ -147,12 +147,7 @@ define(['jquery',
 						.style('opacity', 1)
 
 				});
-
-			
-
-
-
-		}
+		};
 
 
 		that.assignElement = function(el) {
@@ -167,8 +162,16 @@ define(['jquery',
 				that.moveBarChart();
 				
 				},1900)
-
 		};
+
+
+		that.destroy = function() {
+			that.svg.selectAll('*').remove();
+			that.$el.html('')
+			that.$el.off();
+		};
+
+
 
 			
 		that = new (Backbone.View.extend(that))();

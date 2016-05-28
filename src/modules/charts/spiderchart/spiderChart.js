@@ -266,6 +266,14 @@ define(['jquery',
 
 		};
 
+
+
+		that.destroy = function() {
+			that.svg.selectAll('*').remove();
+			that.$el.html('')
+			that.$el.off();
+		};
+
 			
 		that = new (Backbone.View.extend(that))();
 		that.constructor.apply(that, arguments);

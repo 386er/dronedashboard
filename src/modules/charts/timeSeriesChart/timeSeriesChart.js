@@ -22,7 +22,7 @@ define(['jquery',
 		that.dataMin = Math.floor(d3.min(that.data));
 		that.dataMax = Math.ceil(d3.max(that.data));
 		that.currentHeight = 0;
-		that.margin = {top: 30, right: 20, bottom: 30, left: 40};
+		that.margin = {top: 10, right: 20, bottom: 10, left: 40};
 		that.now = new Date(Date.now() - that.duration);
 
 
@@ -170,6 +170,13 @@ define(['jquery',
 				that.data.shift();
 			}).transition().each("start", that.tick);
 
+		};
+
+
+		that.destroy = function() {
+			that.svg.selectAll('*').remove();
+			that.$el.html('')
+			that.$el.off();
 		};
 
 

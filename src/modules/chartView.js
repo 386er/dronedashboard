@@ -64,7 +64,14 @@ define(['jquery',
 			that.headerView.render();
 		};
 
-	
+		that.destroy = function() {
+			that.chart.destroy()
+			that.headerView.destroy();
+			that.chart = undefined;
+			that.headerView = undefined;
+		};	
+
+
 		that = new (Backbone.View.extend(that))();
 		that.constructor.apply(that, arguments);
 			

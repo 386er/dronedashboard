@@ -29,16 +29,33 @@ define(['jquery',
 			that.headerController.on('dashboardLocked', function() {
 				that.gridsterController.lockCharts();
 			});
+
+			that.headerController.on('dashboardUnLocked', function() {
+				that.gridsterController.unlockCharts();
+				that.gridsterController.destroyChartViews();
+			});
+
 		};		
 		
 		
 		that.bindChartsToWidget = function() {
-			
 			var charts = $('.gs-w');
 
 			charts.each(function(i, element) { 
 				that.gridsterController.createChartView(element);
 			})
+		};
+
+
+		that.removeChartsFromWidgets = function() {
+/*			var charts = $('.gs-w');
+
+			charts.each(function(i, element) { 
+				that.gridsterController.createChartView(element);
+			})*/
+			that.gridsterController.destroyChartViews();
+
+
 		};
 		
 

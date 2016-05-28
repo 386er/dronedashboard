@@ -31,6 +31,10 @@ define(['jquery',
 			that.$el.html(html)
 		};
 
+		that.destroy = function() {
+			that.$el.html('');
+		}
+
 	
 		that = new (Backbone.View.extend(that))();
 		that.constructor.apply(that, arguments);

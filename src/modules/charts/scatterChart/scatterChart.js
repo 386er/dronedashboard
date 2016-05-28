@@ -157,7 +157,6 @@ define(['jquery',
 		};
 
 
-
 		that.render = function() {
 			that.determineWidthAndHeight();
 			that.createSVG();
@@ -173,7 +172,14 @@ define(['jquery',
 			that.setElement(el);
 		};
 
-			
+	
+		that.destroy = function() {
+			that.svg.selectAll('*').remove();
+			that.$el.html('')
+			that.$el.off();
+		};
+
+
 		that = new (Backbone.View.extend(that))();
 		that.constructor.apply(that, arguments);
 			

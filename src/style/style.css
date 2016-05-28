@@ -129,6 +129,11 @@ font-weight: 600;
 	border-radius: 8px;
 }
 
+.disabled {
+	border: 1px solid transparent !important;
+}
+
+
 .gridster div {
 	font-size: 1em;
 	font-weight: bold;

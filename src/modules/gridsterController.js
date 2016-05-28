@@ -43,6 +43,7 @@ define(['jquery',
 		
 		that.gridster = undefined;
 		that.collection = new ChartModelCollection();
+		that.chartViews = [];
 		
 		that.events = {
 			'click .cancel-chart': 'cancelWidget',
@@ -61,8 +62,18 @@ define(['jquery',
 				view = new ChartView({el: '#' + elementID});
 				chartModel = that.collection.get(elementID);
 
+			that.chartViews.push(view); //TODO seperate Collection für anlegen
 			view.assignModel(chartModel);	
 			view.render();
+		};
+
+
+		that.destroyChartViews = function() {
+			that.chartViews.forEach( function(view) {
+				view.destroy();
+				view = undefined;
+			});
+			that.chartViews = [];
 		};
 
 
@@ -127,30 +138,44 @@ define(['jquery',
 			}
 
 			that.$el.off();		
-			that.removeStylingfromBlocks();
+			that.toggleBlockStyling();
 			that.gridster.disable();
 			that.trigger('gridCreated');
 		};
+
+
+		that.unlockCharts = function() {
+
+			if ( !$('.gridster').length) {
+				return;
+			}
+
+			that.$el.on();		
+			that.toggleBlockStyling();
+			that.gridster.enable();
+		};
 		
 
-		that.removeStylingFromElement = function(element) {
+		that.toggleElementStyling = function(element) {
 			$(element).find('span').toggleClass('hidden');
 			$(element).find('div').toggleClass('no-hover');
-			$(element).children().css({'border':'transparent'});
-			$(element).find('i').remove();
-			$(element).find('span').remove();
 		};
 
 		
-		that.removeStylingfromBlocks = function() {
+		that.toggleBlockStyling = function() {
 			var elements = $('.gridster')[0];
-			that.removeStylingFromElement(elements)
-			$('.gs-w').css({'border':'transparent'});
-			$('.gridster ul').css({'background-color':'transparent'});
-			$('i').remove();
-			$('span').remove();
+			that.toggleElementStyling(elements)
+			$('.gs-w').toggleClass('disabled')
+			$('.gridster ul').toggleClass('disabled')
 		};
 		
+
+		that.renderWidget = function(model) {
+
+
+		}
+
+
 		
 		that.cancelWidget = function(event) {
 			//TODO trigger mouseup event to resize Element
@@ -164,13 +189,11 @@ define(['jquery',
 			that.bindGridsterToElement();
 		
 			widgets.forEach( function(widget, i){
-					var template = Mustache.to_html(that.widgetTemplate, {'index': (i + 1)});
-					widget = [template].concat(widget)
-					that.gridster.add_widget.apply(that.gridster, widget);
-
-					var chartModel = new ChartModel({'chart-type':'scatter', 'id': i+1, 'label': i + 1});
+					var chartModel = new ChartModel({'id': i+1, 'label': i + 1});
+					var template = Mustache.to_html(that.widgetTemplate, chartModel.toJSON());
+					// TODO Create directly ChartView
 					that.collection.add(chartModel);
-
+					that.gridster.add_widget(template, widget[0], widget[1])
 			}); 
 		};
 				
