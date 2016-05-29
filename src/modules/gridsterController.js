@@ -48,32 +48,24 @@ define(['jquery',
 		that.events = {
 			'click .cancel-chart': 'cancelWidget',
 			'click .chart': 'selectChartType',
-			'mouseover .gs-w': 'showCancelButton',
-			'mouseleave .gs-w': 'hideSelectButtons',
+/*			'mouseover .gs-w': 'showCancelButton',
+			'mouseleave .gs-w': 'hideSelectButtons',*/
 		};
 		
 		
+		that.renderChartView = function() { 
 
-
-		that.createChartView = function(element) { 
-
-			var
-				elementID = element.id,
-				view = new ChartView({el: '#' + elementID});
-				chartModel = that.collection.get(elementID);
-
-			that.chartViews.push(view); //TODO seperate Collection für anlegen
-			view.assignModel(chartModel);	
-			view.render();
+			that.chartViews.forEach(function(view) {
+				view.render();
+			})
 		};
 
 
-		that.destroyChartViews = function() {
+		that.clearChartViews = function() {
 			that.chartViews.forEach( function(view) {
-				view.destroy();
-				view = undefined;
+				view.clearChart();
 			});
-			that.chartViews = [];
+/*			that.chartViews = [];*/
 		};
 
 
@@ -95,7 +87,7 @@ define(['jquery',
 		that.gridTemplate =  '<ul></ul>';
 
 		
-
+/*
 		that.showCancelButton = function(event) {
 			var buttons = event.target.parentElement.children;
 			$('.chart').not(buttons).addClass('transparent');
@@ -106,10 +98,10 @@ define(['jquery',
 
 		that.hideSelectButtons = function(event) {
 			$(event.target).find('.chart').addClass('transparent');
-		};			
+		};	*/		
 
 
-		that.selectChartType = function(event) {
+/*		that.selectChartType = function(event) {
 
 			var 
 				target = $(event.target),
@@ -122,7 +114,7 @@ define(['jquery',
 			target.addClass('selected')
 			parent.attr('data-type', targetType);
 			that.collection.get(widgetID).set({'chart-type':targetType});
-		};
+		};*/
 
 
 		that.bindGridsterToElement = function() {
@@ -140,7 +132,8 @@ define(['jquery',
 			that.$el.off();		
 			that.toggleBlockStyling();
 			that.gridster.disable();
-			that.trigger('gridCreated');
+			/*that.bindChartsToWidgets();*/
+			that.renderChartView();
 		};
 
 
@@ -170,12 +163,6 @@ define(['jquery',
 		};
 		
 
-		that.renderWidget = function(model) {
-
-
-		}
-
-
 		
 		that.cancelWidget = function(event) {
 			//TODO trigger mouseup event to resize Element
@@ -190,11 +177,29 @@ define(['jquery',
 		
 			widgets.forEach( function(widget, i){
 					var chartModel = new ChartModel({'id': i+1, 'label': i + 1});
-					var template = Mustache.to_html(that.widgetTemplate, chartModel.toJSON());
-					// TODO Create directly ChartView
+					var html = Mustache.to_html(that.widgetTemplate, chartModel.toJSON());
 					that.collection.add(chartModel);
-					that.gridster.add_widget(template, widget[0], widget[1])
+					that.gridster.add_widget(html, widget[0], widget[1])
+
 			}); 
+		};
+
+
+
+		that.bindChartsToWidgets = function() {
+			var widgetIDs = _.range(1, numberOfStreams + 1);
+
+			widgetIDs.forEach(function(widgetID) {
+				var 
+					element = $('#' + widgetID).find('.chart-wrapper'),
+					chartModel = that.collection.get(widgetID);
+
+				view = new ChartView();
+				view.assignElement(element);
+				view.assignModel(chartModel);
+				view.populateElement();	
+				that.chartViews.push(view); 
+			});
 		};
 				
 		

@@ -59,9 +59,9 @@ fill: white;
 	left: 80%;
 	font-size: 30px;
 	top: 30px;
-	width:220px;
+	width:110px;
 	padding: 12px 10px 2px 8px;
-	border: 1px solid #9C9C9C;
+	border: 1px solid #808080;;
 	color:#D2D2D2;
 	border-radius: 5px;
 	box-shadow: 2px 2px 2px 0px #3C3C3C;
@@ -76,16 +76,21 @@ fill: white;
 
 
 .launcher-label {
-font-size:20px;
+font-size:15px;
 font-family:Arial;
 position:relative;
 float:left;
-font-weight: 600;	
+width:80px;
+text-align: center;
+font-weight: 600;
+margin-top:3px;
 }
 
 .launcher-icon {
  float:right;
  top:-5px;
+ right:5px;
+ position: relative;
 }
 
 
@@ -170,6 +175,11 @@ border: 1px dotted #6B6B6B;
 .widget-header:hover {
 	background-color: #C5C5C5;
 	border-radius: 5px 5px 0px 0px;
+}
+
+
+.chart-wrapper {
+height:100%;
 }
 
 .widget-header > input {

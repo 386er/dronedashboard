@@ -21,9 +21,7 @@ define(['jquery',
 
 		that.initialize = function() {
 			that.gridsterController.enterWidgets();
-			that.gridsterController.on('gridCreated', function() {
-				that.bindChartsToWidget();
-			}, that);
+			that.gridsterController.bindChartsToWidgets();
 
 			that.headerController.render();
 			that.headerController.on('dashboardLocked', function() {
@@ -32,33 +30,16 @@ define(['jquery',
 
 			that.headerController.on('dashboardUnLocked', function() {
 				that.gridsterController.unlockCharts();
-				that.gridsterController.destroyChartViews();
+				that.gridsterController.clearChartViews();
 			});
 
 		};		
 		
+
+/*		that.removeChartsFromWidgets = function() {
+			that.gridsterController.clearChartViews();
+		};*/
 		
-		that.bindChartsToWidget = function() {
-			var charts = $('.gs-w');
-
-			charts.each(function(i, element) { 
-				that.gridsterController.createChartView(element);
-			})
-		};
-
-
-		that.removeChartsFromWidgets = function() {
-/*			var charts = $('.gs-w');
-
-			charts.each(function(i, element) { 
-				that.gridsterController.createChartView(element);
-			})*/
-			that.gridsterController.destroyChartViews();
-
-
-		};
-		
-
 
 		that = new (Backbone.View.extend(that))();
 		return that;

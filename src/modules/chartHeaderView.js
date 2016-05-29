@@ -14,6 +14,9 @@ define(['jquery',
 		
 		var that = {};
 		that.instanceID = 'chartHeaderView' + Date.now();
+		that.events = {'blur .chart-label': 'setLabel',
+					   'keyup .chart-label': 'checkKey'
+		}
 
 
 		that.assignElement = function(el) {
@@ -26,6 +29,19 @@ define(['jquery',
 		};
 
 
+		that.setLabel = function(event) {
+			var label = event.target.value;
+			that.model.set({'label': label})
+		}
+
+		that.checkKey = function(event) {
+			if (event.keyCode == 13) {
+				that.$el.find('.chart-label:focus').blur();
+				that.setLabel(event);
+			}
+		};
+
+		
 		that.render = function() {
 			var html = Mustache.to_html(Template, {'label': that.model.get('label')});
 			that.$el.html(html)
