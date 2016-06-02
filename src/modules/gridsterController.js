@@ -6,6 +6,7 @@ define(['jquery',
 	'gridster',
 	'd3',
 	'modules/chartView',
+	'modules/chartViewCollection',
 	'modules/chartModelCollection',
 	'modules/chartModel',
 	'text!modules/templates/widgetTemplate.html'
@@ -16,6 +17,7 @@ define(['jquery',
 	Gridster,
 	d3,
 	ChartView,
+	ChartViewCollection,
 	ChartModelCollection,
 	ChartModel,
 	WidgetTemplate
@@ -42,30 +44,26 @@ define(['jquery',
 		};
 		
 		that.gridster = undefined;
-		that.collection = new ChartModelCollection();
-		that.chartViews = [];
-		
+		that.modelCollection = new ChartModelCollection();
+		that.viewCollection = new ChartViewCollection();
+		that.widgetTemplate = WidgetTemplate; 				
+		that.gridTemplate =  '<ul></ul>';		
 		that.events = {
 			'click .cancel-chart': 'cancelWidget',
-			'click .chart': 'selectChartType',
-/*			'mouseover .gs-w': 'showCancelButton',
-			'mouseleave .gs-w': 'hideSelectButtons',*/
 		};
 		
 		
 		that.renderChartView = function() { 
-
-			that.chartViews.forEach(function(view) {
+			that.viewCollection.getViews().forEach(function(view) {
 				view.render();
 			})
 		};
 
 
 		that.clearChartViews = function() {
-			that.chartViews.forEach( function(view) {
+			that.viewCollection.getViews().forEach( function(view) {
 				view.clearChart();
 			});
-/*			that.chartViews = [];*/
 		};
 
 
@@ -79,72 +77,28 @@ define(['jquery',
 		};
 
 
-
-		that.widgetTemplate = WidgetTemplate; 
-							
-
-								
-		that.gridTemplate =  '<ul></ul>';
-
-		
-/*
-		that.showCancelButton = function(event) {
-			var buttons = event.target.parentElement.children;
-			$('.chart').not(buttons).addClass('transparent');
-			$(event.target).find('.chart').removeClass('transparent');
-
-		};
-		
-
-		that.hideSelectButtons = function(event) {
-			$(event.target).find('.chart').addClass('transparent');
-		};	*/		
-
-
-/*		that.selectChartType = function(event) {
-
-			var 
-				target = $(event.target),
-				targetType = target.data('type')
-				parent = target.parent(),
-				widget = parent.parent(),
-				widgetID = widget[0].id;
-
-			parent.find('.chart').removeClass('selected');
-			target.addClass('selected')
-			parent.attr('data-type', targetType);
-			that.collection.get(widgetID).set({'chart-type':targetType});
-		};*/
-
-
 		that.bindGridsterToElement = function() {
 			that.gridster = $(".gridster > ul").gridster(that.gridsterConfiguration).data('gridster');
 		};
 
-
 			
 		that.lockCharts = function() {
-
 			if ( !$('.gridster').length) {
 				return;
 			}
-
 			that.$el.off();		
-			that.toggleBlockStyling();
+			that.toggleWidgetStyling();
 			that.gridster.disable();
-			/*that.bindChartsToWidgets();*/
 			that.renderChartView();
 		};
 
 
 		that.unlockCharts = function() {
-
 			if ( !$('.gridster').length) {
 				return;
 			}
-
-			that.$el.on();		
-			that.toggleBlockStyling();
+			that.delegateEvents();		
+			that.toggleWidgetStyling();
 			that.gridster.enable();
 		};
 		
@@ -155,7 +109,7 @@ define(['jquery',
 		};
 
 		
-		that.toggleBlockStyling = function() {
+		that.toggleWidgetStyling = function() {
 			var elements = $('.gridster')[0];
 			that.toggleElementStyling(elements)
 			$('.gs-w').toggleClass('disabled')
@@ -166,7 +120,12 @@ define(['jquery',
 		
 		that.cancelWidget = function(event) {
 			//TODO trigger mouseup event to resize Element
+			var widget = $(event.target).closest('.gs-w');
+			var id = widget[0].id;
+
+			that.viewCollection.remove(id)
 			that.gridster.remove_widget($(event.target).closest('.gs-w'), 10);
+
 		};
 		
 		
@@ -178,12 +137,11 @@ define(['jquery',
 			widgets.forEach( function(widget, i){
 					var chartModel = new ChartModel({'id': i+1, 'label': i + 1});
 					var html = Mustache.to_html(that.widgetTemplate, chartModel.toJSON());
-					that.collection.add(chartModel);
+					that.modelCollection.add(chartModel);
 					that.gridster.add_widget(html, widget[0], widget[1])
 
 			}); 
 		};
-
 
 
 		that.bindChartsToWidgets = function() {
@@ -192,13 +150,13 @@ define(['jquery',
 			widgetIDs.forEach(function(widgetID) {
 				var 
 					element = $('#' + widgetID).find('.chart-wrapper'),
-					chartModel = that.collection.get(widgetID);
+					chartModel = that.modelCollection.get(widgetID);
 
 				view = new ChartView();
 				view.assignElement(element);
 				view.assignModel(chartModel);
 				view.populateElement();	
-				that.chartViews.push(view); 
+				that.viewCollection.add(view);
 			});
 		};
 				

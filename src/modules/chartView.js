@@ -28,7 +28,6 @@ define(['jquery',
 		that.instanceID = 'view' + Date.now();
 		that.widgetTemplate = WidgetTemplate;
 		that.events = {
-/*			'click .cancel-chart': 'cancelWidget',*/
 			'click .chart': 'selectChartType',
 			'mouseover .widget-header': 'showCancelButton',
 			'mouseleave .widget-header': 'hideSelectButtons',
@@ -103,29 +102,27 @@ define(['jquery',
 
 			var 
 				target = $(event.target),
-				targetType = target.data('type')
-/*				parent = target.parent(),
-				widget = parent.parent(),
-				widgetID = widget[0].id;*/
+				targetType = target.data('type');
 
-/*			parent.find('.chart').removeClass('selected');
-			target.addClass('selected');
-			parent.attr('data-type', targetType);*/
+			if (target.hasClass('cancel-chart') === true) {
+				return;
+			}	
+				
 			that.model.set({'chart-type':targetType});
 			that.updateTemplateData()
 			that.populateElement();
-			that.$el.find('.chart').toggleClass('transparent')
+			that.$el.find('.chart').toggleClass('transparent');
 		};
-
-
-
-
-
 
 
 
 		that.assignModel = function(model) {
 			that.model = model;
+		}
+
+
+		that.getModelID = function() {
+			return that.model.get('id');	
 		}
 
 
@@ -153,8 +150,6 @@ define(['jquery',
 			that.chart = undefined;
 			that.headerView = undefined;
 			that.populateElement();
-/*			var html = Mustache.to_html(that.widgetTemplate, that.model.toJSON());
-			that.$el.html(html);*/
 		};	
 
 
