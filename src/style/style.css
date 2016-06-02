@@ -36,9 +36,9 @@ html {
 
 
 .fyke-svg-container {
-height: 75px;
-margin-top:5px;
-margin-left: 11.5%;
+    height: 75px;
+    margin-top: 0px;
+    margin-left: 6.5%;
 }
 
 
@@ -50,64 +50,81 @@ fill: white;
 .title-container {
     left: 110px;
     font-size: 50px;
-    position: absolute;
-    top: 15px;
+    position: relative;
+    float:left;
 }
 
-.launcher {
-	position: absolute;
-	left: 80%;
-	font-size: 30px;
-	top: 30px;
-	width:110px;
-	padding: 12px 10px 2px 8px;
-	border: 1px solid #808080;;
-	color:#D2D2D2;
-	border-radius: 5px;
-	box-shadow: 2px 2px 2px 0px #3C3C3C;
-}
-
-.launcher:hover {
-	color: white;
-	border: 1px solid white;
-	cursor: pointer;
+.launcher-container {
+    width: 170px;
+    height: 50px;
+	position: relative;
+    float: right;
+    margin-right: 10%;
+    margin-top: 15px;
 }
 
 
-
-.launcher-label {
-font-size:15px;
-font-family:Arial;
-position:relative;
-float:left;
-width:80px;
-text-align: center;
-font-weight: 600;
-margin-top:3px;
+.launcher-switch-container {
+  width:90px;
+  height:45px;
+  border:1px solid gray;
+  border-left: 0px;
+  border-radius: 30px;
+  position:relative;
+  cursor: pointer;
+  background-color:gray;
+  box-shadow: inset 2px 1px 4px 0px black;
+  float:left;
+  margin-left:10px;
 }
+
+
+
+.launcher-switch {
+position: absolute;
+height:43px;
+width:43px;
+border-radius:30px;
+border:1px solid #5F5F5F;
+background-color:#BDBDBD;
+margin-left: 45px;
+-moz-transition-duration: 400ms;
+-o-transition-duration: 400ms;
+-webkit-transition-duration: 400ms;
+transition-duration: 400ms;
+}
+
+.launcher-switch.locked {
+margin-left:-1px;
+box-shadow: 2px 0px 5px 0px #333333;
+background-color: #F3F5F6;
+}
+
 
 .launcher-icon {
- float:right;
- top:-5px;
- right:5px;
- position: relative;
+font-size:36px !important;
+position: relative !important;
+margin-top:5px;
+-moz-transition-duration: 400ms;
+-o-transition-duration: 400ms;
+-webkit-transition-duration: 400ms;#5F5F5F
+transition-duration: 400ms;
 }
 
 
-.locked,
-.locked:hover 
-{
-	color: #717171;
-	cursor:default;
-	border: 1px solid gray;
-	background-color: #9C9C9C;
-	box-shadow: inset 2px 2px 2px 0px #656565;
-}	
+.launcher-icon.locked {
+ color: whitesmoke;
+}
 
-.locked:hover {
+.lock {
+	float:left;
 	color:gray;
 }
 
+.unlock {
+	float:right;
+	color:#696969;
+}
 
 
 .wrapper {
@@ -124,9 +141,7 @@ margin-top:3px;
 	margin-bottom: 20px;
 }
 
-/*/
-/* gridster
-/*/
+
 
 .gridster ul {
 	background-color: #F1F0F0;

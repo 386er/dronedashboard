@@ -22,19 +22,26 @@ define(['jquery',
 
 		
 		that.events = {
-			'click .launcher': 'lockDashboard',
-			'click .launcher.locked': 'unLockDashboard'
+			'click .launcher-switch-container': 'lockDashboard',
+			'click .launcher-switch-container.locked': 'unLockDashboard'
 		};
 		
 
 		that.render = function() {
 
-			var currentState = {'isLocked': that.isLauncherLocked};
-			var html = Mustache.to_html(LauncherTemplate, currentState);
+/*			var currentState = {'isLocked': that.isLauncherLocked};*/
+			var html = Mustache.to_html(LauncherTemplate);
 			that.$el.find('.launcher-container').html(html);
-		}
+		}			
 
 		
+		that.toggleSwitch = function() {
+			that.$el.find('.launcher-switch').toggleClass('locked')
+			that.$el.find('.launcher-switch-container').toggleClass('locked')
+			that.$el.find('.launcher-icon').toggleClass('locked')
+		}
+
+
 		that.lockDashboard = function() {
 
 			if (that.isLauncherLocked === true) {
@@ -42,7 +49,7 @@ define(['jquery',
 			}
 			that.trigger('dashboardLocked');
 			that.isLauncherLocked = true;
-			that.render();
+			that.toggleSwitch();
 		};
 
 		that.unLockDashboard = function() {
@@ -52,7 +59,7 @@ define(['jquery',
 			}
 			that.trigger('dashboardUnLocked');
 			that.isLauncherLocked = false;
-			that.render();
+			that.toggleSwitch();
 		};
 
 		
