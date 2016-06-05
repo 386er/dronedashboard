@@ -22,7 +22,7 @@ define(['jquery',
 			socket.on('spiderData', function(data){
 				console.log(data);						
 			})*/			
-			var dashboardController = new DashboardController(5);
+			var dashboardController = new DashboardController(9);
 		}
 	};
 

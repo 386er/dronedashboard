@@ -38,7 +38,7 @@ html {
 .fyke-svg-container {
     height: 75px;
     margin-top: 0px;
-    margin-left: 6.5%;
+    margin-left: 130px;
 }
 
 
@@ -75,7 +75,7 @@ fill: white;
   background-color:gray;
   box-shadow: inset 2px 1px 4px 0px black;
   float:left;
-  margin-left:10px;
+  margin-left:25px;
 }
 
 
@@ -102,9 +102,9 @@ background-color: #F3F5F6;
 
 
 .launcher-icon {
-font-size:36px !important;
+font-size:24px !important;
 position: relative !important;
-margin-top:5px;
+margin-top:12px;
 -moz-transition-duration: 400ms;
 -o-transition-duration: 400ms;
 -webkit-transition-duration: 400ms;#5F5F5F
@@ -114,14 +114,18 @@ transition-duration: 400ms;
 
 .launcher-icon.locked {
  color: whitesmoke;
+ font-size:36px !important;
+ margin-top:5px;
 }
 
 .lock {
+	width:15px;
 	float:left;
-	color:gray;
+	color:#696969;
 }
 
 .unlock {
+	width:15px;
 	float:right;
 	color:#696969;
 }
