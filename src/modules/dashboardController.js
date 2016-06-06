@@ -34,12 +34,7 @@ define(['jquery',
 			});
 
 		};		
-		
-
-/*		that.removeChartsFromWidgets = function() {
-			that.gridsterController.clearChartViews();
-		};*/
-		
+				
 
 		that = new (Backbone.View.extend(that))();
 		return that;
