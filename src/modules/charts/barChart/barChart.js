@@ -156,18 +156,17 @@ define(['jquery',
 
 
 		that.animateChart = function() {
-
-			setInterval(function() {
-
+			that.animation = setInterval(function() {
 				that.moveBarChart();
-				
-				},1900)
+			},1900)
 		};
 
 
 		that.destroy = function() {
+			clearInterval(that.animation);
+			that.animation = undefined;
 			that.svg.selectAll('*').remove();
-			that.$el.html('')
+			that.$el.html('');
 			that.$el.off();
 		};
 

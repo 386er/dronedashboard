@@ -147,13 +147,9 @@ define(['jquery',
 
 
 		that.animateChart = function() {
-
-			setInterval(function() {
-
-				that.appendDataPoint();
-				
-				},500)
-
+			that.animation = setInterval(function() {
+				that.appendDataPoint();	
+			},500);
 		};
 
 
@@ -174,6 +170,8 @@ define(['jquery',
 
 	
 		that.destroy = function() {
+			clearInterval(that.animation);
+			that.animation = undefined;
 			that.svg.selectAll('*').remove();
 			that.$el.html('')
 			that.$el.off();

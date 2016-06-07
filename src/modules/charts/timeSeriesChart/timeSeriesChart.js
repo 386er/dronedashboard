@@ -24,6 +24,7 @@ define(['jquery',
 		that.currentHeight = 0;
 		that.margin = {top: 10, right: 20, bottom: 10, left: 40};
 		that.now = new Date(Date.now() - that.duration);
+		that.interruptTransition = false;
 
 
 		that.assignElement = function(el) {
@@ -149,6 +150,11 @@ define(['jquery',
 
 		that.tick = function() {
 
+			if (that.interruptTransition == true) {
+				that.transition = undefined;
+				return;
+			}
+
 			that.transition = that.transition.each(function() {
 
 				that.data.push(that.random());
@@ -174,6 +180,7 @@ define(['jquery',
 
 
 		that.destroy = function() {
+			that.interruptTransition = true;
 			that.svg.selectAll('*').remove();
 			that.$el.html('')
 			that.$el.off();

@@ -250,8 +250,7 @@ define(['jquery',
 
 		that.animateChart = function() {
 
-		setInterval(function() {
-
+		that.animation = setInterval(function() {
 			that.polygon.data([that.createPolygonData(that.edges)])
 				.transition()
 				.duration(1000)
@@ -262,13 +261,14 @@ define(['jquery',
 					}).join(" ");
 				})
 
-			},1100)
-
+			},1100);
 		};
 
 
 
 		that.destroy = function() {
+			clearInterval(that.animation);
+			that.animation = undefined;
 			that.svg.selectAll('*').remove();
 			that.$el.html('')
 			that.$el.off();
