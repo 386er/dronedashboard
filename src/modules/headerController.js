@@ -23,7 +23,8 @@ define(['jquery',
 		
 		that.events = {
 			'click .launcher-switch-container': 'lockDashboard',
-			'click .launcher-switch-container.locked': 'unLockDashboard'
+			'click .launcher-switch-container.locked': 'unLockDashboard',
+			'click .tab': 'changeInterfaceView'
 		};
 		
 
@@ -61,6 +62,20 @@ define(['jquery',
 			that.isLauncherLocked = false;
 			that.toggleSwitch();
 		};
+
+
+		that.changeInterfaceView = function(event) {
+
+			if( $(event.target).hasClass('selected')) {
+				return;
+			}
+
+			var tab = $(event.target).data('tab');
+			that.$el.find('.tab').removeClass('selected');
+			that.$el.find(event.target).addClass('selected');
+			that.trigger('interFaceChange', [tab, tab + 2 ]);
+		};
+
 
 		
 		that = new (Backbone.View.extend(that))();

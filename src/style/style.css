@@ -50,32 +50,49 @@ html {
 	position: relative;
 }
 
+.dashboard-tab {
 
-/*.fyke-svg-container svg {
-fill: white;
 }
-*/
 
 
-
-.dashboard-tab,
 .analytics-tab {
+margin-left:15px !important;
+}
+
+.tab {
 position: relative;
 float: left;
-height:100%;
-width:300px;
-border:1px solid white;
+height: 41px;
+width: 220px;
+margin-top: 33px;
+margin-left: 100px;
+border: 1px solid #C1C0C0;
+text-align: center;
+font-size: 21px;
+padding-top: 10px;
+border-radius: 5px 5px 0px 0px;
+border-bottom: 5px solid #BFBFBF;
+box-shadow: 5px -1px 15px -5px black;
+cursor:pointer;
 }
 
+
+.tab.selected {
+	background-color: #777777;
+	color: #D8D8D8;
+	border: 1px solid #868686;
+	box-shadow: inset 3px 3px 10px -1px #1B1B1B;
+	border-bottom: 5px solid #D8D8D8;
+}
 
 
 .launcher-container {
-    width: 170px;
-    height: 50px;
-	position: relative;
-    float: right;
-    margin-right: 10%;
-    margin-top: 15px;
+width: 170px;
+height: 50px;
+position: relative;
+float: right;
+margin-right: 10%;
+margin-top: 15px;
 }
 
 

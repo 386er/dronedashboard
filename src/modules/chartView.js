@@ -70,7 +70,6 @@ define(['jquery',
 
 
 		that.showCancelButton = function(event) {
-			console.log('hover')
 			var buttons = event.target.parentElement.children;
 			$('.chart').not(buttons).addClass('transparent');
 			$(event.target).find('.chart').removeClass('transparent');
