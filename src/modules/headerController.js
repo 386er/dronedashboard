@@ -32,7 +32,7 @@ define(['jquery',
 
 /*			var currentState = {'isLocked': that.isLauncherLocked};*/
 			var html = Mustache.to_html(LauncherTemplate);
-			that.$el.find('.launcher-container').html(html);
+			that.$el.html(html);
 		}			
 
 		
