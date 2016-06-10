@@ -119,12 +119,11 @@ define(['jquery',
 
 		
 		that.cancelWidget = function(event) {
-			//TODO trigger mouseup event to resize Element
 			var widget = $(event.target).closest('.gs-w');
 			var id = widget[0].id;
 
 			that.viewCollection.remove(id)
-			that.gridster.remove_widget($(event.target).closest('.gs-w'), 10);
+			that.gridster.remove_widget(widget, 0);
 
 		};
 		
@@ -159,6 +158,21 @@ define(['jquery',
 				that.viewCollection.add(view);
 			});
 		};
+
+
+		that.destroy = function() {
+			var widgets = that.$el.find('.gs-w');
+
+			_.each(widgets, function(widget) {
+				that.gridster.remove_widget(widget, 0);
+			});
+
+			that.modelCollection = undefined;
+			that.viewCollection = undefined;
+			that.$el.off();
+		};
+
+
 				
 		
 		that = new (Backbone.View.extend(that))();
