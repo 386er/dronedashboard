@@ -19,6 +19,7 @@ define(['jquery',
 		
 		that.el ='.header';
 		that.isLauncherLocked = false;
+		that.currentView = 'dashboard';
 
 		
 		that.events = {
@@ -64,6 +65,11 @@ define(['jquery',
 		};
 
 
+		that.getCurrentView = function() {
+			return that.currentView;
+		};
+
+
 		that.changeInterfaceView = function(event) {
 
 			if( $(event.target).hasClass('selected')) {
@@ -73,7 +79,7 @@ define(['jquery',
 			var tab = $(event.target).data('tab');
 			that.$el.find('.tab').removeClass('selected');
 			that.$el.find(event.target).addClass('selected');
-			that.trigger('interFaceChange', [tab, tab + 2 ]);
+			that.trigger('interFaceChange', [tab]);
 		};
 
 

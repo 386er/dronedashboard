@@ -8,7 +8,7 @@ define(['jquery',
 	'modules/charts/timeSeriesChart/timeSeriesChart',
 	'modules/charts/barChart/barChart',
 	'modules/charts/scatterChart/scatterChart',
-	'text!modules/templates/widgetTemplate2.html'
+	'text!modules/templates/chartHeaderMenuTemplate.html'
 ], function($,
 	Backbone,
 	_,
@@ -19,14 +19,14 @@ define(['jquery',
 	TimeSeriesChart,
 	BarChart,
 	ScatterChart,
-	WidgetTemplate
+	ChartHeaderMenuTemplate
 	) {
 
 	var ChartView = function() {
 		
 		var that = {};
 		that.instanceID = 'view' + Date.now();
-		that.widgetTemplate = WidgetTemplate;
+		that.chartheaderMenuTemplate = ChartHeaderMenuTemplate;
 		that.events = {
 			'click .chart': 'selectChartType',
 			'mouseover .widget-header': 'showCancelButton',
@@ -131,7 +131,7 @@ define(['jquery',
 
 
 		that.populateElement = function() {
-			var html = Mustache.to_html(that.widgetTemplate, that.templateData);
+			var html = Mustache.to_html(that.chartheaderMenuTemplate, that.templateData);
 			that.$el.html(html);
 		};
 

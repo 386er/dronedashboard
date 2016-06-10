@@ -3,30 +3,31 @@ define(['jquery',
 	'backbone',
 	'underscore',
 	'modules/gridsterController',
-	'modules/headerController'
+	'modules/headerController',
+	'text!modules/templates/streamListTemplate.html'
 ], function($,
 	Backbone,
 	_,
 	GridsterController,
-	HeaderController
+	HeaderController,
+	StreamListTemplate
 	) {
 
 	var DashboardController = function(numberOfStreams) {
 
 		var that = {};		
-		that.gridsterController = new GridsterController(numberOfStreams);
 
+		that.el ='.wrapper';
 
 		that.assignHeaderController = function(headerController) {
 			that.headerController = headerController;
 		}
 
 
-		that.launchDashboard = function() {
+/*		that.launchDashboard = function() {
 
-/*			that.gridsterController.enterWidgets();
-			that.gridsterController.bindChartsToWidgets();*/
-			that.gridsterController.render();
+			that.gridsterController.enterWidgets();
+			that.gridsterController.bindChartsToWidgets();
 
 			that.headerController.render();
 			that.headerController.on('dashboardLocked', function() {
@@ -45,8 +46,15 @@ define(['jquery',
 				that.gridsterController = undefined;
 				that.trigger('gridsterControllerDestroyed');
 			});
-		};
+		};*/
 		
+
+
+		that.render = function() {
+			that.$el.html(StreamListTemplate)
+		}
+
+
 
 		that = new (Backbone.View.extend(that))();
 		return that;

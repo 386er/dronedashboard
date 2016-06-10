@@ -9,7 +9,8 @@ define(['jquery',
 	'modules/chartViewCollection',
 	'modules/chartModelCollection',
 	'modules/chartModel',
-	'text!modules/templates/widgetTemplate.html'
+	'text!modules/templates/widgetTemplate.html',
+	'text!modules/templates/gridsterTemplate.html'
 ], function($,
 	Backbone,
 	_,
@@ -20,7 +21,8 @@ define(['jquery',
 	ChartViewCollection,
 	ChartModelCollection,
 	ChartModel,
-	WidgetTemplate
+	WidgetTemplate,
+	GridsterTemplate
 	) {
 
 
@@ -46,8 +48,7 @@ define(['jquery',
 		that.gridster = undefined;
 		that.modelCollection = new ChartModelCollection();
 		that.viewCollection = new ChartViewCollection();
-		that.widgetTemplate = WidgetTemplate; 				
-		that.gridTemplate =  '<ul></ul>';		
+		that.widgetTemplate = WidgetTemplate; 					
 		that.events = {
 			'click .cancel-chart': 'cancelWidget',
 		};
@@ -160,6 +161,18 @@ define(['jquery',
 		};
 
 
+		that.render = function() {
+			that.renderTemplate();
+			that.enterWidgets();
+			that.bindChartsToWidgets();
+		}
+
+
+		that.renderTemplate = function() {
+			that.$el.html(GridsterTemplate);
+		}
+
+
 		that.destroy = function() {
 			var widgets = that.$el.find('.gs-w');
 
@@ -169,6 +182,7 @@ define(['jquery',
 
 			that.modelCollection = undefined;
 			that.viewCollection = undefined;
+			that.off();
 			that.$el.off();
 		};
 

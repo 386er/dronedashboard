@@ -78,11 +78,11 @@ cursor:pointer;
 
 
 .tab.selected {
-	background-color: #777777;
-	color: #D8D8D8;
-	border: 1px solid #868686;
-	box-shadow: inset 3px 3px 10px -1px #1B1B1B;
-	border-bottom: 5px solid #D8D8D8;
+background-color: #777777;
+color: #D8D8D8;
+border: 1px solid #868686;
+box-shadow: inset 3px 3px 10px -1px #1B1B1B;
+border-bottom: 5px solid #D8D8D8;
 }
 
 
@@ -97,17 +97,17 @@ margin-top: 15px;
 
 
 .launcher-switch-container {
-  width:90px;
-  height:45px;
-  border:1px solid gray;
-  border-left: 0px;
-  border-radius: 30px;
-  position:relative;
-  cursor: pointer;
-  background-color:gray;
-  box-shadow: inset 2px 1px 4px 0px black;
-  float:left;
-  margin-left:25px;
+width:90px;
+height:45px;
+border:1px solid gray;
+border-left: 0px;
+border-radius: 30px;
+position:relative;
+cursor: pointer;
+background-color:gray;
+box-shadow: inset 2px 1px 4px 0px black;
+float:left;
+margin-left:25px;
 }
 
 
@@ -363,5 +363,28 @@ transition: background-color 600ms, transform 600ms;
 	font-family: arial;
 	font-size:11px;
 	font-weight: bold;
+}
+
+
+
+
+
+
+/* STREAMBOARD 	 */
+
+.stream-list-container{
+	float:left;
+	position: relative;
+	border: 1px solid gray;
+	width: 49%;
+	height: 100%;	
+}
+
+.stream-manipulation-container{
+	float:right;
+	position: relative;
+	border: 1px solid gray;
+	width: 49%;
+	height: 100%;
 }
 
