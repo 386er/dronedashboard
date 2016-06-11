@@ -2,7 +2,7 @@ define(['jquery',
 	'backbone',
 	'underscore',
 	'mustache',
-	'text!modules/templates/chartHeaderTemplate.html'
+	'text!modules/dashboard/templates/chartHeaderTemplate.html'
 ], function($,
 	Backbone,
 	_,

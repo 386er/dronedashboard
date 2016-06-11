@@ -9,8 +9,8 @@ define(['jquery',
 	'modules/dashboard/chartViewCollection',
 	'modules/dashboard/chartModelCollection',
 	'modules/dashboard/chartModel',
-	'text!modules/templates/widgetTemplate.html',
-	'text!modules/templates/gridsterTemplate.html'
+	'text!modules/dashboard/templates/widgetTemplate.html',
+	'text!modules/dashboard/templates/gridsterTemplate.html'
 ], function($,
 	Backbone,
 	_,

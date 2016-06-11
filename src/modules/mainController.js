@@ -3,7 +3,7 @@ define(['jquery',
 	'backbone',
 	'underscore',
 	'modules/dashboard/dashboardController',
-	'modules/streamboardController',
+	'modules/streams/streamboardController',
 	'modules/headerController',
 	'socket'
 ], function($,

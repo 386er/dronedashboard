@@ -8,7 +8,7 @@ define(['jquery',
 	'modules/dashboard/charts/timeSeriesChart/timeSeriesChart',
 	'modules/dashboard/charts/barChart/barChart',
 	'modules/dashboard/charts/scatterChart/scatterChart',
-	'text!modules/templates/chartHeaderMenuTemplate.html'
+	'text!modules/dashboard/templates/chartHeaderMenuTemplate.html'
 ], function($,
 	Backbone,
 	_,

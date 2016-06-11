@@ -3,7 +3,7 @@ define(['jquery',
 	'backbone',
 	'underscore',
 	'modules/dashboard/gridsterController',
-	'text!/modules/templates/dashboardTemplate.html'
+	'text!/modules/dashboard/templates/dashboardTemplate.html'
 ], function($,
 	Backbone,
 	_,
