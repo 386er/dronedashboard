@@ -2,13 +2,11 @@
 define(['jquery',
 	'backbone',
 	'underscore',
-	'modules/gridsterController',
 	'modules/headerController',
 	'text!modules/templates/streamListTemplate.html'
 ], function($,
 	Backbone,
 	_,
-	GridsterController,
 	HeaderController,
 	StreamListTemplate
 	) {

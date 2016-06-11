@@ -5,10 +5,10 @@ define(['jquery',
 	'mustache',
 	'gridster',
 	'd3',
-	'modules/chartView',
-	'modules/chartViewCollection',
-	'modules/chartModelCollection',
-	'modules/chartModel',
+	'modules/dashboard/chartView',
+	'modules/dashboard/chartViewCollection',
+	'modules/dashboard/chartModelCollection',
+	'modules/dashboard/chartModel',
 	'text!modules/templates/widgetTemplate.html',
 	'text!modules/templates/gridsterTemplate.html'
 ], function($,
@@ -32,7 +32,7 @@ define(['jquery',
 			that = {}, my = {}; // TODO implement that - my logic in every module 
 		
 		
-		that.el ='.wrapper';
+		that.el ='.sub-wrapper';
 
 		that.gridsterConfiguration = {
 					widget_margins: [7, 7],

@@ -372,10 +372,23 @@ transition: background-color 600ms, transform 600ms;
 
 /* STREAMBOARD 	 */
 
+.stream-list-item {
+	height: 60px;
+	width: 95%;
+	border: 1px solid gray;
+	margin: 2.5%;
+	background-color: white;
+}
+
+.stream-container {
+	background-color: #f9f9f9;
+	border: 1px solid #cccccc;
+	border-radius:5px;
+}
+
 .stream-list-container{
 	float:left;
 	position: relative;
-	border: 1px solid gray;
 	width: 49%;
 	height: 100%;	
 }
@@ -383,7 +396,6 @@ transition: background-color 600ms, transform 600ms;
 .stream-manipulation-container{
 	float:right;
 	position: relative;
-	border: 1px solid gray;
 	width: 49%;
 	height: 100%;
 }

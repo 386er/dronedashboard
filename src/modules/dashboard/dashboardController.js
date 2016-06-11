@@ -2,30 +2,34 @@
 define(['jquery',
 	'backbone',
 	'underscore',
-	'modules/gridsterController',
-	'modules/headerController'
+	'modules/dashboard/gridsterController',
+	'text!/modules/templates/dashboardTemplate.html'
 ], function($,
 	Backbone,
 	_,
 	GridsterController,
-	HeaderController
+	DashboardTemplate
 	) {
 
 	var DashboardController = function(numberOfStreams) {
 
-		var that = {};		
-		that.gridsterController = new GridsterController(numberOfStreams);
+		var that = {};
+
+		that.el ='.wrapper';		
+
+
+		that.render = function() {
+			that.$el.html(DashboardTemplate);
+		}
 
 
 		that.assignHeaderController = function(headerController) {
 			that.headerController = headerController;
-		}
+		};
 
 
 		that.launchDashboard = function() {
-
-/*			that.gridsterController.enterWidgets();
-			that.gridsterController.bindChartsToWidgets();*/
+			that.gridsterController = new GridsterController(numberOfStreams);
 			that.gridsterController.render();
 
 			that.headerController.render();
@@ -41,7 +45,9 @@ define(['jquery',
 			that.headerController.on('interFaceChange', function() {
 				that.gridsterController.destroy();
 				that.gridsterController.off();
+				that.gridsterController.remove();
 				that.headerController.off();
+				that.headerController = undefined;
 				that.gridsterController = undefined;
 				that.trigger('gridsterControllerDestroyed');
 			});
