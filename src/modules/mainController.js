@@ -19,59 +19,44 @@ define(['jquery',
 
 
 		that = {};
-
-		that.currentMenu = 'dashboard';
 		that.headerController = new HeaderController();
-		that.dashboardController = new DashboardController(4);
+		that.currentView = new DashboardController(4);
+		that.currentView.assignHeaderController(that.headerController);
+
 
 
 		that.initialize = function() {
-			that.dashboardController.assignHeaderController(that.headerController);
-			that.dashboardController.render();
-			that.dashboardController.launchDashboard();			
 
-			that.dashboardController.on('gridsterControllerDestroyed', function() {	
-				that.dashboardController.off();
-				that.dashboardController = undefined;
-				that.createStreamBoard();
+			that.headerController.render();
+			that.currentView.render();
+
+			that.headerController.on('tab-change', function(tab) {
+
+				if (tab === 'streams') {
+					that.currentView.destroy();
+					that.currentView = undefined;
+					that.createStreamBoard();
+				} else if (tab === 'dashboard') {
+					that.currentView.destroy();
+					that.currentView = undefined;
+					that.createDashboard();
+				}
 			});
-
-
-
-
 		};
 
 
 		that.createStreamBoard = function() {
-			that.streamBoardController = new StreamBoardController(4);
-			that.streamBoardController.assignHeaderController(that.headerController);
-			that.streamBoardController.render();
-
-			that.streamBoardController.on('streamBoardMenuDestroyed', function() {
-				that.streamBoardController.off();
-				that.streamBoardController.remove();
-				that.streamboardController = undefined;
-				that.createDashboard();
-			})
-
+			that.currentView = new StreamBoardController(4);
+			that.currentView.assignHeaderController(that.headerController);
+			that.currentView.render();
 		};
 
 
 		that.createDashboard = function() {
-			that.dashboardController = new DashboardController(4);
-			that.dashboardController.assignHeaderController(that.headerController);
-			that.dashboardController.launchDashboard();			
-
-			that.dashboardController.on('gridsterControllerDestroyed', function() {	
-				that.dashboardController.off();
-/*				that.dashboardController.remove();*/
-				that.dashboardController = undefined;
-				that.createStreamBoard();
-			});
-
+			that.currentView = new DashboardController(4);
+			that.currentView.assignHeaderController(that.headerController);
+			that.currentView.render();			
 		};
-
-
 
 
 		that = new (Backbone.View.extend(that))();

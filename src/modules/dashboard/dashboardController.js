@@ -15,11 +15,13 @@ define(['jquery',
 
 		var that = {};
 
-		that.el ='.wrapper';		
+		that.el ='.wrapper';
+		that.instanceID = 'dashboardController' + Date.now()	
 
 
 		that.render = function() {
 			that.$el.html(DashboardTemplate);
+			that.launchDashboard();
 		}
 
 
@@ -32,8 +34,8 @@ define(['jquery',
 			that.gridsterController = new GridsterController(numberOfStreams);
 			that.gridsterController.render();
 
-			that.headerController.render();
 			that.headerController.on('dashboardLocked', function() {
+				console.log(that.instanceID);
 				that.gridsterController.lockCharts();
 			});
 
@@ -42,15 +44,16 @@ define(['jquery',
 				that.gridsterController.clearChartViews();
 			});
 
-			that.headerController.on('interFaceChange', function() {
-				that.gridsterController.destroy();
-				that.gridsterController.off();
-				that.gridsterController.remove();
-				that.headerController.off();
-				that.headerController = undefined;
-				that.gridsterController = undefined;
-				that.trigger('gridsterControllerDestroyed');
-			});
+		};
+
+
+		that.destroy = function() {
+			that.gridsterController.destroy();
+			that.gridsterController.remove();
+			that.headerController.off('dashboardLocked');
+			that.headerController.off('dashboardUnLocked');
+			that.headerController = undefined;
+			that.gridsterController = undefined;			
 		};
 		
 

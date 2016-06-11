@@ -30,8 +30,6 @@ define(['jquery',
 		
 
 		that.render = function() {
-
-/*			var currentState = {'isLocked': that.isLauncherLocked};*/
 			var html = Mustache.to_html(LauncherTemplate);
 			that.$el.html(html);
 		}			
@@ -79,7 +77,7 @@ define(['jquery',
 			var tab = $(event.target).data('tab');
 			that.$el.find('.tab').removeClass('selected');
 			that.$el.find(event.target).addClass('selected');
-			that.trigger('interFaceChange', [tab]);
+			that.trigger('tab-change', tab);
 		};
 
 

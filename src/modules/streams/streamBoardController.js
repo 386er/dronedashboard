@@ -16,23 +16,26 @@ define(['jquery',
 	var StreamboardController = function(numberOfStreams) {
 
 		var that = {};		
-
 		that.el ='.wrapper';
-
-
 
 
 		that.assignHeaderController = function(headerController) {
 			that.headerController = headerController;
-		}
+		};
 
 
 		that.render = function() {
 			that.$el.html(StreamboardControllerTemplate)
 			that.streamListView = new StreamListView();
 			that.streamListView.render();
-		}
+		};
 
+
+		that.destroy = function() {
+			that.streamListView.remove();
+			that.streamListView = undefined;
+			that.headerController = undefined;
+		};
 
 
 		that = new (Backbone.View.extend(that))();

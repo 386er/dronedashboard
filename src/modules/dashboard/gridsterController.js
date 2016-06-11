@@ -33,6 +33,7 @@ define(['jquery',
 		
 		
 		that.el ='.sub-wrapper';
+		that.instanceID = 'gridsterController' + Date.now()
 
 		that.gridsterConfiguration = {
 					widget_margins: [7, 7],

@@ -17,10 +17,6 @@ define(['jquery',
 
 		that.el ='.sub-wrapper';
 
-/*		that.assignHeaderController = function(headerController) {
-			that.headerController = headerController;
-		}
-*/
 
 		that.render = function() {
 			that.$el.html(StreamListTemplate)

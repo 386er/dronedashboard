@@ -172,6 +172,10 @@ transition-duration: 400ms;
 	text-align:center;
 }
 
+.sub-wrapper {
+	height:inherit;
+}
+
 
 .controls {
 	margin-bottom: 20px;
