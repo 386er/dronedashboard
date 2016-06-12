@@ -55,6 +55,17 @@ html {
 }
 
 
+.dashboard-tab-menu {
+position: relative;
+width: calc(100% - 743px); /* TODO header breite genau bestimmen; */
+height: 55px;
+float: left;
+margin-top: 35px;
+background-color: #717070;
+}
+
+
+
 .analytics-tab {
 margin-left:15px !important;
 }
@@ -86,19 +97,23 @@ border-bottom: 5px solid #D8D8D8;
 }
 
 
+
+
+
+
 .launcher-container {
-width: 170px;
-height: 50px;
+width: 135px;
+height: 40px;
 position: relative;
 float: right;
 margin-right: 10%;
-margin-top: 15px;
+margin-top: 10px;
 }
 
 
 .launcher-switch-container {
-width:90px;
-height:45px;
+width:60px;
+height:35px;
 border:1px solid gray;
 border-left: 0px;
 border-radius: 30px;
@@ -114,12 +129,12 @@ margin-left:25px;
 
 .launcher-switch {
 position: absolute;
-height:43px;
-width:43px;
+height:33px;
+width:33px;
 border-radius:30px;
 border:1px solid #5F5F5F;
 background-color:#BDBDBD;
-margin-left: 45px;
+margin-left: 25px;
 -moz-transition-duration: 400ms;
 -o-transition-duration: 400ms;
 -webkit-transition-duration: 400ms;
@@ -136,7 +151,7 @@ background-color: #F3F5F6;
 .launcher-icon {
 font-size:24px !important;
 position: relative !important;
-margin-top:15px;
+margin-top:8px;
 -moz-transition-duration: 400ms;
 -o-transition-duration: 400ms;
 -webkit-transition-duration: 400ms;#5F5F5F
@@ -147,19 +162,19 @@ transition-duration: 400ms;
 .launcher-icon.locked {
  color: whitesmoke;
  font-size:36px !important;
- margin-top:5px;
+ margin-top:0px;
 }
 
 .lock {
 	width:15px;
 	float:left;
-	color:#696969;
+	color:#504f4f;
 }
 
 .unlock {
 	width:15px;
 	float:right;
-	color:#696969;
+	color:#504f4f;
 }
 
 

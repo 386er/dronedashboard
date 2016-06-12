@@ -19,7 +19,7 @@ define(['jquery',
 		
 		that.el ='.header';
 		that.isLauncherLocked = false;
-		that.currentView = 'dashboard';
+		that.isDashboard = true;
 
 		
 		that.events = {
@@ -30,16 +30,16 @@ define(['jquery',
 		
 
 		that.render = function() {
-			var html = Mustache.to_html(LauncherTemplate);
+			var html = Mustache.to_html(LauncherTemplate, {'isDashboard': that.isDashboard});
 			that.$el.html(html);
-		}			
+		};	
 
 		
 		that.toggleSwitch = function() {
 			that.$el.find('.launcher-switch').toggleClass('locked')
 			that.$el.find('.launcher-switch-container').toggleClass('locked')
 			that.$el.find('.launcher-icon').toggleClass('locked')
-		}
+		};
 
 
 		that.lockDashboard = function() {
@@ -51,6 +51,7 @@ define(['jquery',
 			that.isLauncherLocked = true;
 			that.toggleSwitch();
 		};
+
 
 		that.unLockDashboard = function() {
 
@@ -75,6 +76,11 @@ define(['jquery',
 			}
 
 			var tab = $(event.target).data('tab');
+			if(tab == 'streams') {
+				that.isDashboard = false;
+			} else {
+				that.isDashboard = true;
+			}
 			that.$el.find('.tab').removeClass('selected');
 			that.$el.find(event.target).addClass('selected');
 			that.trigger('tab-change', tab);

@@ -36,10 +36,13 @@ define(['jquery',
 					that.currentView.destroy();
 					that.currentView = undefined;
 					that.createStreamBoard();
+					that.headerController.render();
 				} else if (tab === 'dashboard') {
 					that.currentView.destroy();
 					that.currentView = undefined;
 					that.createDashboard();
+					that.headerController.render();
+					that.headerController.isLauncherLocked = false;
 				}
 			});
 		};
