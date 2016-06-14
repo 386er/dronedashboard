@@ -28,7 +28,7 @@ define(['jquery',
 
 		that.render = function() {
 			that.$el.html(StreamboardControllerTemplate)
-			that.streamListView = new StreamListView();
+			that.streamListView = new StreamListView(numberOfStreams);
 			that.streamManipulatorView = new StreamManipulatorView();
 			that.streamListView.render();
 			that.streamManipulatorView.render();

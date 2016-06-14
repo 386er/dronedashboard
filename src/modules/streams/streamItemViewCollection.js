@@ -8,7 +8,7 @@ define(['jquery',
 	d3
 	) {
 		
-	var StreamListViewCollection = function() { 	
+	var StreamItemViewCollection = function() { 	
 	
 		var that = {};
 
@@ -22,6 +22,6 @@ define(['jquery',
 		
 	};
 		
-	return StreamListViewCollection;
+	return StreamItemViewCollection;
 
 });	
