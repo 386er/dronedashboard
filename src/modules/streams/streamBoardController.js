@@ -4,12 +4,14 @@ define(['jquery',
 	'underscore',
 	'modules/headerController',
 	'modules/streams/streamListView',
+	'modules/streams/streamManipulatorView',
 	'text!modules/streams/templates/streamboardControllerTemplate.html'
 ], function($,
 	Backbone,
 	_,
 	HeaderController,
 	StreamListView,
+	StreamManipulatorView,
 	StreamboardControllerTemplate
 	) {
 
@@ -27,7 +29,9 @@ define(['jquery',
 		that.render = function() {
 			that.$el.html(StreamboardControllerTemplate)
 			that.streamListView = new StreamListView();
+			that.streamManipulatorView = new StreamManipulatorView();
 			that.streamListView.render();
+			that.streamManipulatorView.render();
 		};
 
 

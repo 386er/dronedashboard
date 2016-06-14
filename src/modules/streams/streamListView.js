@@ -3,19 +3,21 @@ define(['jquery',
 	'backbone',
 	'underscore',
 	'modules/headerController',
+	'modules/streams/streamListViewCollection',
 	'text!modules/streams/templates/streamListTemplate.html'
 ], function($,
 	Backbone,
 	_,
 	HeaderController,
+	StreamListViewCollection,
 	StreamListTemplate
 	) {
 
 	var StreamListView = function(numberOfStreams) {
 
-		var that = {};		
-
-		that.el ='.sub-wrapper';
+		var that = {};
+		that.collection = new StreamListViewCollection();
+		that.el ='.stream-list';
 
 
 		that.render = function() {

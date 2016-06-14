@@ -61,7 +61,7 @@ width: calc(100% - 743px); /* TODO header breite genau bestimmen; */
 height: 55px;
 float: left;
 margin-top: 35px;
-background-color: #717070;
+background-color: #585858;
 }
 
 
@@ -71,16 +71,17 @@ margin-left:15px !important;
 }
 
 .tab {
+font-family:'Raleway';
 position: relative;
 float: left;
-height: 41px;
+height: 33px;
 width: 220px;
 margin-top: 33px;
 margin-left: 100px;
 border: 1px solid #C1C0C0;
 text-align: center;
-font-size: 21px;
-padding-top: 10px;
+font-size: 16px;
+padding-top: 18px;
 border-radius: 5px 5px 0px 0px;
 border-bottom: 5px solid #BFBFBF;
 box-shadow: 5px -1px 15px -5px black;
@@ -98,11 +99,8 @@ border-bottom: 5px solid #D8D8D8;
 
 
 
-
-
-
 .launcher-container {
-width: 135px;
+width: 125px;
 height: 40px;
 position: relative;
 float: right;
@@ -119,10 +117,10 @@ border-left: 0px;
 border-radius: 30px;
 position:relative;
 cursor: pointer;
-background-color:gray;
+background-color:#696969;
 box-shadow: inset 2px 1px 4px 0px black;
 float:left;
-margin-left:25px;
+margin-left:20px;
 }
 
 
@@ -176,6 +174,13 @@ transition-duration: 400ms;
 	float:right;
 	color:#504f4f;
 }
+
+
+/*
+################
+DASHBOARD ######
+################
+*/
 
 
 .wrapper {
@@ -391,13 +396,13 @@ transition: background-color 600ms, transform 600ms;
 
 /* STREAMBOARD 	 */
 
-.stream-list-item {
-	height: 60px;
-	width: 95%;
-	border: 1px solid gray;
-	margin: 2.5%;
-	background-color: white;
+
+
+.stream-list-item-input {
+	width:98%;
+	margin-bottom:6px;
 }
+
 
 .stream-container {
 	background-color: #f9f9f9;
@@ -405,17 +410,73 @@ transition: background-color 600ms, transform 600ms;
 	border-radius:5px;
 }
 
+.stream-list {
+	display:inline;
+	height:inherit;
+
+}
+
+
 .stream-list-container{
 	float:left;
 	position: relative;
-	width: 49%;
-	height: 100%;	
+	width: 39%;
+	height: 100%;
+
+}
+
+.stream-manipulation {
+	height:inherit;
 }
 
 .stream-manipulation-container{
 	float:right;
 	position: relative;
-	width: 49%;
+	width: 59%;
 	height: 100%;
 }
 
+
+
+.stream-list-adder {
+	font-size: 60px !important;
+	color:#424242;
+}
+
+.stream-list-adder:hover {
+	color:gray;
+	cursor: pointer;
+}
+
+
+.stream-list-item-header {
+    text-align: left;
+    margin-left: 10px;
+    font-size: 20px;
+    font-family: 'Raleway';
+    width: 40%;
+    float:left;
+    color:#424242;
+}
+
+.stream-list-item {
+	height: 77px;
+	width: 95%;
+	border: 1px solid #c3c3c3;
+	margin: 2.5%;
+	background-color: white;
+	padding-top:3px;
+}
+.stream-list-item-status {
+	text-align: left;
+	width: 15px;
+	height: 15px;
+	float: left;
+	margin-left: 5px;
+	margin-top: 3px;
+	border-radius:15px;
+}
+
+.stream-list-item-status.ok {
+	background-color: #5eda5e;
+}
