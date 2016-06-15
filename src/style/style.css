@@ -440,8 +440,9 @@ transition: background-color 600ms, transform 600ms;
 .stream-list-item-header {
     text-align: left;
     margin-left: 10px;
-    font-size: 20px;
-    font-family: 'Raleway';
+    font-size: 16px;
+    font-weight:bold;
+    font-family: sans-serif;
     width: 40%;
     float:left;
     color:#424242;
@@ -455,6 +456,7 @@ transition: background-color 600ms, transform 600ms;
 	background-color: white;
 	padding-top:3px;
 }
+
 .stream-list-item-status {
 	text-align: left;
 	width: 15px;
@@ -467,4 +469,40 @@ transition: background-color 600ms, transform 600ms;
 
 .stream-list-item-status.ok {
 	background-color: #5eda5e;
+}
+
+
+.stream-list-item.unconnected {
+	height: 220px;
+}
+
+
+.stream-list-item-wrapper {
+	float: left;
+    display: inline;
+    width: 100%;
+    text-align: left;
+    margin-top:6px;
+}
+
+.stream-list-item-wrapper input {
+	width: 95%;
+	margin-left:2%;
+	height:18px;
+	border:1px solid #afafaf;
+	background-color: #e6e6e6;
+}
+
+.stream-list-item-wrapper label {
+	font-family: sans-serif;
+	font-size: 14px;
+	color:#424242;
+	margin-left:2%;
+}
+
+.submit-stream {
+    margin-top: 8px;
+    background-color: transparent;
+    border: 1px solid gray;
+    border-radius: 5px;
 }

@@ -25,14 +25,19 @@ define(['jquery',
 		that.numberOfStreams = numberOfStreams;
 
 		that.events = {
-			'click .stream-list-adder': 'addStreamItem'
+			'click .stream-list-adder': 'addStreamItem',
+			'click .submit-stream': 'establishStream'
 		}
 
 
 
 		that.initialize = function() {
 			_.range(1, numberOfStreams + 1).forEach(function(i) {
-				var model = new StreamItemModel({'name': 'Stream ' + i})
+				var model = new StreamItemModel({
+					'name': 'Stream ' + i,
+					'connectionEstablished': true,
+					'id': i
+			});
 				that.collection.add(model)
 			})
 		}
@@ -52,8 +57,21 @@ define(['jquery',
 
 		that.addStreamItem = function() {
 			that.numberOfStreams += 1;
-			var model = new StreamItemModel({'name': 'Stream ' + that.numberOfStreams})
+			var model = new StreamItemModel({
+				'name': 'Stream ' + that.numberOfStreams,
+				'connectionEstablished': false,
+				'id': that.numberOfStreams
+			});
 			that.collection.add(model);
+			that.render();
+			that.delegateEvents();
+		};
+
+
+		that.establishStream = function(event) {
+			var parent = $(event.target).closest('.unconnected');
+			var modelID = parent.data('id');
+			that.collection.get(modelID).set({'connectionEstablished':true});
 			that.render();
 		}
 

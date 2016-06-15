@@ -1,6 +1,37 @@
 
+{{#connectionEstablished}}
 <div class='stream-list-item'>
 	<div class='stream-list-item-status ok'> </div>
 	<div class='stream-list-item-header'> {{name}} </div>
 
 </div>
+{{/connectionEstablished}}
+
+
+{{^connectionEstablished}}
+<div class='stream-list-item unconnected' data-id='{{id}}'>
+
+	<div class='stream-list-item-wrapper'>
+	<label for="URL">URL</label>
+	<input type="text" name="URL">
+	</div>
+
+	<div class='stream-list-item-wrapper'>
+	<label for="Topic">Topic</label>
+	<input type="text" name="Topic">
+	</div>
+
+	<div class='stream-list-item-wrapper'>
+	<label for="User">User</label>
+	<input type="text" name="User">
+	</div>
+
+	<div class='stream-list-item-wrapper'>
+	<label for="Password">Password</label>
+	<input type="text" name="Password">
+	</div>
+
+	<button type="button" class="submit-stream">Establish Stream</button>
+
+</div>
+{{/connectionEstablished}}
