@@ -20,12 +20,14 @@ define(['jquery',
 		that.el ='.header';
 		that.isLauncherLocked = false;
 		that.isDashboard = true;
+		that.dashboardConfiguration = undefined;
 
 		
 		that.events = {
 			'click .launcher-switch-container': 'lockDashboard',
 			'click .launcher-switch-container.locked': 'unLockDashboard',
-			'click .tab': 'changeInterfaceView'
+			'click .tab': 'changeInterfaceView',
+			'click .dashboard-tab-menu-save': 'saveDashboard'
 		};
 		
 
@@ -63,6 +65,16 @@ define(['jquery',
 			that.toggleSwitch();
 		};
 
+
+		that.saveDashboard = function() {
+			that.trigger('saveDashboard');
+		};
+
+
+		that.storeDashboardConfiguration = function(configuration) {
+			that.dashboardConfiguration = configuration;
+		};
+		
 
 		that.getCurrentView = function() {
 			return that.currentView;

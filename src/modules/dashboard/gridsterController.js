@@ -33,7 +33,8 @@ define(['jquery',
 		
 		
 		that.el ='.sub-wrapper';
-		that.instanceID = 'gridsterController' + Date.now()
+		that.instanceID = 'gridsterController' + Date.now();
+		that.configurationSaved = false;
 
 		that.gridsterConfiguration = {
 					widget_margins: [7, 7],
@@ -76,6 +77,11 @@ define(['jquery',
 				widgets.push([5,6])
 			}
 			return widgets;
+		};
+
+
+		that.getConfiguration = function() {
+			return that.gridster.serialize()
 		};
 
 

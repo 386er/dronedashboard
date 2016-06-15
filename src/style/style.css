@@ -43,19 +43,19 @@ html {
 
 .dashboard-tab-menu {
 position: relative;
-width: calc(100% - 600px); /* TODO header breite genau bestimmen; */
+width: 250px;
 height: 55px;
 float: left;
 margin-top: 5px;
+margin-left:20px;
 }
 
 
 .dashboard-tab {
-
+margin-left:15px !important;
 }
 
 .analytics-tab {
-margin-left:15px !important;
 }
 
 .tab {
@@ -91,7 +91,7 @@ border-bottom: 5px solid #D8D8D8;
 width: 125px;
 height: 40px;
 position: relative;
-float: right;
+float: left;
 margin-right: 10%;
 margin-top: 10px;
 }
@@ -154,13 +154,26 @@ transition-duration: 400ms;
 .lock {
 	width:15px;
 	float:left;
-	color:black;
+	color:gray;
 }
 
 .unlock {
 	width:15px;
 	float:right;
-	color:black;
+	color:gray;
+}
+
+
+.dashboard-tab-menu-save {
+	margin-left: 25px;
+	margin-top: 14px;
+	font-size: 30px;
+	color: gray;
+	cursor: pointer
+}
+
+.dashboard-tab-menu-save:hover {
+	color:white;
 }
 
 
@@ -501,8 +514,10 @@ transition: background-color 600ms, transform 600ms;
 }
 
 .submit-stream {
-    margin-top: 8px;
+    margin-top: 10px;
     background-color: transparent;
     border: 1px solid gray;
     border-radius: 5px;
+    float: right;
+    margin-right: 15px;
 }

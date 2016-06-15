@@ -44,6 +44,13 @@ define(['jquery',
 				that.gridsterController.clearChartViews();
 			});
 
+
+			that.headerController.on('saveDashboard', function() {
+				var configuration = that.gridsterController.getConfiguration();
+				that.headerController.storeDashboardConfiguration(configuration);
+				console.log(configuration);
+			})
+
 		};
 
 

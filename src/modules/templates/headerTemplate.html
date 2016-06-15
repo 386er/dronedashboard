@@ -1,6 +1,6 @@
 <img src="./resources/images/fyke.svg" class="header-logo">
-<div class='dashboard-tab tab {{#isDashboard}} selected {{/isDashboard}}' data-tab='dashboard'>DASHBOARD</div>
 <div class='analytics-tab tab {{^isDashboard}} selected {{/isDashboard}}' data-tab='streams'>STREAMS</div>
+<div class='dashboard-tab tab {{#isDashboard}} selected {{/isDashboard}}' data-tab='dashboard'>DASHBOARD</div>
 
 {{#isDashboard}}
 <div class="dashboard-tab-menu">
@@ -10,7 +10,8 @@
 				<div class='launcher-switch'></div>
 			</div>
 		<a class="launcher-icon unlock fa fa-unlock locked"></a> 
-	</div>	
+	</div>
+	<a class="fa fa-floppy-o dashboard-tab-menu-save"></a> 	
 </div>
 {{/isDashboard}}
 
