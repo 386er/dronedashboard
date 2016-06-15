@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "dir": "^0.1.2",
+    "jslint": "^0.10.1",
     "socket.io": "^1.4.5"
   },
   "devDependencies": {

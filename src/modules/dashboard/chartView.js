@@ -22,7 +22,7 @@ define(['jquery',
 	ChartHeaderMenuTemplate
 	) {
 
-	var ChartView = function() {
+	var ChartView = function () {
 		
 		var that = {};
 		that.instanceID = 'view' + Date.now();

@@ -22,6 +22,13 @@ define(['jquery',
 		var that = {};
 		that.collection = new StreamItemViewCollection();
 		that.el ='.stream-list';
+		that.numberOfStreams = numberOfStreams;
+
+		that.events = {
+			'click .stream-list-adder': 'addStreamItem'
+		}
+
+
 
 		that.initialize = function() {
 			_.range(1, numberOfStreams + 1).forEach(function(i) {
@@ -29,7 +36,6 @@ define(['jquery',
 				that.collection.add(model)
 			})
 		}
-
 
 
 		that.render = function() {
@@ -42,6 +48,17 @@ define(['jquery',
 
 			})
 		}
+
+
+		that.addStreamItem = function() {
+			that.numberOfStreams += 1;
+			var model = new StreamItemModel({'name': 'Stream ' + that.numberOfStreams})
+			that.collection.add(model);
+			that.render();
+		}
+
+
+
 
 
 

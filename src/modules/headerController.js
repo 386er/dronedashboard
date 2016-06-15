@@ -3,12 +3,12 @@ define(['jquery',
 	'backbone',
 	'underscore',
 	'mustache',
-	'text!modules/templates/launcherTemplate.html'
+	'text!modules/templates/headerTemplate.html'
 ], function($,
 	Backbone,
 	_,
 	Mustache,
-	LauncherTemplate
+	HeaderTemplate
 	) {
 
 
@@ -30,7 +30,7 @@ define(['jquery',
 		
 
 		that.render = function() {
-			var html = Mustache.to_html(LauncherTemplate, {'isDashboard': that.isDashboard});
+			var html = Mustache.to_html(HeaderTemplate, {'isDashboard': that.isDashboard});
 			that.$el.html(html);
 		};	
 
