@@ -14,9 +14,10 @@ define(['jquery',
 	var app = {
 
 		init : function() {
-		
-			var mainController = new MainController();
 
+			window.app = {};
+			var mainController = new MainController();
+			
 		}
 
 

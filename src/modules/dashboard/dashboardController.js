@@ -11,12 +11,15 @@ define(['jquery',
 	DashboardTemplate
 	) {
 
-	var DashboardController = function(numberOfStreams) {
+	var DashboardController = function() {
 
 		var that = {};
 
 		that.el ='.wrapper';
-		that.instanceID = 'dashboardController' + Date.now()	
+		that.instanceID = 'dashboardController' + Date.now();
+		that.app = app || {};
+		that.numberOfStreams = app.numberOfStreams;
+		that.dashboardSegmentation = app.dashboardSegmentation;
 
 
 		that.render = function() {
@@ -31,7 +34,8 @@ define(['jquery',
 
 
 		that.launchDashboard = function() {
-			that.gridsterController = new GridsterController(numberOfStreams);
+			that.gridsterController = new GridsterController(that.numberOfStreams);
+			that.gridsterController.setDashboardSegmentation(that.dashboardSegmentation);
 			that.gridsterController.render();
 
 			that.headerController.on('dashboardLocked', function() {
@@ -46,9 +50,9 @@ define(['jquery',
 
 
 			that.headerController.on('saveDashboard', function() {
-				var configuration = that.gridsterController.getConfiguration();
-				that.headerController.storeDashboardConfiguration(configuration);
-				console.log(configuration);
+				var segmentation = that.gridsterController.getSegmentation();
+				that.app.dashboardSegmentation = segmentation;
+
 			})
 
 		};
@@ -59,6 +63,7 @@ define(['jquery',
 			that.gridsterController.remove();
 			that.headerController.off('dashboardLocked');
 			that.headerController.off('dashboardUnLocked');
+			that.headerController.off('saveDashboard');
 			that.headerController = undefined;
 			that.gridsterController = undefined;			
 		};

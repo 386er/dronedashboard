@@ -19,16 +19,17 @@ define(['jquery',
 
 
 		that = {};
-		that.numberOfStreams = 4;
+		that.app = app || {};
+		that.app.numberOfStreams = 4;
 		that.headerController = new HeaderController();
-		that.currentView = new DashboardController(that.numberOfStreams);
-		that.currentView.assignHeaderController(that.headerController);
+		that.currentView = new DashboardController();
 
 
 
 		that.initialize = function() {
 
 			that.headerController.render();
+			that.currentView.assignHeaderController(that.headerController);
 			that.currentView.render();
 
 			that.headerController.on('tab-change', function(tab) {
@@ -50,14 +51,14 @@ define(['jquery',
 
 
 		that.createStreamBoard = function() {
-			that.currentView = new StreamBoardController(that.numberOfStreams);
+			that.currentView = new StreamBoardController();
 			that.currentView.assignHeaderController(that.headerController);
 			that.currentView.render();
 		};
 
 
 		that.createDashboard = function() {
-			that.currentView = new DashboardController(that.numberOfStreams);
+			that.currentView = new DashboardController();
 			that.currentView.assignHeaderController(that.headerController);
 			that.currentView.render();			
 		};

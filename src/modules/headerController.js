@@ -20,7 +20,6 @@ define(['jquery',
 		that.el ='.header';
 		that.isLauncherLocked = false;
 		that.isDashboard = true;
-		that.dashboardConfiguration = undefined;
 
 		
 		that.events = {
@@ -70,12 +69,7 @@ define(['jquery',
 			that.trigger('saveDashboard');
 		};
 
-
-		that.storeDashboardConfiguration = function(configuration) {
-			that.dashboardConfiguration = configuration;
-		};
 		
-
 		that.getCurrentView = function() {
 			return that.currentView;
 		};

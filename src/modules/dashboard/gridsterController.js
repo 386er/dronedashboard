@@ -26,7 +26,7 @@ define(['jquery',
 	) {
 
 
-	var GridsterController = function(numberOfStreams) {
+	var GridsterController = function(numberOfStreams, segmentationFixed) {
 		
 		var 
 			that = {}, my = {}; // TODO implement that - my logic in every module 
@@ -34,8 +34,6 @@ define(['jquery',
 		
 		that.el ='.sub-wrapper';
 		that.instanceID = 'gridsterController' + Date.now();
-		that.configurationSaved = false;
-
 		that.gridsterConfiguration = {
 					widget_margins: [7, 7],
 					widget_base_dimensions: [40, 40],
@@ -48,6 +46,7 @@ define(['jquery',
 		};
 		
 		that.gridster = undefined;
+		that.segmentationFixed = segmentationFixed;
 		that.modelCollection = new ChartModelCollection();
 		that.viewCollection = new ChartViewCollection();
 		that.widgetTemplate = WidgetTemplate; 					
@@ -80,9 +79,14 @@ define(['jquery',
 		};
 
 
-		that.getConfiguration = function() {
-			return that.gridster.serialize()
+		that.getSegmentation = function() {
+			return that.gridster.serialize();
 		};
+
+
+		that.setDashboardSegmentation = function(segmentation) {
+			that.dashBoardSegmentation = segmentation;
+		}
 
 
 		that.bindGridsterToElement = function() {
@@ -135,12 +139,36 @@ define(['jquery',
 
 		};
 		
+
+
+		that.updateWidgets = function(widgets) {
+
+			var seg = that.dashBoardSegmentation;
+
+			widgets = widgets.map( function(widget, i) {
+				widget[0] = seg[i].size_x;
+				widget[1] = seg[i].size_y;
+				widget[2] = seg[i].col;
+				widget[3] = seg[i].row;
+				return widget;
+			})
+
+			return widgets;
+
+		};
+
+
+
 		
 		that.enterWidgets = function() { 
 
 			var widgets = that.getWidgets(numberOfStreams);
+
+			if (that.dashBoardSegmentation !== undefined) {
+				widgets = that.updateWidgets(widgets);
+			}
+
 			that.bindGridsterToElement();
-		
 			widgets.forEach( function(widget, i){
 					var chartModel = new ChartModel({'id': i+1, 'label': i + 1});
 					var html = Mustache.to_html(that.widgetTemplate, chartModel.toJSON());

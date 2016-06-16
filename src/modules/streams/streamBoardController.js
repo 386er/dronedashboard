@@ -15,9 +15,11 @@ define(['jquery',
 	StreamboardControllerTemplate
 	) {
 
-	var StreamboardController = function(numberOfStreams) {
+	var StreamboardController = function() {
 
-		var that = {};		
+		var that = {};
+		that.app = app || {};
+		that.numberOfStreams = app.numberOfStreams;
 		that.el ='.wrapper';
 
 
@@ -28,7 +30,7 @@ define(['jquery',
 
 		that.render = function() {
 			that.$el.html(StreamboardControllerTemplate)
-			that.streamListView = new StreamListView(numberOfStreams);
+			that.streamListView = new StreamListView(that.numberOfStreams);
 			that.streamManipulatorView = new StreamManipulatorView();
 			that.streamListView.render();
 			that.streamManipulatorView.render();
