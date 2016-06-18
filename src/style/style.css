@@ -43,7 +43,7 @@ html {
 
 .dashboard-tab-menu {
 position: relative;
-width: 250px;
+width: 270px;
 height: 55px;
 float: left;
 margin-top: 5px;
@@ -168,13 +168,15 @@ transition-duration: 400ms;
 	margin-left: 25px;
 	margin-top: 14px;
 	font-size: 30px;
-	color: gray;
+	color: white;
 	cursor: pointer
 }
 
 .dashboard-tab-menu-save:hover {
 	color:white;
 }
+
+
 
 
 /*

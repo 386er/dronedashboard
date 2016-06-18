@@ -19,7 +19,7 @@ define(['jquery',
 		
 		that.el ='.header';
 		that.isLauncherLocked = false;
-		that.isDashboard = true;
+		that.isDashboard = false;
 
 		
 		that.events = {
@@ -66,7 +66,11 @@ define(['jquery',
 
 
 		that.saveDashboard = function() {
+			var sign = that.$el.find('.dashboard-tab-menu-save')[0]
 			that.trigger('saveDashboard');
+			d3.select(sign)
+				.transition().duration(100).style('color','orange')
+				.transition().duration(100).style('color','white');
 		};
 
 		

@@ -52,7 +52,9 @@ define(['jquery',
 			that.headerController.on('saveDashboard', function() {
 				var segmentation = that.gridsterController.getSegmentation();
 				that.app.dashboardSegmentation = segmentation;
-
+				that.gridsterController.setDashboardSegmentation(segmentation);
+				console.log(segmentation)
+/*				that.dashboardSegmentation = that.app.dashboardSegmentation;*/
 			})
 
 		};

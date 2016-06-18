@@ -22,7 +22,7 @@ define(['jquery',
 		that.app = app || {};
 		that.app.numberOfStreams = 4;
 		that.headerController = new HeaderController();
-		that.currentView = new DashboardController();
+		that.currentView = new StreamBoardController();
 
 
 
@@ -35,16 +35,11 @@ define(['jquery',
 			that.headerController.on('tab-change', function(tab) {
 
 				if (tab === 'streams') {
-					that.currentView.destroy();
-					that.currentView = undefined;
+					that.clearView();
 					that.createStreamBoard();
-					that.headerController.render();
 				} else if (tab === 'dashboard') {
-					that.currentView.destroy();
-					that.currentView = undefined;
+					that.clearView();
 					that.createDashboard();
-					that.headerController.render();
-					that.headerController.isLauncherLocked = false;
 				}
 			});
 		};
@@ -62,6 +57,15 @@ define(['jquery',
 			that.currentView.assignHeaderController(that.headerController);
 			that.currentView.render();			
 		};
+
+
+		that.clearView = function() {
+			that.currentView.destroy();
+			that.currentView = undefined;
+			that.headerController.isLauncherLocked = false;
+			that.headerController.render();
+		};
+
 
 
 		that = new (Backbone.View.extend(that))();

@@ -80,7 +80,9 @@ define(['jquery',
 
 
 		that.getSegmentation = function() {
-			return that.gridster.serialize();
+			var segmentation = that.gridster.serialize();
+			segmentation = Gridster.sort_by_row_and_col_asc(segmentation);
+			return segmentation;
 		};
 
 
@@ -173,7 +175,7 @@ define(['jquery',
 					var chartModel = new ChartModel({'id': i+1, 'label': i + 1});
 					var html = Mustache.to_html(that.widgetTemplate, chartModel.toJSON());
 					that.modelCollection.add(chartModel);
-					that.gridster.add_widget(html, widget[0], widget[1])
+					that.gridster.add_widget(html, widget[0], widget[1], widget[2], widget[3])
 
 			}); 
 		};
