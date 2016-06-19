@@ -91,7 +91,7 @@ define(['jquery',
 
 
 		that.updateTemplateData = function() {
-			var selected = that.model.get('chart-type');
+			var selected = that.model.get('chart-type') ? that.model.get('chart-type'): 'scatter' ;
 			that.resetTemplateData()
 			that.templateData[selected] = true;
 		};
@@ -140,7 +140,7 @@ define(['jquery',
 			that.createChart();
 			that.createHeader();
 			that.chart.render();
-			that.updateTemplateData();
+/*			that.updateTemplateData();*/
 			that.headerView.render();
 		};
 
