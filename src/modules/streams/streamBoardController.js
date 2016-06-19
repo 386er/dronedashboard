@@ -19,21 +19,36 @@ define(['jquery',
 
 		var that = {};
 		that.app = app || {};
-		that.numberOfStreams = app.numberOfStreams;
+		that.numberOfStreams = that.app.numberOfStreams;
 		that.el ='.wrapper';
 
+
+/*		that.initialize = function() {
+		};
+*/
 
 		that.assignHeaderController = function(headerController) {
 			that.headerController = headerController;
 		};
 
 
+		that.assignCollection = function(collection) {
+			that.modelCollection = collection;
+		};
+
+
 		that.render = function() {
 			that.$el.html(StreamboardControllerTemplate)
 			that.streamListView = new StreamListView(that.numberOfStreams);
+			that.streamListView.assignCollection(that.modelCollection);
 			that.streamManipulatorView = new StreamManipulatorView();
 			that.streamListView.render();
 			that.streamManipulatorView.render();
+			
+			that.streamListView.on('modelAdded', function() {
+				that.app.numberOfStreams += 1;
+				that.numberOfStreams = that.app.numberOfStreams;
+			})
 		};
 
 

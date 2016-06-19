@@ -20,7 +20,7 @@ define(['jquery',
 	var StreamListView = function(numberOfStreams) {
 
 		var that = {};
-		that.collection = new StreamItemViewCollection();
+/*		that.collection = new StreamItemViewCollection();*/
 		that.el ='.stream-list';
 		that.numberOfStreams = numberOfStreams;
 
@@ -32,15 +32,20 @@ define(['jquery',
 
 
 		that.initialize = function() {
-			_.range(1, numberOfStreams + 1).forEach(function(i) {
+/*			_.range(1, numberOfStreams + 1).forEach(function(i) {
 				var model = new StreamItemModel({
 					'name': 'Stream ' + i,
 					'connectionEstablished': true,
 					'id': i
 			});
 				that.collection.add(model)
-			})
-		}
+			})*/
+		};
+
+
+		that.assignCollection = function(collection) {
+			that.collection = collection;
+		};
 
 
 		that.render = function() {
@@ -57,12 +62,17 @@ define(['jquery',
 
 		that.addStreamItem = function() {
 			that.numberOfStreams += 1;
+
+			var numberOfStreams = that.collection.models.length;
+
 			var model = new StreamItemModel({
 				'name': 'Stream ' + that.numberOfStreams,
 				'connectionEstablished': false,
-				'id': that.numberOfStreams
+				'id': that.numberOfStreams,
+				'label': that.numberOfStreams
 			});
 			that.collection.add(model);
+			that.trigger('modelAdded');
 			that.render();
 			that.delegateEvents();
 		};

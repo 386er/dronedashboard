@@ -26,7 +26,7 @@ define(['jquery',
 	) {
 
 
-	var GridsterController = function(numberOfStreams, segmentationFixed) {
+	var GridsterController = function(numberOfStreams) {
 		
 		var 
 			that = {}, my = {}; // TODO implement that - my logic in every module 
@@ -46,14 +46,18 @@ define(['jquery',
 		};
 		
 		that.gridster = undefined;
-		that.segmentationFixed = segmentationFixed;
-		that.modelCollection = new ChartModelCollection();
 		that.viewCollection = new ChartViewCollection();
 		that.widgetTemplate = WidgetTemplate; 					
 		that.events = {
 			'click .cancel-chart': 'cancelWidget',
 		};
 		
+
+		that.assignCollection = function(collection) {
+			that.modelCollection = collection;
+		};
+
+
 		
 		that.renderChartView = function() { 
 			that.viewCollection.getViews().forEach(function(view) {
@@ -148,10 +152,10 @@ define(['jquery',
 			var seg = that.dashBoardSegmentation;
 
 			widgets = widgets.map( function(widget, i) {
-				widget[0] = seg[i].size_x;
-				widget[1] = seg[i].size_y;
-				widget[2] = seg[i].col;
-				widget[3] = seg[i].row;
+				widget[0] = seg[i] ? seg[i].size_x : 5;
+				widget[1] = seg[i] ? seg[i].size_y : 6;
+				widget[2] = seg[i] ? seg[i].col : undefined;
+				widget[3] = seg[i] ? seg[i].row : undefined;
 				return widget;
 			})
 
@@ -172,11 +176,9 @@ define(['jquery',
 
 			that.bindGridsterToElement();
 			widgets.forEach( function(widget, i){
-					var chartModel = new ChartModel({'id': i+1, 'label': i + 1});
-					var html = Mustache.to_html(that.widgetTemplate, chartModel.toJSON());
-					that.modelCollection.add(chartModel);
-					that.gridster.add_widget(html, widget[0], widget[1], widget[2], widget[3])
-
+				var chartModel = that.modelCollection.get(i + 1);
+				var html = Mustache.to_html(that.widgetTemplate, chartModel.toJSON());
+				that.gridster.add_widget(html, widget[0], widget[1], widget[2], widget[3])
 			}); 
 		};
 
@@ -192,7 +194,8 @@ define(['jquery',
 				view = new ChartView();
 				view.assignElement(element);
 				view.assignModel(chartModel);
-				view.populateElement();	
+				view.updateTemplateData();
+				view.populateElement();
 				that.viewCollection.add(view);
 			});
 		};

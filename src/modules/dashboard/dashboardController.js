@@ -33,8 +33,14 @@ define(['jquery',
 		};
 
 
+		that.assignCollection = function(collection) {
+			that.modelCollection = collection;
+		};
+
+
 		that.launchDashboard = function() {
 			that.gridsterController = new GridsterController(that.numberOfStreams);
+			that.gridsterController.assignCollection(that.modelCollection);
 			that.gridsterController.setDashboardSegmentation(that.dashboardSegmentation);
 			that.gridsterController.render();
 
@@ -53,8 +59,6 @@ define(['jquery',
 				var segmentation = that.gridsterController.getSegmentation();
 				that.app.dashboardSegmentation = segmentation;
 				that.gridsterController.setDashboardSegmentation(segmentation);
-				console.log(segmentation)
-/*				that.dashboardSegmentation = that.app.dashboardSegmentation;*/
 			})
 
 		};

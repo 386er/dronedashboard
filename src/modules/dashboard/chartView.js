@@ -140,6 +140,7 @@ define(['jquery',
 			that.createChart();
 			that.createHeader();
 			that.chart.render();
+			that.updateTemplateData();
 			that.headerView.render();
 		};
 
