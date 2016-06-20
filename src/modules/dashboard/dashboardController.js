@@ -38,6 +38,14 @@ define(['jquery',
 		};
 
 
+		that.saveDashboard = function() {
+			var segmentation = that.gridsterController.getSegmentation();
+			that.app.dashboardSegmentation = segmentation;
+			that.gridsterController.setDashboardSegmentation(segmentation);	
+			console.log(typeof(segmentation[0].col))		
+		};
+
+
 		that.launchDashboard = function() {
 			that.gridsterController = new GridsterController(that.numberOfStreams);
 			that.gridsterController.assignCollection(that.modelCollection);
@@ -56,15 +64,14 @@ define(['jquery',
 
 
 			that.headerController.on('saveDashboard', function() {
-				var segmentation = that.gridsterController.getSegmentation();
-				that.app.dashboardSegmentation = segmentation;
-				that.gridsterController.setDashboardSegmentation(segmentation);
+				that.saveDashboard();
 			})
 
 		};
 
 
 		that.destroy = function() {
+			that.saveDashboard();
 			that.gridsterController.destroy();
 			that.gridsterController.remove();
 			that.headerController.off('dashboardLocked');

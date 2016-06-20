@@ -11,9 +11,6 @@ define(['jquery',
 	var ModelCollection = function(parameterObj) { 	
 	
 		var that = {};
-
-	
-
 				
 		that = new (Backbone.Collection.extend(that))();
 		that.constructor.apply(that, arguments);

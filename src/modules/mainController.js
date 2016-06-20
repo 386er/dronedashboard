@@ -7,7 +7,8 @@ define(['jquery',
 	'modules/headerController',
 	'modules/modelCollection',
 	'modules/streamModel',
-	'socket'
+	'socket',
+	'modules/requestController',
 ], function($,
 	Backbone,
 	_,
@@ -16,15 +17,17 @@ define(['jquery',
 	HeaderController,
 	ModelCollection,
 	StreamModel,
-	io
+	io,
+	RequestController
 	) {
 
 	var MainController = function() {
 
 
-		that = {};
+		var that = {};
 		that.app = app || {};
 		that.app.numberOfStreams = 4;
+		that.requestController = new RequestController();
 		that.headerController = new HeaderController();
 		that.modelCollection = new ModelCollection();
 		that.currentView = new StreamBoardController();
@@ -38,6 +41,9 @@ define(['jquery',
 			that.currentView.assignHeaderController(that.headerController);
 			that.currentView.assignCollection(that.modelCollection);
 			that.currentView.render();
+
+			that.requestController.getData();
+
 
 			that.headerController.on('tab-change', function(tab) {
 
