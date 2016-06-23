@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "cors": "^2.7.1",
     "dir": "^0.1.2",
     "jslint": "^0.10.1",
     "mongoose": "^4.5.1",

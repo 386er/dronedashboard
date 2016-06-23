@@ -5,7 +5,6 @@ var mongoose = require('mongoose');
 app.use(express.static(__dirname));
 var url = 'mongodb://localhost:27017/fyke';
 
-
 mongoose.connect(url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -14,9 +13,13 @@ db.once('open', function () {
 });
 
 
-
 app.get('/', function(req, res){
   res.sendfile('index.html');
+});
+
+
+app.get('/hallo', function(req, res){
+  res.end('HALLO!');
 });
 
 
