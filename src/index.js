@@ -4,6 +4,8 @@ var http = require('http').Server(app);
 var mongoose = require('mongoose');
 app.use(express.static(__dirname));
 var url = 'mongodb://localhost:27017/fyke';
+var routes = require('./api/routes/index');
+var streams = require('./api/routes/streamRouter');
 
 mongoose.connect(url);
 var db = mongoose.connection;
@@ -13,9 +15,10 @@ db.once('open', function () {
 });
 
 
-app.get('/', function(req, res){
-  res.sendfile('index.html');
-});
+app.use('/', routes);
+app.use('/streams', streams);
+
+
 
 
 app.get('/hallo', function(req, res){
