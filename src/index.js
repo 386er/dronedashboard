@@ -19,13 +19,6 @@ app.use('/', routes);
 app.use('/streams', streams);
 
 
-
-
-app.get('/hallo', function(req, res){
-  res.end('HALLO!');
-});
-
-
 http.listen(3000, function(){
   console.log('listening on *:3000');
 });

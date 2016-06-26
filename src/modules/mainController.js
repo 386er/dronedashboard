@@ -42,7 +42,7 @@ define(['jquery',
 			that.currentView.assignCollection(that.modelCollection);
 			that.currentView.render();
 
-			that.requestController.getData();
+			that.requestController.getStreams();
 
 
 			that.headerController.on('tab-change', function(tab) {
@@ -55,6 +55,7 @@ define(['jquery',
 					that.createDashboard();
 				}
 			});
+
 		};
 
 
@@ -71,10 +72,16 @@ define(['jquery',
 			that.currentView.assignHeaderController(that.headerController);
 			that.currentView.assignCollection(that.modelCollection);
 			that.currentView.render();			
+			that.currentView.on('configUpdated', function() {
+				var models = that.modelCollection.models;
+				var segmentation = that.app.dashboardSegmentation;
+				that.requestController.updateStreams(models, segmentation);
+			});
 		};
 
 
 		that.clearView = function() {
+			that.currentView.off('configUpdated');
 			that.currentView.destroy();
 			that.currentView = undefined;
 			that.headerController.isLauncherLocked = false;

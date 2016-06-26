@@ -12,14 +12,42 @@ define(['jquery',
 		var that = {};
 		that.app = app || {};
 
-		that.getData = function() {
-
-			$.get('hallo', function(data) {
-				console.log(data)
-			})
 
 
+		that.getStreams = function() {
+			$.ajax({
+				type: "GET",
+				url: 'streams',
+				success: function(data) {
+					console.log(data)
+				}
+			});
 		};
+
+
+		that.updateStreams = function(models, segmentation) {
+			$.ajax({
+				type: "POST",
+				url: 'streams',
+				contentType: "application/json",
+				data: JSON.stringify(
+					{"name": "cba" + Math.random(),
+					 "models": models,
+					 "segmentation": segmentation
+				})
+			});
+		};
+
+
+		that.createStream = function() {
+			$.ajax({
+				type: "POST",
+				url: 'streams',
+				contentType: "application/json",
+				data: JSON.stringify({"name": "abc" + Math.random()})
+			});
+		};
+
 
 		that = new (Backbone.View.extend(that))();
 		return that;

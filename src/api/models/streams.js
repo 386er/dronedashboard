@@ -7,52 +7,47 @@ require('mongoose-currency').loadType(mongoose);
 var modelSchema = new Schema({
     id:  {
         type: Number,
-        required: true,
-        unique: true
+/*        required: true,
+        unique: true*/
     },
     label:  {
         type: String,
-        required: true
+/*        required: true*/
     },
     name:  {
         type: String,
-        required: true
+/*        required: true*/
     },
     'chart-type':  {
         type: String,
-        required: true
+/*        required: true*/
     },
     connectionEstablished:  {
         type: Boolean,
-        required: true
+/*        required: true*/
     }
-}, {
-    timestamps: true
 });
 
 
 var segmentationSchema = new Schema({
     col:  {
         type: Number,
-        required: true,
-        unique: true
+/*        required: true,
+        unique: true*/
     },
     row:  {
         type: Number,
-        required: true
+/*        required: true*/
     },
     size_x:  {
         type: Number,
-        required: true
+/*        required: true*/
     },
     size_y:  {
         type: Number,
-        required: true
+/*        required: true*/
     }
-}, {
-    timestamps: true
 });
-
 
 
 

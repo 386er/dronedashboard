@@ -28,6 +28,7 @@ streamRouter.route('/')
     });
 })
 
+
 .delete(function (req, res, next) {
     Streams.remove({}, function (err, resp) {
         if (err) throw err;
@@ -35,6 +36,10 @@ streamRouter.route('/')
     });
 });
 
+
+
+
+/*
 streamRouter.route('/:streamId')
 .get(function (req, res, next) {
     Streams.findById(req.params.streamId, function (err, stream) {
@@ -42,6 +47,10 @@ streamRouter.route('/:streamId')
         res.json(stream);
     });
 })
+
+
+
+
 
 .put(function (req, res, next) {
     Streams.findByIdAndUpdate(req.params.streamId, {
@@ -95,7 +104,7 @@ streamRouter.route('/:streamId/comments')
             res.end('Deleted all comments!');
         });
     });
-});
+});*/
 
 
 module.exports = streamRouter;

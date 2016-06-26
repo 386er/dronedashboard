@@ -41,8 +41,8 @@ define(['jquery',
 		that.saveDashboard = function() {
 			var segmentation = that.gridsterController.getSegmentation();
 			that.app.dashboardSegmentation = segmentation;
-			that.gridsterController.setDashboardSegmentation(segmentation);	
-			console.log(typeof(segmentation[0].col))		
+			that.gridsterController.setDashboardSegmentation(segmentation);
+			that.trigger('configUpdated');
 		};
 
 
