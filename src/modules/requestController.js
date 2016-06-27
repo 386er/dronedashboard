@@ -25,9 +25,10 @@ define(['jquery',
 		};
 
 
-		that.updateStreams = function(models, segmentation) {
+		that.updateStreams = function(models, segmentation) {		
+
 			$.ajax({
-				type: "POST",
+				type: "PUT",
 				url: 'streams',
 				contentType: "application/json",
 				data: JSON.stringify(
@@ -35,18 +36,39 @@ define(['jquery',
 					 "models": models,
 					 "segmentation": segmentation
 				})
-			});
+			});					
+
 		};
 
 
-		that.createStream = function() {
+		that.createStream = function(models, segmentation) {
 			$.ajax({
 				type: "POST",
 				url: 'streams',
 				contentType: "application/json",
-				data: JSON.stringify({"name": "abc" + Math.random()})
+				data: JSON.stringify({"name": "cba" + Math.random(),
+					 "models": models,
+					 "segmentation": segmentation
+				})
 			});
 		};
+
+
+
+		that.saveStreams = function(models, segmentation) {
+			$.ajax({
+				type: "GET",
+				url: 'streams',
+				success: function(data) {
+					if (data.length === 0) {
+						that.createStream(models, segmentation);
+					} else {
+						that.updateStreams(models, segmentation);
+					}
+				}
+			});
+		};
+
 
 
 		that = new (Backbone.View.extend(that))();

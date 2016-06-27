@@ -75,7 +75,7 @@ define(['jquery',
 			that.currentView.on('configUpdated', function() {
 				var models = that.modelCollection.models;
 				var segmentation = that.app.dashboardSegmentation;
-				that.requestController.updateStreams(models, segmentation);
+				that.requestController.saveStreams(models, segmentation);
 			});
 		};
 

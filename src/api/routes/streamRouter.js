@@ -28,6 +28,16 @@ streamRouter.route('/')
     });
 })
 
+.put(function (req, res, next) {
+    Streams.findOneAndUpdate({}, {
+        $set: req.body
+    }, {
+        new: true
+    }, function (err, stream) {
+        if (err) throw err;
+        res.json(stream);
+    });
+})
 
 .delete(function (req, res, next) {
     Streams.remove({}, function (err, resp) {
@@ -52,16 +62,6 @@ streamRouter.route('/:streamId')
 
 
 
-.put(function (req, res, next) {
-    Streams.findByIdAndUpdate(req.params.streamId, {
-        $set: req.body
-    }, {
-        new: true
-    }, function (err, stream) {
-        if (err) throw err;
-        res.json(stream);
-    });
-})
 
 .delete(function (req, res, next) {
     Streams.findByIdAndRemove(req.params.streamId, function (err, resp) {        if (err) throw err;
