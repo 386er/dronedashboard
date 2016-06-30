@@ -11,7 +11,8 @@ require.config({
 		gridster: 'library/jquery.gridster',
 		d3: 'library/d3',
 		socket: 'library/socket.io-1.4.0',
-		text: 'library/text'
+		text: 'library/text',
+		spin: 'library/spin'
 	},
 	shim:{
 		d3:{

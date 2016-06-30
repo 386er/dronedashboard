@@ -26,7 +26,7 @@ define(['jquery',
 	) {
 
 
-	var GridsterController = function(numberOfStreams) {
+	var GridsterController = function() {
 		
 		var 
 			that = {}, my = {}; // TODO implement that - my logic in every module 
@@ -73,10 +73,10 @@ define(['jquery',
 		};
 
 
-		that.getWidgets = function(numberOfStreams) {
+		that.getWidgets = function(numberOfModels) {
 
 			var widgets = [];
-			for (var i = 0; i < numberOfStreams; i++) {
+			for (var i = 0; i < numberOfModels; i++) {
 				widgets.push([5,6])
 			}
 			return widgets;
@@ -168,7 +168,7 @@ define(['jquery',
 		
 		that.enterWidgets = function() { 
 
-			var widgets = that.getWidgets(numberOfStreams);
+			var widgets = that.getWidgets(that.modelCollection.models.length);
 
 			if (that.dashBoardSegmentation !== undefined) {
 				widgets = that.updateWidgets(widgets);
@@ -184,7 +184,7 @@ define(['jquery',
 
 
 		that.bindChartsToWidgets = function() {
-			var widgetIDs = _.range(1, numberOfStreams + 1);
+			var widgetIDs = _.range(1, that.modelCollection.models.length + 1);
 
 			widgetIDs.forEach(function(widgetID) {
 				var 

@@ -19,21 +19,19 @@ define(['jquery',
 				type: "GET",
 				url: 'streams',
 				success: function(data) {
-					console.log(data)
+					that.trigger('streamsAvailable', data);
 				}
 			});
 		};
 
 
 		that.updateStreams = function(models, segmentation) {		
-
 			$.ajax({
 				type: "PUT",
 				url: 'streams',
 				contentType: "application/json",
 				data: JSON.stringify(
-					{"name": "cba" + Math.random(),
-					 "models": models,
+					{"models": models,
 					 "segmentation": segmentation
 				})
 			});					

@@ -5,14 +5,16 @@ define(['jquery',
 	'modules/headerController',
 	'modules/streams/streamListView',
 	'modules/streams/streamManipulatorView',
-	'text!modules/streams/templates/streamboardControllerTemplate.html'
+	'text!modules/streams/templates/streamboardControllerTemplate.html',
+	'spin'
 ], function($,
 	Backbone,
 	_,
 	HeaderController,
 	StreamListView,
 	StreamManipulatorView,
-	StreamboardControllerTemplate
+	StreamboardControllerTemplate,
+	Spinner
 	) {
 
 	var StreamboardController = function() {
@@ -21,11 +23,20 @@ define(['jquery',
 		that.app = app || {};
 		that.numberOfStreams = that.app.numberOfStreams;
 		that.el ='.wrapper';
+		that.spinner = new Spinner({'color': 'grey', 'width': 2 });
 
 
-/*		that.initialize = function() {
+		that.initLoading = function() {
+			that.spinner.spin();
+			that.$el.html(that.spinner.el)
 		};
-*/
+
+
+		that.stopLoading = function() {
+			that.spinner.stop();
+			that.$el.html('');
+		};
+
 
 		that.assignHeaderController = function(headerController) {
 			that.headerController = headerController;

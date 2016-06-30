@@ -19,7 +19,7 @@ define(['jquery',
 		that.instanceID = 'dashboardController' + Date.now();
 		that.app = app || {};
 		that.numberOfStreams = app.numberOfStreams;
-		that.dashboardSegmentation = app.dashboardSegmentation;
+		that.dashboardSegmentation = that.app.dashboardSegmentation;
 
 
 		that.render = function() {
@@ -61,11 +61,6 @@ define(['jquery',
 				that.gridsterController.unlockCharts();
 				that.gridsterController.clearChartViews();
 			});
-
-
-			that.headerController.on('saveDashboard', function() {
-				that.saveDashboard();
-			})
 
 		};
 

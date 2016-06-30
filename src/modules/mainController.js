@@ -9,6 +9,7 @@ define(['jquery',
 	'modules/streamModel',
 	'socket',
 	'modules/requestController',
+	'spin'
 ], function($,
 	Backbone,
 	_,
@@ -18,7 +19,8 @@ define(['jquery',
 	ModelCollection,
 	StreamModel,
 	io,
-	RequestController
+	RequestController,
+	Spinner
 	) {
 
 	var MainController = function() {
@@ -33,20 +35,18 @@ define(['jquery',
 		that.currentView = new StreamBoardController();
 
 
-
 		that.initialize = function() {
-
 			that.headerController.render();
-			that.populateCollection();
-			that.currentView.assignHeaderController(that.headerController);
-			that.currentView.assignCollection(that.modelCollection);
-			that.currentView.render();
+			that.currentView.initLoading();
 
-			that.requestController.getStreams();
-
+			that.requestController.on('streamsAvailable', function(data) {
+				that.app.dashboardSegmentation = data[0].segmentation;
+				that.app.models = data[0].models;
+				that.currentView.stopLoading();
+				that.render();
+			})
 
 			that.headerController.on('tab-change', function(tab) {
-
 				if (tab === 'streams') {
 					that.clearView();
 					that.createStreamBoard();
@@ -56,7 +56,22 @@ define(['jquery',
 				}
 			});
 
+
+			that.headerController.on('saveDashboard', function() {
+				that.saveDashboard();
+			})
+
+			that.requestController.getStreams();
 		};
+
+
+		that.render = function() {
+			that.populateCollection();
+			that.currentView.assignHeaderController(that.headerController);
+			that.currentView.assignCollection(that.modelCollection);
+			that.currentView.render();
+		};
+
 
 
 		that.createStreamBoard = function() {
@@ -72,12 +87,20 @@ define(['jquery',
 			that.currentView.assignHeaderController(that.headerController);
 			that.currentView.assignCollection(that.modelCollection);
 			that.currentView.render();			
-			that.currentView.on('configUpdated', function() {
+/*			that.currentView.on('configUpdated', function() {
 				var models = that.modelCollection.models;
 				var segmentation = that.app.dashboardSegmentation;
 				that.requestController.saveStreams(models, segmentation);
-			});
+			});*/
 		};
+
+
+		that.saveDashboard = function() {
+			that.currentView.saveDashboard()
+			that.requestController.updateStreams(that.app.models, that.app.dashboardSegmentation);
+
+		};
+
 
 
 		that.clearView = function() {
@@ -90,18 +113,8 @@ define(['jquery',
 
 
 		that.populateCollection = function() {
-
-			var streams = _.range(1, that.app.numberOfStreams + 1);
-
-			streams.forEach( function(i) {
-					var streamModel = new StreamModel({
-						'id': i,
-						'label': i,
-						'name': 'Stream ' +  i,
-						'connectionEstablished': true,
-					});
-					that.modelCollection.add(streamModel);
-			});
+			var models = that.app.models;
+			that.modelCollection.add(models);
 		};
 
 
