@@ -18,7 +18,6 @@ define(['jquery',
 		that.el ='.wrapper';
 		that.instanceID = 'dashboardController' + Date.now();
 		that.app = app || {};
-		that.numberOfStreams = app.numberOfStreams;
 		that.dashboardSegmentation = that.app.dashboardSegmentation;
 
 
@@ -41,13 +40,14 @@ define(['jquery',
 		that.saveDashboard = function() {
 			var segmentation = that.gridsterController.getSegmentation();
 			that.app.dashboardSegmentation = segmentation;
+			that.app.models = that.modelCollection.models;
 			that.gridsterController.setDashboardSegmentation(segmentation);
 			that.trigger('configUpdated');
 		};
 
 
 		that.launchDashboard = function() {
-			that.gridsterController = new GridsterController(that.numberOfStreams);
+			that.gridsterController = new GridsterController();
 			that.gridsterController.assignCollection(that.modelCollection);
 			that.gridsterController.setDashboardSegmentation(that.dashboardSegmentation);
 			that.gridsterController.render();

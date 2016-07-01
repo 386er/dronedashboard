@@ -56,11 +56,6 @@ define(['jquery',
 				}
 			});
 
-
-			that.headerController.on('saveDashboard', function() {
-				that.saveDashboard();
-			})
-
 			that.requestController.getStreams();
 		};
 
@@ -87,16 +82,14 @@ define(['jquery',
 			that.currentView.assignHeaderController(that.headerController);
 			that.currentView.assignCollection(that.modelCollection);
 			that.currentView.render();			
-/*			that.currentView.on('configUpdated', function() {
-				var models = that.modelCollection.models;
-				var segmentation = that.app.dashboardSegmentation;
-				that.requestController.saveStreams(models, segmentation);
-			});*/
+			that.headerController.on('saveDashboard', function() {
+				that.saveDashboard();
+			})
 		};
 
 
 		that.saveDashboard = function() {
-			that.currentView.saveDashboard()
+			that.currentView.saveDashboard();
 			that.requestController.updateStreams(that.app.models, that.app.dashboardSegmentation);
 
 		};
@@ -116,8 +109,6 @@ define(['jquery',
 			var models = that.app.models;
 			that.modelCollection.add(models);
 		};
-
-
 
 
 		that = new (Backbone.View.extend(that))();
