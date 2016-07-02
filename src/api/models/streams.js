@@ -6,7 +6,7 @@ require('mongoose-currency').loadType(mongoose);
 
 var modelSchema = new Schema({
     id:  {
-        type: Number,
+        type: String,
 /*        required: true,
         unique: true*/
     },

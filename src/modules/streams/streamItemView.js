@@ -17,20 +17,40 @@ define(['jquery',
 	StreamItemTemplate
 	) {
 
-	var StreamListView = function(numberOfStreams) {
+	var StreamItemView = function(numberOfStreams) {
 
 		var that = {};
+
+		that.events = {
+			'mouseover':'showCancel',
+			'mouseout':'hideCancel',
+			'click .stream-list-item-cancel': 'removeStream'
+		}
 
 
 		that.assignModel = function(model) {
 			that.model = model;
-		}
+		};
+
+		that.showCancel = function() {
+			that.$el.find('.stream-list-item-cancel').removeClass('hidden');
+		};
+
+
+		that.hideCancel = function() {
+			that.$el.find('.stream-list-item-cancel').addClass('hidden');
+		};
+
+
+		that.removeStream = function() {
+			that.trigger('removeStream', that.model)
+		};
 
 
 		that.render = function() {
 		var html = Mustache.to_html(StreamItemTemplate, that.model.toJSON());
 			that.$el.html(html)
-		}
+		};
 
 
 
@@ -39,6 +59,6 @@ define(['jquery',
 		
 	};
 
-	return StreamListView;
+	return StreamItemView;
 
 });

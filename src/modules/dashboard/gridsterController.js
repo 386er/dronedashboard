@@ -176,7 +176,7 @@ define(['jquery',
 
 			that.bindGridsterToElement();
 			widgets.forEach( function(widget, i){
-				var chartModel = that.modelCollection.get(i + 1);
+				var chartModel = that.modelCollection.at(i);
 				var html = Mustache.to_html(that.widgetTemplate, chartModel.toJSON());
 				that.gridster.add_widget(html, widget[0], widget[1], widget[2], widget[3])
 			}); 
@@ -184,7 +184,8 @@ define(['jquery',
 
 
 		that.bindChartsToWidgets = function() {
-			var widgetIDs = _.range(1, that.modelCollection.models.length + 1);
+/*			var widgetIDs = _.range(1, that.modelCollection.models.length + 1);*/
+			var widgetIDs = that.modelCollection.pluck('id');
 
 			widgetIDs.forEach(function(widgetID) {
 				var 

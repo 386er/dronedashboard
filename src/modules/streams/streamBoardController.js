@@ -6,7 +6,8 @@ define(['jquery',
 	'modules/streams/streamListView',
 	'modules/streams/streamManipulatorView',
 	'text!modules/streams/templates/streamboardControllerTemplate.html',
-	'spin'
+	'spin',
+	'modules/streamModel',
 ], function($,
 	Backbone,
 	_,
@@ -14,7 +15,8 @@ define(['jquery',
 	StreamListView,
 	StreamManipulatorView,
 	StreamboardControllerTemplate,
-	Spinner
+	Spinner,
+	StreamModel
 	) {
 
 	var StreamboardController = function() {
@@ -57,9 +59,39 @@ define(['jquery',
 			that.streamManipulatorView.render();
 			
 			that.streamListView.on('modelAdded', function() {
-				that.app.numberOfStreams += 1;
-				that.numberOfStreams = that.app.numberOfStreams;
+/*				that.app.numberOfStreams += 1;
+				that.numberOfStreams = that.app.numberOfStreams;*/
+				that.addNewStream();
 			})
+		};
+
+
+		that.addNewStream = function() {
+
+			var id = that.createIDString();
+
+				model = new StreamModel({
+					'name': 'Stream ' + id,
+					'connectionEstablished': false,
+					'id': id,
+					'label': id
+				});
+			that.modelCollection.add(model);
+			that.streamListView.render();
+			that.streamListView.delegateEvents();
+		}
+
+
+		that.createIDString = function() {
+		var 
+			text = "",
+			possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+		for ( var i = 0; i < 10; i++ ) {
+			text += possible.charAt(Math.floor(Math.random() * possible.length));
+		}
+
+			return text;
 		};
 
 
