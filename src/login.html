@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>FYKE - Streaming Analytics</title>
   <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Oswald' type='text/css'>
+  <link rel="stylesheet" href="./style/font-awesome-4.3.0/css/font-awesome.min.css">
   <style type="text/css">
 
     html {
@@ -14,6 +15,7 @@
     body {
       margin:0px;
       height:100%;
+      min-height:700px;
     }
    
     .login-wrapper {
@@ -24,15 +26,112 @@
     .login-wrapper-pusher {
       margin:auto;
       width:350px;
-      height:15%;
+      height:20%;
     }
 
     .login-wrapper-container {
       margin:auto;
       width:350px;
-      height:500px;
-      border:1px solid gray;
+      height:450px;
+      background-color: #4E4E4E;
+      border-radius: 10px;
+      box-shadow: 2px 2px 4px 0px #abaaaa;
     }
+
+    .login-wrapper-container > img {
+      height: 100px;
+      margin-left: 95px;
+    }
+
+    .login-wrapper-container-fyke {
+      text-align: center;
+      color: whitesmoke;
+      font-family: "Oswald";
+      font-size: 44px;
+      font-weight: bold;
+      margin-top: -10px;
+      margin-bottom:15px;
+    }
+
+    .login-wrapper-container > input {
+      width: 83%;
+      margin-left: 7%;
+      padding-left: 2%;
+      height: 35px;
+      margin-bottom: 15px;
+      border-radius: 3px;
+      border: 0px;
+      box-shadow: inset 2px 2px 2px 0px #989898;
+      font-size: 14px;
+    }
+
+    .login-wrapper-container > button {
+      height: 35px;
+      padding:0px;
+      border:0px;
+      color:white;
+      border-radius:2px;
+      cursor:pointer;
+      margin-bottom:15px;
+    }
+
+    .login-button {
+      margin-left: 7%;
+      background-color: #4E4E4E;
+      font-family:helvetica;
+      width:85%;
+      float:left;
+      border: 1px solid #403f3f !important;
+      box-shadow: 0px 0px 2px 1px #404040, inset 1px 1px 2px 1px #5a5a5a;
+      font-size:14px;
+      font-weight:bold;
+      color:#c7c7c7 !important;
+    }
+
+    .login-facebook {
+      margin-left: 7%;
+      background-color: #3B5998;
+      font-family:helvetica;
+      box-shadow: 2px 2px 5px 0px #3e3d3d, inset 1px 1px 4px 0px #5672ad;
+      width:85%;
+      float:left;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .tab {
+      width: 140px;
+      height: 32px;
+      padding-top:18px;
+      float: left;
+      margin-top: 20px;
+      border: 1px solid #403f3f;
+      border-bottom: 0px;
+      text-align:center;
+      font-family: arial;
+      color:#c7c7c7;
+      font-weight:bold;
+      border-radius: 3px 3px 0px 0px;
+      box-shadow: 0px -1px 2px 0px #404040, inset 1px 1px 2px 1px #5a5a5a;
+      cursor:pointer;
+    }
+
+    .tab.selected {
+      background-color:#757373;
+      box-shadow: inset 2px 2px 3px 1px #5a5a5a;
+      border:1px solid #4E4E4E;
+      border-bottom:0px;
+      color:white;
+    }
+
+    .login-wrapper-container-login {
+      margin-left: 7%;
+    }
+
+    .login-wrapper-container-signup {
+      margin-left: 4%;
+    }
+
 
     .login-footer {
       width:100%;
@@ -46,7 +145,7 @@
 
     .login-footer-logo {
       font-family: "Oswald";
-      font-size:30px;
+      font-size:24px;
       display: inline !important;
       color:whitesmoke;
       margin:5px;
@@ -59,11 +158,22 @@
   <body>
 
     <div class="login-wrapper">
-
-      <div class="login-wrapper-pusher">
-      </div>
+      <div class="login-wrapper-pusher"></div>
 
       <div class="login-wrapper-container">
+
+        <img src="./resources/images/fyke.svg">
+        <div class="login-wrapper-container-fyke">FYKE</div>
+
+        <input placeholder="Email">
+        <input placeholder="Password" type="password">
+
+        <button class="login-button"> Log In</button>
+        <button class="login-facebook"> Login with Facebook  <i class="fa fa-facebook-official" style="font-size:20px"></i> </button>
+
+        <div class="login-wrapper-container-login tab selected"> Log In </div>
+        <div class="login-wrapper-container-signup tab"> Sign Up </div>
+
       </div>
 
 
