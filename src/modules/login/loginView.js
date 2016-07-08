@@ -16,11 +16,13 @@ define(['jquery',
 		var that = {};
 
 		that.el = "#login-wrapper-container"
+		that.model = {'login': true}
 
 		that.events = {
-/*			'mouseover':'showCancel',
-			'mouseout':'hideCancel',
-			'click .stream-list-item-cancel': 'removeStream'*/
+			'mousedown .button':'buttonDown',
+			'mouseup .button':'buttonUp',
+			'mouseout .button':'buttonUp',
+			'click .tab': 'changeLoginView'
 		}
 
 		that.initialize = function() {
@@ -28,8 +30,12 @@ define(['jquery',
 		}
 
 
-/*		that.assignModel = function(model) {
-			that.model = model;
+		that.buttonDown = function(event) {
+			that.$el.find(event.target).addClass('selected');
+		};
+
+		that.buttonUp = function(event) {
+			that.$el.find(event.target).removeClass('selected');
 		};
 
 		that.showCancel = function() {
@@ -37,18 +43,25 @@ define(['jquery',
 		};
 
 
-		that.hideCancel = function() {
+/*		that.hideCancel = function() {
 			that.$el.find('.stream-list-item-cancel').addClass('hidden');
 		};
+*/
 
-
-		that.removeStream = function() {
+/*		that.removeStream = function() {
 			that.trigger('removeStream', that.model)
-		};*/
+		};
+*/
+
+		that.changeLoginView = function() {
+/*			that.$el.find('.tab').toggleClass('selected');*/
+			that.model['login'] = !that.model['login'];
+			that.render();
+		}
 
 
 		that.render = function() {
-		var html = Mustache.to_html(LoginViewTemplate, {});
+		var html = Mustache.to_html(LoginViewTemplate, that.model);
 			that.$el.html(html)
 		};
 

@@ -10,7 +10,6 @@ router.get('/', function(req, res){
 
 
 router.get('/login', function(req, res){
-	console.log(path.resolve('login.html'));
 	res.sendFile(path.resolve('login.html'));
 });
 

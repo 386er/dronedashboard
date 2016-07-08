@@ -1,13 +1,40 @@
+ 
+
+
+
+{{#login}}
+
  		<img src="../../resources/images/fyke.svg">
         <div class="login-wrapper-container-fyke">FYKE</div>
 
         <input placeholder="Email">
         <input placeholder="Password" type="password">
 
-        <button class="login-button"> Log In</button>
-        <button class="login-facebook"> Login with Facebook  <i class="fa fa-facebook-official" style="font-size:20px"></i> </button>
+        <button class="login-button button"> Log In</button>
+        <button class="login-facebook button"> Login with Facebook  <i class="fa fa-facebook-official" style="font-size:20px"></i> </button>
 
-<!--         <div class="login-wrapper-container-tab-wrapper"> -->
         <div class="login-wrapper-container-login tab selected"> Log In </div>
         <div class="login-wrapper-container-signup tab"> Sign Up </div>
-<!--     	</div> -->
+
+
+{{/login}}
+
+
+{{^login}}
+
+ 		<img src="../../resources/images/fyke.svg">
+        <div class="login-wrapper-container-fyke">FYKE</div>
+
+        <input placeholder="Email">
+        <input placeholder="Password" type="password">
+		<input placeholder="Full Name">
+
+        <button class="login-button button"> Sign Up</button>
+        <button class="login-facebook button"> Login with Facebook  <i class="fa fa-facebook-official" style="font-size:20px"></i> </button>
+
+        <div class="login-wrapper-container-login tab "> Log In </div>
+        <div class="login-wrapper-container-signup tab selected"> Sign Up </div>
+
+
+{{/login}}
+
