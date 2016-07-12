@@ -59,8 +59,6 @@ define(['jquery',
 			that.streamManipulatorView.render();
 			
 			that.streamListView.on('modelAdded', function() {
-/*				that.app.numberOfStreams += 1;
-				that.numberOfStreams = that.app.numberOfStreams;*/
 				that.addNewStream();
 			})
 		};

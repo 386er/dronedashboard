@@ -1,11 +1,13 @@
 define(['jquery',
 	'backbone',
 	'underscore',
-	'modules/login/loginView'
+	'modules/login/loginView',
+	'modules/requestController'
 ], function($,
 	Backbone,
 	_,
-	LoginView
+	LoginView,
+	RequestController
 	) {
 
 	var LoginController = {
@@ -13,6 +15,9 @@ define(['jquery',
 		init : function() {
 
 			var loginView = new LoginView();
+			var  requestController = new RequestController();
+
+			loginView.assignRequestController(requestController);
 			loginView.render();
 		}
 

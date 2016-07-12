@@ -10,16 +10,25 @@ define(['jquery',
 	var RequestController = function() {
 
 		var that = {};
-		that.app = app || {};
-
 
 
 		that.getStreams = function() {
 			$.ajax({
 				type: "GET",
 				url: 'streams',
+				beforeSend: function(xhr){xhr.setRequestHeader('x-access-token', window.localStorage.token);},
 				success: function(data) {
 					that.trigger('streamsAvailable', data);
+				},
+				error: function(error) {
+
+					if (error.status == 401 || error.status == 403) {
+						console.log('Status: ' + error.status);
+						console.log(error.responseText);
+						window.location = "/login";
+					} else {
+						console.log('Streams could not be loaded: ' + error.status);
+					}
 				}
 			});
 		};
@@ -29,41 +38,81 @@ define(['jquery',
 			$.ajax({
 				type: "PUT",
 				url: 'streams',
+				beforeSend: function(xhr){xhr.setRequestHeader('x-access-token', window.localStorage.token);},
 				contentType: "application/json",
 				data: JSON.stringify(
 					{"models": models,
 					 "segmentation": segmentation
-				})
+				}),
+				success: function(data) {
+					console.log('Streams Updated!')
+				},
+				error: function(error) {
+					if (error.status == 401 || error.status == 403) {
+						console.log('Status: ' + error.status);
+						console.log(error.responseText);
+						window.location = "/login";
+					} else {
+						console.log('Streams could not be updated: ' + error.status);
+					}
+				}
 			});					
 
 		};
 
 
-		that.createStream = function(models, segmentation) {
+		that.loginUser = function(username, password) {
 			$.ajax({
 				type: "POST",
-				url: 'streams',
+				url: 'users/login',
 				contentType: "application/json",
-				data: JSON.stringify({"name": "cba" + Math.random(),
-					 "models": models,
-					 "segmentation": segmentation
-				})
+				data: JSON.stringify({
+					"username": username,
+					"password": password
+				}),
+				success: function(data, textStatus) {
+					window.localStorage['token'] = data.token;
+					if (typeof data.redirect == 'string') {
+						window.location = data.redirect;
+					}
+				},	
+				error: function(error) {
+						console.log('Wrong User or Password');
+				}   
 			});
 		};
 
 
-
-		that.saveStreams = function(models, segmentation) {
+		that.logoutUser = function(username, password) {
 			$.ajax({
 				type: "GET",
-				url: 'streams',
-				success: function(data) {
-					if (data.length === 0) {
-						that.createStream(models, segmentation);
-					} else {
-						that.updateStreams(models, segmentation);
+				url: 'users/logout',
+				contentType: "application/json",
+				success: function(data, textStatus) {
+					window.localStorage['token'] = undefined;
+					if (typeof data.redirect == 'string') {
+						window.location = data.redirect;
 					}
 				}
+			});
+		};
+
+
+		that.signupUser = function(username, password) {
+			$.ajax({
+				type: "POST",
+				url: 'users/register',
+				contentType: "application/json",
+				data: JSON.stringify({
+					"username": username,
+					"password": password
+				}),
+				success: function(data, textStatus) {
+					console.log('User ' + username + ' successfully registered!')
+				},	
+				error: function(error) {
+					console.log('Could not register user!')
+				}   
 			});
 		};
 

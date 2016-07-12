@@ -26,7 +26,8 @@ define(['jquery',
 			'click .launcher-switch-container': 'lockDashboard',
 			'click .launcher-switch-container.locked': 'unLockDashboard',
 			'click .tab': 'changeInterfaceView',
-			'click .dashboard-tab-menu-save': 'saveDashboard'
+			'click .dashboard-tab-menu-save': 'saveDashboard',
+			'click .header-menu': 'logoutUser'
 		};
 		
 
@@ -77,6 +78,11 @@ define(['jquery',
 		that.getCurrentView = function() {
 			return that.currentView;
 		};
+
+
+		that.logoutUser = function() {
+			that.trigger('logout');
+		}
 
 
 		that.changeInterfaceView = function(event) {

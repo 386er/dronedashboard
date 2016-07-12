@@ -177,7 +177,12 @@ transition-duration: 400ms;
 }
 
 
-
+.header-menu{
+	width: 200px;
+	float: right;
+	font-family: sans-serif;
+	cursor:pointer;
+}
 
 /*
 ################

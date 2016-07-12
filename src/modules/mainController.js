@@ -36,10 +36,10 @@ define(['jquery',
 
 
 		that.initialize = function() {
-			that.headerController.render();
 			that.currentView.initLoading();
 
 			that.requestController.on('streamsAvailable', function(data) {
+			that.headerController.render();
 				that.app.dashboardSegmentation = data[0].segmentation;
 				that.app.models = data[0].models;
 				that.currentView.stopLoading();
@@ -55,6 +55,12 @@ define(['jquery',
 					that.createDashboard();
 				}
 			});
+
+
+			that.headerController.on('logout', function() {
+				that.requestController.logoutUser();
+			})
+
 
 			that.requestController.getStreams();
 		};

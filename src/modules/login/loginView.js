@@ -11,7 +11,7 @@ define(['jquery',
 	LoginViewTemplate
 	) {
 
-	var StreamItemView = function(numberOfStreams) {
+	var LoginView = function() {
 
 		var that = {};
 
@@ -22,11 +22,18 @@ define(['jquery',
 			'mousedown .button':'buttonDown',
 			'mouseup .button':'buttonUp',
 			'mouseout .button':'buttonUp',
-			'click .tab': 'changeLoginView'
+			'click .tab': 'changeLoginView',
+			'click .login-button': 'loginUser',
+			'click .signup-button': 'signupUser'
 		}
 
 		that.initialize = function() {
 
+		}
+
+
+		that.assignRequestController = function(requestController) {
+			that.requestController = requestController;
 		}
 
 
@@ -38,26 +45,27 @@ define(['jquery',
 			that.$el.find(event.target).removeClass('selected');
 		};
 
-		that.showCancel = function() {
-			that.$el.find('.stream-list-item-cancel').removeClass('hidden');
-		};
-
-
-/*		that.hideCancel = function() {
-			that.$el.find('.stream-list-item-cancel').addClass('hidden');
-		};
-*/
-
-/*		that.removeStream = function() {
-			that.trigger('removeStream', that.model)
-		};
-*/
 
 		that.changeLoginView = function() {
-/*			that.$el.find('.tab').toggleClass('selected');*/
 			that.model['login'] = !that.model['login'];
+			that.delegateEvents();
 			that.render();
-		}
+		};
+
+		that.loginUser = function() {
+			var inputs = that.$el.find('input')
+			var username = inputs[0].value;
+			var password = inputs[1].value;
+			that.requestController.loginUser(username, password);
+		};
+
+		
+		that.signupUser = function() {
+			var inputs = that.$el.find('input')
+			var username = inputs[0].value;
+			var password = inputs[1].value;
+			that.requestController.signupUser(username, password);
+		};
 
 
 		that.render = function() {
@@ -72,6 +80,6 @@ define(['jquery',
 		
 	};
 
-	return StreamItemView;
+	return LoginView;
 
 });

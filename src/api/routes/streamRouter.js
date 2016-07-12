@@ -1,21 +1,20 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
 var Streams = require('../models/streams');
-
 var streamRouter = express.Router();
+var Verify = require('./verify');
 streamRouter.use(bodyParser.json());
 
 streamRouter.route('/')
-.get(function (req, res, next) {
+.get(Verify.verifyOrdinaryUser, function (req, res, next) {
     Streams.find({}, function (err, stream) {
         if (err) throw err;
         res.json(stream);
     });
 })
 
-.post(function (req, res, next) {
+.post( Verify.verifyOrdinaryUser, function (req, res, next) {
     Streams.create(req.body, function (err, stream) {
         if (err) throw err;
         console.log('stream created!');
@@ -28,7 +27,7 @@ streamRouter.route('/')
     });
 })
 
-.put(function (req, res, next) {
+.put(Verify.verifyOrdinaryUser, function (req, res, next) {
     Streams.findOneAndUpdate({}, {
         $set: req.body
     }, {
@@ -39,7 +38,7 @@ streamRouter.route('/')
     });
 })
 
-.delete(function (req, res, next) {
+.delete(Verify.verifyOrdinaryUser, function (req, res, next) {
     Streams.remove({}, function (err, resp) {
         if (err) throw err;
         res.json(resp);

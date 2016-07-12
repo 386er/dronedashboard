@@ -8,8 +8,13 @@
     "cors": "^2.7.1",
     "dir": "^0.1.2",
     "jslint": "^0.10.1",
+    "jsonwebtoken": "^7.0.1",
     "mongoose": "^4.5.1",
     "mongoose-currency": "^0.2.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
     "socket.io": "^1.4.5"
   },
   "devDependencies": {
