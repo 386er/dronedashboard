@@ -1,5 +1,6 @@
 requirejs(['./common'], function (common) {
-    requirejs(['modules/login/loginController'], function(loginController) {
-    	loginController.init();
+    requirejs(['modules/login/loginController'], function(LoginController) {
+    	var loginController = new LoginController();
+    	loginController.startLogin();
     });
 });

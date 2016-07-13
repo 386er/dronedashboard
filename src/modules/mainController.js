@@ -9,7 +9,8 @@ define(['jquery',
 	'modules/streamModel',
 	'socket',
 	'modules/requestController',
-	'spin'
+	'spin',
+	'text!modules/templates/mainControllerTemplate.html'
 ], function($,
 	Backbone,
 	_,
@@ -20,22 +21,24 @@ define(['jquery',
 	StreamModel,
 	io,
 	RequestController,
-	Spinner
+	Spinner,
+	MainControllerTemplate
 	) {
 
 	var MainController = function() {
 
 
 		var that = {};
+		that.el = 'body'
 		that.app = app || {};
-		that.app.numberOfStreams = 4;
-		that.requestController = new RequestController();
-		that.headerController = new HeaderController();
-		that.modelCollection = new ModelCollection();
-		that.currentView = new StreamBoardController();
 
 
-		that.initialize = function() {
+		that.init = function() {
+			that.render();
+			that.requestController = new RequestController();
+			that.modelCollection = new ModelCollection();
+			that.headerController = new HeaderController();
+			that.currentView = new StreamBoardController();
 			that.currentView.initLoading();
 
 			that.requestController.on('streamsAvailable', function(data) {
@@ -43,7 +46,7 @@ define(['jquery',
 				that.app.dashboardSegmentation = data[0].segmentation;
 				that.app.models = data[0].models;
 				that.currentView.stopLoading();
-				that.render();
+				that.renderCurrentView();
 			})
 
 			that.headerController.on('tab-change', function(tab) {
@@ -65,8 +68,12 @@ define(['jquery',
 			that.requestController.getStreams();
 		};
 
-
 		that.render = function() {
+			that.$el.html(MainControllerTemplate);
+		};
+
+
+		that.renderCurrentView = function() {
 			that.populateCollection();
 			that.currentView.assignHeaderController(that.headerController);
 			that.currentView.assignCollection(that.modelCollection);

@@ -2,27 +2,43 @@ define(['jquery',
 	'backbone',
 	'underscore',
 	'modules/login/loginView',
-	'modules/requestController'
+	'modules/requestController',
+	'text!modules/login/templates/loginControllerTemplate.html'
 ], function($,
 	Backbone,
 	_,
 	LoginView,
-	RequestController
+	RequestController,
+	LoginControllerTemplate
 	) {
 
-	var LoginController = {
 
-		init : function() {
+	var LoginController = function() {
+		
+		var that = {};
+		that.el = 'body'
+		that.requestController = new RequestController();
 
-			var loginView = new LoginView();
-			var  requestController = new RequestController();
-
-			loginView.assignRequestController(requestController);
-			loginView.render();
+		that.startLogin = function() {
+			that.render();
+			that.loginView = new LoginView();
+			that.loginView.assignRequestController(that.requestController);
+			that.loginView.render();
 		}
 
-	};
+
+		that.render = function() {
+			that.$el.html(LoginControllerTemplate);
+		}
+
+
+		that = new (Backbone.View.extend(that))();
+		return that;
+
+	}
 
 	return LoginController;
 
 });
+
+

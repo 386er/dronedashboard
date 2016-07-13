@@ -17,6 +17,7 @@ define(['jquery',
 
 			window.app = {};
 			var mainController = new MainController();
+			mainController.init();
 			
 		}
 
