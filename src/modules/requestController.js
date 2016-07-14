@@ -21,11 +21,11 @@ define(['jquery',
 					that.trigger('streamsAvailable', data);
 				},
 				error: function(error) {
-
 					if (error.status == 401 || error.status == 403) {
 						console.log('Status: ' + error.status);
 						console.log(error.responseText);
 						window.location = "/login";
+						that.trigger('closeSession');
 					} else {
 						console.log('Streams could not be loaded: ' + error.status);
 					}
@@ -52,6 +52,7 @@ define(['jquery',
 						console.log('Status: ' + error.status);
 						console.log(error.responseText);
 						window.location = "/login";
+						that.trigger('closeSession')
 					} else {
 						console.log('Streams could not be updated: ' + error.status);
 					}
@@ -72,8 +73,10 @@ define(['jquery',
 				}),
 				success: function(data, textStatus) {
 					window.localStorage['token'] = data.token;
+					window.localStorage['userID'] = data.userID;
 					if (typeof data.redirect == 'string') {
-						window.location = data.redirect;
+/*						window.location = data.redirect;*/
+						that.trigger('startSession');
 					}
 				},	
 				error: function(error) {
@@ -90,8 +93,10 @@ define(['jquery',
 				contentType: "application/json",
 				success: function(data, textStatus) {
 					window.localStorage['token'] = undefined;
+					window.localStorage['userID'] = undefined;
 					if (typeof data.redirect == 'string') {
-						window.location = data.redirect;
+/*						window.location = data.redirect;*/
+						that.trigger('closeSession');
 					}
 				}
 			});

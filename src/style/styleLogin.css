@@ -109,7 +109,7 @@
       color: white;
     }
 
-    .tab {
+    .login-tab {
     width: 140px;
     height: 32px;
     padding-top: 18px;
@@ -125,7 +125,7 @@
     display: inline-block;
     }
 
-    .tab.selected {
+    .login-tab.selected {
       background-color:#757373;
       box-shadow: inset 2px 2px 3px 1px #5a5a5a;
       border:1px solid #4E4E4E;

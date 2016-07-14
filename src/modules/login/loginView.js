@@ -22,7 +22,7 @@ define(['jquery',
 			'mousedown .button':'buttonDown',
 			'mouseup .button':'buttonUp',
 			'mouseout .button':'buttonUp',
-			'click .tab': 'changeLoginView',
+			'click .login-tab': 'changeLoginView',
 			'click .login-button': 'loginUser',
 			'click .signup-button': 'signupUser'
 		}

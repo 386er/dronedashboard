@@ -11,6 +11,16 @@ define(['jquery',
 	var ModelCollection = function(parameterObj) { 	
 	
 		var that = {};
+
+
+		that.destroy = function () {
+			that.models.forEach(function(model) {
+				model = undefined;
+			})
+			that.models = undefined;
+		};
+
+
 				
 		that = new (Backbone.Collection.extend(that))();
 		that.constructor.apply(that, arguments);

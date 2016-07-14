@@ -35,7 +35,7 @@ define(['jquery',
 
 		that.init = function() {
 			that.render();
-			that.requestController = new RequestController();
+/*			that.requestController = new RequestController();*/
 			that.modelCollection = new ModelCollection();
 			that.headerController = new HeaderController();
 			that.currentView = new StreamBoardController();
@@ -68,6 +68,12 @@ define(['jquery',
 			that.requestController.getStreams();
 		};
 
+
+		that.assignRequestController = function(requestController) {
+			that.requestController = requestController;
+		};
+
+
 		that.render = function() {
 			that.$el.html(MainControllerTemplate);
 		};
@@ -79,7 +85,6 @@ define(['jquery',
 			that.currentView.assignCollection(that.modelCollection);
 			that.currentView.render();
 		};
-
 
 
 		that.createStreamBoard = function() {
@@ -108,13 +113,27 @@ define(['jquery',
 		};
 
 
-
 		that.clearView = function() {
 			that.currentView.off('configUpdated');
 			that.currentView.destroy();
 			that.currentView = undefined;
 			that.headerController.isLauncherLocked = false;
 			that.headerController.render();
+		};
+
+
+		that.destroy = function() {
+			that.clearView();
+			that.requestController.off('streamsAvailable');
+			that.requestController.remove();
+			that.requestController = undefined;
+			that.headerController.off('tab-change');
+			that.headerController.off('logout');
+			that.headerController.remove();
+			that.headerController = undefined;
+			that.modelCollection.destroy();
+			that.modelCollection = undefined;
+			that.$el.html('');
 		};
 
 

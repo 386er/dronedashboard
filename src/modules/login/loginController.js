@@ -17,19 +17,28 @@ define(['jquery',
 		
 		var that = {};
 		that.el = 'body'
-		that.requestController = new RequestController();
 
-		that.startLogin = function() {
+		that.init = function() {
 			that.render();
 			that.loginView = new LoginView();
 			that.loginView.assignRequestController(that.requestController);
 			that.loginView.render();
 		}
 
+		that.assignRequestController = function(requestController) {
+			that.requestController = requestController;
+		}
+
 
 		that.render = function() {
 			that.$el.html(LoginControllerTemplate);
 		}
+
+		that.destroy = function() {
+			that.loginView.remove();
+			that.off();
+			that.$el.html('');
+		};
 
 
 		that = new (Backbone.View.extend(that))();

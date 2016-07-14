@@ -47,7 +47,8 @@ router.post('/login', function(req, res, next) {
         status: 'Login successful!',
         success: true,
         token: token,
-        redirect:'/dashboard'
+        redirect:'/dashboard',
+        userID: user._id
       });
     });
   })(req,res,next);
