@@ -5,21 +5,9 @@ var Verify = require('./verify')
 
 
 
-router.get('/dashboard', function(req, res){
+router.get('/', function(req, res){
   res.sendFile(path.resolve('index.html'));
 });
-
-
-router.get('/', function(req, res){
-   res.redirect('/dashboard')
-});
-
-
-router.get('/login', function(req, res){
-	res.sendFile(path.resolve('login.html'));
-});
-
-
 
 
 

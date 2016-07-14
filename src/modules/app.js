@@ -18,15 +18,15 @@ define(['jquery',
 	var app = function() {
 
 		var that = {};
-			that.loginController = new LoginController();
-			that.requestController = new RequestController();
+		window.app = {};
+		that.mainController = new MainController();
+		that.requestController = new RequestController();
 
 		that.init = function() {
 
-			window.app = {};
 
-			that.loginController.assignRequestController(that.requestController);
-			that.loginController.init();
+			that.mainController.assignRequestController(that.requestController);
+			that.mainController.init();
 
 			that.requestController.on('startSession', function () {
 				that.loginController.destroy();

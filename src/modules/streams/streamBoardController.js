@@ -94,8 +94,10 @@ define(['jquery',
 
 
 		that.destroy = function() {
-			that.streamListView.remove();
-			that.streamListView = undefined;
+			if (that.streamListView !== undefined) {
+				that.streamListView.remove();
+				that.streamListView = undefined;
+			}
 			that.headerController = undefined;
 		};
 

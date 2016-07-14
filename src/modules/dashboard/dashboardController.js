@@ -53,7 +53,6 @@ define(['jquery',
 			that.gridsterController.render();
 
 			that.headerController.on('dashboardLocked', function() {
-				console.log(that.instanceID);
 				that.gridsterController.lockCharts();
 			});
 

@@ -30,11 +30,6 @@ define(['jquery',
 		}
 
 
-
-		that.initialize = function() {
-		};
-
-
 		that.assignCollection = function(collection) {
 			that.modelCollection = collection;
 		};
@@ -56,17 +51,6 @@ define(['jquery',
 
 
 		that.addStreamItem = function() {
-/*			var 
-				numberOfStreams = that.modelCollection.models.length + 1;
-				model = new StreamModel({
-					'name': 'Stream ' + numberOfStreams,
-					'connectionEstablished': false,
-					'id': numberOfStreams,
-					'label': numberOfStreams
-				});
-			that.modelCollection.add(model);
-			that.render();
-			that.delegateEvents();*/
 			that.trigger('modelAdded');
 		};
 

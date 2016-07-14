@@ -24,7 +24,7 @@ define(['jquery',
 					if (error.status == 401 || error.status == 403) {
 						console.log('Status: ' + error.status);
 						console.log(error.responseText);
-						window.location = "/login";
+/*						window.location = "/login";*/
 						that.trigger('closeSession');
 					} else {
 						console.log('Streams could not be loaded: ' + error.status);
@@ -51,7 +51,7 @@ define(['jquery',
 					if (error.status == 401 || error.status == 403) {
 						console.log('Status: ' + error.status);
 						console.log(error.responseText);
-						window.location = "/login";
+/*						window.location = "/login";*/
 						that.trigger('closeSession')
 					} else {
 						console.log('Streams could not be updated: ' + error.status);
