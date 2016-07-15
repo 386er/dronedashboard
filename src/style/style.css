@@ -579,11 +579,29 @@ LOGIN
       height:90%;
     }
 
-    .login-wrapper-pusher {
-      margin:auto;
-      width:350px;
-      height:20%;
+    #login-wrapper-pusher {
+    margin: auto;
+    width: 350px;
+    height: 16%;
+    padding-top: 4%;
     }
+
+    .login-wrapper-pusher-wrongUserOrPassword {
+    margin: auto;
+    width: 300px;
+    text-align: center;
+    height: 30px;
+    padding-top: 15px;
+    border: 2px solid #f54d4d;
+    background-color: #ffcece;
+    border-radius: 6px;
+    color: #ea2a2a;
+    font-weight: bold;
+    font-family: arial;
+    font-size: 15px;
+    }
+
+
 
     #login-wrapper-container {
       margin:auto;

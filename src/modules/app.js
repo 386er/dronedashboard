@@ -45,6 +45,11 @@ define(['jquery',
 			})
 
 
+			that.requestController.on('wrongUserOrPassword', function() {
+				that.loginController.renderWrongUserOrPassword();
+			})
+
+
 		};
 
 

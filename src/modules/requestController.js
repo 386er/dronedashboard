@@ -24,7 +24,6 @@ define(['jquery',
 					if (error.status == 401 || error.status == 403) {
 						console.log('Status: ' + error.status);
 						console.log(error.responseText);
-/*						window.location = "/login";*/
 						that.trigger('closeSession');
 					} else {
 						console.log('Streams could not be loaded: ' + error.status);
@@ -75,12 +74,12 @@ define(['jquery',
 					window.localStorage['token'] = data.token;
 					window.localStorage['userID'] = data.userID;
 					if (typeof data.redirect == 'string') {
-/*						window.location = data.redirect;*/
 						that.trigger('startSession');
 					}
 				},	
-				error: function(error) {
-						console.log('Wrong User or Password');
+				error: function(data) {
+						console.log(data.responseJSON.err.message)
+						that.trigger('wrongUserOrPassword')
 				}   
 			});
 		};
@@ -95,7 +94,6 @@ define(['jquery',
 					window.localStorage['token'] = undefined;
 					window.localStorage['userID'] = undefined;
 					if (typeof data.redirect == 'string') {
-/*						window.location = data.redirect;*/
 						that.trigger('closeSession');
 					}
 				}
