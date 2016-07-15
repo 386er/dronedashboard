@@ -587,21 +587,34 @@ LOGIN
     }
 
     .login-wrapper-pusher-wrongUserOrPassword {
-    margin: auto;
-    width: 300px;
-    text-align: center;
-    height: 30px;
-    padding-top: 15px;
-    border: 2px solid #f54d4d;
-    background-color: #ffcece;
-    border-radius: 6px;
-    color: #ea2a2a;
-    font-weight: bold;
-    font-family: arial;
-    font-size: 15px;
+      margin: auto;
+      width: 300px;
+      text-align: center;
+      height: 30px;
+      padding-top: 15px;
+      border: 2px solid #f54d4d;
+      background-color: #ffcece;
+      border-radius: 6px;
+      color: #ea2a2a;
+      font-weight: bold;
+      font-family: arial;
+      font-size: 15px;
     }
 
-
+    .login-wrapper-pusher-userRegistered {
+      margin: auto;
+      width: 300px;
+      text-align: center;
+      height: 30px;
+      padding-top: 15px;
+      border: 2px solid #68a967;
+      background-color: #baf1b7;
+      border-radius: 6px;
+      color: #53b15f;
+      font-weight: bold;
+      font-family: arial;
+      font-size: 15px;
+    }
 
     #login-wrapper-container {
       margin:auto;

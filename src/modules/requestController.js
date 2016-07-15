@@ -111,10 +111,11 @@ define(['jquery',
 					"password": password
 				}),
 				success: function(data, textStatus) {
-					console.log('User ' + username + ' successfully registered!')
+					console.log('User ' + username + ' successfully registered!');
+					that.trigger('userRegistered')
 				},	
 				error: function(error) {
-					console.log('Could not register user!')
+					console.log('Could not register user!');
 				}   
 			});
 		};

@@ -56,6 +56,12 @@ define(['jquery',
 		};
 
 
+		that.renderUserRegistered = function() {
+			that.loginErrorView.render({'userRegistered':true});
+			that.loginView.changeLoginView();
+		};
+
+
 		that = new (Backbone.View.extend(that))();
 		return that;
 

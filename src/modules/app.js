@@ -50,6 +50,11 @@ define(['jquery',
 			})
 
 
+			that.requestController.on('userRegistered', function() {
+				that.loginController.renderUserRegistered();
+			})
+
+
 		};
 
 
