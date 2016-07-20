@@ -1,0 +1,131 @@
+.widget-header {
+	height: 50px;
+	border-bottom: 1px dotted #6B6B6B;
+	border-radius: 5px 5px 0px 0px;
+	margin:0px;
+	-webkit-transition: background-color 400ms, -webkit-transform 400ms;
+	transition: background-color 400ms, transform 400ms;
+}
+
+.widget-header:hover {
+	background-color: #C5C5C5;
+	border-radius: 5px 5px 0px 0px;
+}
+
+
+.chart-wrapper {
+height:100%;
+}
+
+.widget-header > input {
+margin: 6px 6px 3px 6px;
+border: 0px;
+padding: 0px 6px 0px 3px;
+background-color: transparent;
+height: calc(100% - 9px);
+width: calc(100% - 21px);
+font-family: 'Oswald';
+font-size: 16px;
+border-radius: 5px 5px 0px 0px;
+-webkit-transition: background-color 600ms, -webkit-transform 600ms;
+transition: background-color 600ms, transform 600ms;
+}
+
+.widget-header > input:focus {
+    outline: none !important;
+    background-color:#ECECEC;
+}
+
+
+.chart-container {
+	display: flex;
+	height: calc(100% - 50px);
+
+}
+
+
+.cancel-chart {
+	right: 15px;
+	width:15px;
+}
+
+.line-chart {
+	right: 44px;
+}
+
+.spider-chart {
+	right: 76px;
+}
+
+.bar-chart {
+	right: 106px;
+}
+
+.scatter-chart {
+	right: 138px;
+}
+
+.scatter-chart:hover,
+.bar-chart:hover,
+.line-chart:hover,
+.spider-chart:hover,
+.cancel-chart:hover{
+	color: gray;
+	border: 1px solid gray;
+}
+
+
+.chart {
+	-webkit-transition: color 200ms, -webkit-transform 200ms;
+	transition: color 200ms, transform 200ms;
+	transition: display 200ms, opacity 200ms linear;
+	padding: 4px !important;
+	border:1px solid #424242;
+	position: absolute;
+	color:#424242;
+	border-radius:2px;
+	top: 15px;
+	box-shadow: 2px 2px 2px 0px gray;
+}
+
+.chart.selected {
+	color: #C5C5C5;
+	background-color: #424242;
+	border: 1px solid #424242;
+	box-shadow: inset 2px 2px 2px 0px black;
+}
+
+.chart.selected:hover {
+	color: white;
+}
+
+
+.hidden {
+	display: none !important;
+}
+
+.transparent {
+	opacity:0.15;
+}
+
+
+.line {
+	stroke: gray;
+	stroke-width: 1px;
+	fill: transparent
+}
+
+.axis path,
+.axis line {
+	fill: transparent;
+	stroke: gray;
+	shape-rendering: crispEdges;
+	}
+	
+.spider-label,
+.x,
+.y {
+	font-family: arial;
+	font-size:11px;
+	font-weight: bold;
+}

@@ -1,0 +1,62 @@
+.gridster * {
+	margin:0;
+	padding:0;
+}
+
+ul {
+	list-style-type: none;
+}
+
+
+.gridster ul {
+	background-color: #F1F0F0;
+	border: 1px solid #C7C2C2;
+	border-radius: 8px;
+}
+
+
+.gridster div {
+	font-size: 1em;
+	font-weight: bold;
+	text-align: center;
+	line-height: 100%;
+}
+
+.gridster {
+	margin: 0 auto;
+	opacity: .8;
+
+	-webkit-transition: opacity .6s;
+	-moz-transition: opacity .6s;
+	-o-transition: opacity .6s;
+	-ms-transition: opacity .6s;
+	transition: opacity .6s;
+}
+
+.gs-w {
+	border: 1px dotted #6B6B6B;
+}
+
+
+.gridster .gs-w {
+	border-radius: 5px 5px 0px 0px;
+	background: #DCDCDC;
+	cursor: pointer;
+}
+
+.gridster .player {
+	background: #BBB;
+}
+
+.gridster .preview-holder {
+	border: none!important;
+	background: gray!important;
+}
+
+.disabled {
+	border: 1px solid transparent !important;
+}
+
+.no-hover {
+	cursor:default !important;
+}
