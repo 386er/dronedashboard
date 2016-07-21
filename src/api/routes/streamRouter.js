@@ -48,17 +48,18 @@ streamRouter.route('/')
 
 
 
-/*
+
 streamRouter.route('/:streamId')
 .get(function (req, res, next) {
-    Streams.findById(req.params.streamId, function (err, stream) {
-        if (err) throw err;
-        res.json(stream);
-    });
-})
+		console.log(req.params.streamId)
+		Streams.find({"createdBy": req.params.streamId}, function (err, stream) {
+		if (err) throw err;
+		res.json(stream);
+	});
+});
 
 
-
+/*
 
 
 
@@ -103,8 +104,9 @@ streamRouter.route('/:streamId/comments')
             res.end('Deleted all comments!');
         });
     });
-});*/
+});
 
+*/
 
 module.exports = streamRouter;
 

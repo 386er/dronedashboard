@@ -15,7 +15,7 @@ define(['jquery',
 		that.getStreams = function() {
 			$.ajax({
 				type: "GET",
-				url: 'streams',
+				url: 'streams/' + window.localStorage.userID,
 				beforeSend: function(xhr){xhr.setRequestHeader('x-access-token', window.localStorage.token);},
 				success: function(data) {
 					that.trigger('streamsAvailable', data);
@@ -33,25 +33,25 @@ define(['jquery',
 		};
 
 
-		that.updateStreams = function(models, segmentation) {		
+		that.updateStreams = function(models, segmentation) {
 			$.ajax({
 				type: "PUT",
 				url: 'streams',
 				beforeSend: function(xhr){xhr.setRequestHeader('x-access-token', window.localStorage.token);},
 				contentType: "application/json",
 				data: JSON.stringify(
-					{"models": models,
-					 "segmentation": segmentation
+					{
+						"models": models,
+						"segmentation": segmentation
 				}),
 				success: function(data) {
-					console.log('Streams Updated!')
+					console.log('Streams Updated!');
 				},
 				error: function(error) {
 					if (error.status == 401 || error.status == 403) {
 						console.log('Status: ' + error.status);
 						console.log(error.responseText);
-/*						window.location = "/login";*/
-						that.trigger('closeSession')
+						that.trigger('closeSession');
 					} else {
 						console.log('Streams could not be updated: ' + error.status);
 					}

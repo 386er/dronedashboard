@@ -42,6 +42,7 @@
 .stream-list-adder {
 	font-size: 60px !important;
 	color:#424242;
+	margin-top: 25px;
 }
 
 .stream-list-adder:hover {
