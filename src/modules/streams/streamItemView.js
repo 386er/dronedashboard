@@ -43,7 +43,7 @@ define(['jquery',
 
 
 		that.removeStream = function() {
-			that.trigger('removeStream', that.model)
+			that.trigger('removeStream', that.model);
 		};
 
 

@@ -2,6 +2,7 @@
 define(['jquery',
 	'backbone',
 	'underscore',
+	'mustache',
 	'modules/headerController',
 	'modules/streams/streamItemViewCollection',
 	'modules/streams/streamItemModel',
@@ -11,6 +12,7 @@ define(['jquery',
 ], function($,
 	Backbone,
 	_,
+	Mustache,
 	HeaderController,
 	StreamItemViewCollection,
 	StreamItemModel,
@@ -27,7 +29,7 @@ define(['jquery',
 		that.events = {
 			'click .stream-list-adder': 'addStreamItem',
 			'click .submit-stream': 'establishStream'
-		}
+		};
 
 
 		that.assignCollection = function(collection) {
@@ -36,7 +38,11 @@ define(['jquery',
 
 
 		that.render = function() {
-			that.$el.html(StreamListTemplate)
+			
+			var models = (that.modelCollection.models.length > 0);
+				html = Mustache.to_html(StreamListTemplate, {'models': models});
+
+			that.$el.html(html);
 			that.modelCollection.each(function(item) {
 				var itemView = new StreamItemView();
 				itemView.assignModel(item);

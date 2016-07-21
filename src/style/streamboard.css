@@ -45,11 +45,18 @@
 	margin-top: 25px;
 }
 
+.stream-list-no-models {
+	font-size: 24px;
+	font-family: helvetica, sans-serif;
+	margin-top: 25px;
+	color: #565656;
+}
+
+
 .stream-list-adder:hover {
 	color:gray;
 	cursor: pointer;
 }
-
 
 .stream-list-item-header {
 	text-align: left;

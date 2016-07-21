@@ -51,7 +51,6 @@ streamRouter.route('/')
 
 streamRouter.route('/:streamId')
 .get(Verify.verifyOrdinaryUser, function (req, res, next) {
-		console.log(req.params.streamId)
 		Streams.find({"createdBy": req.params.streamId}, function (err, stream) {
 		if (err) throw err;
 		res.json(stream);
