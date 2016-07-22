@@ -2,7 +2,7 @@ var express = require("express");
 var app = express();
 var http = require('http').Server(app);
 var mongoose = require('mongoose');
-app.use(express.static(__dirname));
+app.use(express.static(__dirname + '/src'));
 var url = 'mongodb://localhost:27017/fyke';
 var routes = require('./api/routes/index');
 var streams = require('./api/routes/streamRouter');

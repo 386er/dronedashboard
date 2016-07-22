@@ -6,6 +6,7 @@ var streamRouter = express.Router();
 var Verify = require('./verify');
 streamRouter.use(bodyParser.json());
 
+
 streamRouter.route('/')
 .get(Verify.verifyOrdinaryUser, function (req, res, next) {
     Streams.find({}, function (err, stream) {
