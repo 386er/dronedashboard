@@ -14,8 +14,7 @@ streamRouter.route('/')
         res.json(stream);
     });
 })
-
-.post( Verify.verifyOrdinaryUser, function (req, res, next) {
+.post(Verify.verifyOrdinaryUser, function (req, res, next) {
     Streams.create(req.body, function (err, stream) {
         if (err) throw err;
         console.log('stream created!');
@@ -27,18 +26,6 @@ streamRouter.route('/')
         res.end('Added the stream with id: ' + id);
     });
 })
-
-.put(Verify.verifyOrdinaryUser, function (req, res, next) {
-    Streams.findOneAndUpdate({}, {
-        $set: req.body
-    }, {
-        new: true
-    }, function (err, stream) {
-        if (err) throw err;
-        res.json(stream);
-    });
-})
-
 .delete(Verify.verifyOrdinaryUser, function (req, res, next) {
     Streams.remove({}, function (err, resp) {
         if (err) throw err;
@@ -52,10 +39,20 @@ streamRouter.route('/')
 
 streamRouter.route('/:streamId')
 .get(Verify.verifyOrdinaryUser, function (req, res, next) {
-		Streams.find({"createdBy": req.params.streamId}, function (err, stream) {
-		if (err) throw err;
-		res.json(stream);
-	});
+        Streams.find({"createdBy": req.params.streamId}, function (err, stream) {
+        if (err) throw err;
+        res.json(stream);
+    });
+})
+.put(Verify.verifyOrdinaryUser, function (req, res, next) {
+        Streams.findOneAndUpdate({"createdBy": req.params.streamId}, {
+        $set: req.body
+    }, {
+        new: true
+    }, function (err, stream) {
+        if (err) throw err;
+        res.json(stream);
+    });
 });
 
 

@@ -36,7 +36,7 @@ define(['jquery',
 		that.updateStreams = function(models, segmentation) {
 			$.ajax({
 				type: "PUT",
-				url: 'streams',
+				url: 'streams/' + window.localStorage.userID,
 				beforeSend: function(xhr){xhr.setRequestHeader('x-access-token', window.localStorage.token);},
 				contentType: "application/json",
 				data: JSON.stringify(
@@ -112,11 +112,11 @@ define(['jquery',
 				}),
 				success: function(data, textStatus) {
 					console.log('User ' + username + ' successfully registered!');
-					that.trigger('userRegistered')
-				},	
+					that.trigger('userRegistered');
+				},
 				error: function(error) {
 					console.log('Could not register user!');
-				}   
+				}
 			});
 		};
 
