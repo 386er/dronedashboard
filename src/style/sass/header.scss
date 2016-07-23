@@ -76,13 +76,13 @@
 .launcher-switch-container {
 	width:60px;
 	height:35px;
-	border:1px solid gray;
+	border: 1px solid gray;
 	border-left: 0px;
 	border-radius: 30px;
 	position:relative;
 	cursor: pointer;
-	background-color:#696969;
-	box-shadow: inset 2px 1px 4px 0px black;
+	background-color:#5F5F5F;
+	box-shadow: inset 2px 1px 4px 0 black;
 	float:left;
 	margin-left:20px;
 }
@@ -122,7 +122,7 @@
 
 
 .launcher-icon.locked {
-	color: whitesmoke;
+	color:whitesmoke;
 	font-size:36px !important;
 	margin-top:0px;
 }
@@ -154,8 +154,14 @@
 
 
 .header-menu{
-	width: 200px;
-	float: right;
-	font-family: sans-serif;
-	cursor:pointer;
+    margin-top: 5px;
+    width: 35px;
+    margin-right: 100px;
+    float: right;
+    cursor: pointer;
+    font-size: 45px !important;
+}
+
+.header-menu:hover {
+	color:orange;
 }
