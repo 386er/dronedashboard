@@ -23,14 +23,13 @@ define(['jquery',
 
 		var that = {};
 		that.app = app || {};
-		that.numberOfStreams = that.app.numberOfStreams;
 		that.el ='.wrapper';
 		that.spinner = new Spinner({'color': 'grey', 'width': 2 });
 
 
 		that.initLoading = function() {
 			that.spinner.spin();
-			that.$el.html(that.spinner.el)
+			that.$el.html(that.spinner.el);
 		};
 
 
@@ -51,8 +50,8 @@ define(['jquery',
 
 
 		that.render = function() {
-			that.$el.html(StreamboardControllerTemplate)
-			that.streamListView = new StreamListView(that.numberOfStreams);
+			that.$el.html(StreamboardControllerTemplate);
+			that.streamListView = new StreamListView();
 			that.streamListView.assignCollection(that.modelCollection);
 			that.streamManipulatorView = new StreamManipulatorView();
 			that.streamListView.render();
@@ -60,7 +59,12 @@ define(['jquery',
 			
 			that.streamListView.on('modelAdded', function() {
 				that.addNewStream();
-			})
+			});
+
+			that.streamListView.on('moveToManipulation', function(model) {
+				that.streamManipulatorView.assignModel(model);
+				that.streamManipulatorView.render();
+			});
 		};
 
 
@@ -81,7 +85,7 @@ define(['jquery',
 
 
 		that.createIDString = function() {
-		var 
+		var
 			text = "",
 			possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 

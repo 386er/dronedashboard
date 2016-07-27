@@ -17,15 +17,16 @@ define(['jquery',
 	StreamItemTemplate
 	) {
 
-	var StreamItemView = function(numberOfStreams) {
+	var StreamItemView = function() {
 
 		var that = {};
 
 		that.events = {
 			'mouseover':'showCancel',
 			'mouseout':'hideCancel',
-			'click .stream-list-item-cancel': 'removeStream'
-		}
+			'click .stream-list-item-cancel': 'removeStream',
+			'click': 'triggerManipulation'
+		};
 
 
 		that.assignModel = function(model) {
@@ -48,10 +49,13 @@ define(['jquery',
 
 
 		that.render = function() {
-		var html = Mustache.to_html(StreamItemTemplate, that.model.toJSON());
-			that.$el.html(html)
+			var html = Mustache.to_html(StreamItemTemplate, that.model.toJSON());
+			that.$el.html(html);
 		};
 
+		that.triggerManipulation = function() {
+			that.trigger('enableManipulate');
+		};
 
 
 		that = new (Backbone.View.extend(that))();

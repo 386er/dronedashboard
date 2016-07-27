@@ -86,10 +86,16 @@
 .stream-list-item {
 	height: 77px;
 	width: 95%;
-	border: 1px solid #c3c3c3;
+	border: 1px solid $mainGray;
 	margin: 2.5%;
-	background-color: white;
+	background-color: $pureWhite;
 	padding-top:3px;
+	cursor:pointer;
+}
+
+.stream-list-item:hover {
+	background-color: $mainLight;
+
 }
 
 .stream-list-item-status {

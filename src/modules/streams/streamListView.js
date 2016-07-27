@@ -50,10 +50,12 @@ define(['jquery',
 				that.$el.find('.stream-list-wrapper').append(itemView.el);
 				itemView.on('removeStream', function(stream) {
 					that.removeStream(stream);
-				})
-
-			})
-		}
+				});
+				itemView.on('enableManipulation', function(stream) {
+					that.trigger('moveToManipulation', stream);
+				});
+			});
+		};
 
 
 		that.addStreamItem = function() {

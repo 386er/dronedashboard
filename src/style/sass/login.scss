@@ -51,7 +51,7 @@ a, a:visited, a:hover, a:active {
 #login-wrapper-container {
 	margin:auto;
 	width:350px;
-	background-color: #4E4E4E;
+	background-color: $mainDark;
 	border-radius: 10px;
 	box-shadow: 2px 2px 4px 0px #abaaaa;
 }
@@ -65,8 +65,8 @@ a, a:visited, a:hover, a:active {
 
 .login-wrapper-container-fyke {
 	text-align: center;
-	color: whitesmoke;
-	font-family: "Oswald";
+	color: $mainLight;
+	font-family: $logoFont;
 	font-size: 44px;
 	font-weight: bold;
 	margin-top: -10px;
@@ -103,7 +103,7 @@ a, a:visited, a:hover, a:active {
 .signup-button,
 .login-button {
 	margin-left: 7%;
-	background-color: #4E4E4E;
+	background-color: $mainDark;
 	font-family: helvetica;
 	width: 85%;
 	float: left;
@@ -111,11 +111,11 @@ a, a:visited, a:hover, a:active {
 	box-shadow: 0px 0px 2px 1px #444444, inset 1px 1px 2px 1px #585858;
 	font-size: 14px;
 	font-weight: bold;
-	color: #c7c7c7;
+	color: $mainLight;
 }
 
 .button {
-	color:white;    
+	color: $mainLight;    
 }
 
 .login-facebook {
@@ -193,9 +193,9 @@ a, a:visited, a:hover, a:active {
 }
 
 .login-footer-logo {
-	font-family: "Oswald";
+	font-family: $logoFont;
 	font-size:24px;
 	display: inline !important;
-	color:whitesmoke;
+	color: red;
 	margin:5px;
 }
