@@ -143,7 +143,7 @@ a, a:visited, a:hover, a:active {
 	border-bottom: 0px;
 	text-align: center;
 	font-family: arial;
-	color: #c7c7c7;
+	color: $mainGray;
 	font-weight: bold;
 	border-radius: 3px 3px 0px 0px;
 	box-shadow: 0px -2px 2px 1px #484848, inset 1px 1px 2px 1px #565656;
@@ -152,7 +152,7 @@ a, a:visited, a:hover, a:active {
 }
 
 .login-tab.selected {
-	background-color:#757373;
+	background-color:$buttonSelected;
 	box-shadow: inset 2px 2px 3px 1px #5a5a5a;
 	border:1px solid #4E4E4E;
 	border-bottom:0px;
@@ -160,11 +160,11 @@ a, a:visited, a:hover, a:active {
 }
 
 .login-button.selected {
-	background-color:#757373;
+	background-color:$buttonSelected;
 	box-shadow: inset 2px 2px 3px 1px #5a5a5a;
 	border:1px solid #4E4E4E !important;
 	border-bottom:0px;
-	color:white;
+	color:$pureWhite;
 }
 
 .login-facebook.selected {
@@ -185,10 +185,10 @@ a, a:visited, a:hover, a:active {
 .login-footer {
 	width:100%;
 	height: calc(10% - 20px);
-	background-color: #4E4E4E;
+	background-color: $mainDark;
 	font-family: sans-serif;
 	text-align: center;
-	color:#bdbdbd;
+	color:$mainGray;
 	padding-top:20px;
 }
 
@@ -196,6 +196,6 @@ a, a:visited, a:hover, a:active {
 	font-family: $logoFont;
 	font-size:24px;
 	display: inline !important;
-	color: red;
+	color: $mainLight;
 	margin:5px;
 }
