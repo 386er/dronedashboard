@@ -54,7 +54,7 @@ define(['jquery',
 		};
 
 		that.triggerManipulation = function() {
-			that.trigger('enableManipulate');
+			that.trigger('enableManipulation', that.model);
 		};
 
 

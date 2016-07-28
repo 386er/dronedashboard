@@ -1,3 +1,37 @@
 <div class="stream-manipulation-container stream-container"> 
 
+	{{#connectionEstablished}}
+
+	<div class="stream-manipulation-timeseries"></div>
+	<div class="stream-manipulation-histogram"></div>
+	<div class="stream-manipulation-stats">
+		<p>mean:</p>
+		<p>std:</p>
+		<p>var:</p>
+		<p>frequency:</p>
+		<p># observations:</p>
+	</div>
+
+	<div class="stream-manipulation-calculator">
+		<label for="function">f(x) = </label>
+		<input class="stream-manipulation-input"type="text" name="function">
+		<table>
+			<tr>
+				<td>1</td> <td>2</td> <td>3</td> <td>%</td>
+			</tr>
+			<tr>
+				<td>4</td> <td>5</td> <td>6</td> <td>*</td>
+			</tr>
+			<tr>
+				<td>7</td> <td>8</td> <td>9</td> <td>-</td>
+			</tr>
+			<tr>
+				<td>.</td> <td>0</td> <td>=</td> <td>+</td>
+			</tr>
+
+		</table>
+	</div>
+
+	{{/connectionEstablished}}
+
 </div>

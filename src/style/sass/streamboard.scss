@@ -37,6 +37,83 @@
 	height: 100%;
 }
 
+.stream-manipulation-timeseries {
+	height: 180px;
+    width: 96%;
+    border: 1px solid $mainGray;
+    margin: 2%;
+    margin-bottom:1%;
+}
+
+.stream-manipulation-histogram {
+	width: calc(47% - 2px);;
+    height: 180px;
+    border: 1px solid $mainGray;
+    margin: 2%;
+    margin-right:1%;
+    margin-top:1%;
+    float:left;
+}
+
+.stream-manipulation-stats {
+    width: calc(47% - 10px);
+    height: 180px;
+    border: 1px solid #c3c3c3;
+    margin: 2%;
+    margin-left: 1%;
+    margin-top: 1%;
+    float: right;
+    font-family: arial,sans-sarif;
+    text-align: left;
+    padding-left: 8px;
+    font-weight:bold;
+    color: $mainDark;
+}
+
+.stream-manipulation-input {
+	width: 92.8%;
+    height: 30px;
+}
+
+.stream-manipulation-calculator {
+	font-family:arial,sans-sarif;
+	font-weight:bold;
+}
+
+.stream-manipulation-calculator table {
+	margin:2%;
+}
+
+.stream-manipulation-calculator td {
+	padding:25px;
+	border:1px solid $mainGray;
+	background-color:$pureWhite;
+	font-family:arial,sans-sarif;
+	font-weight:bold;
+	cursor:pointer;
+}
+
+.stream-manipulation-calculator td:hover {
+	background-color:$mainGray;
+	border:1px solid $mainDark;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 .stream-list-adder {
