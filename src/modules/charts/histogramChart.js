@@ -14,9 +14,10 @@ define(['jquery',
 		var that = {};
 
 		that.instanceID = 'histogramChart' + Date.now()
-		that.n = 25;
-		that.margin = {top:20, bottom:30, left:15, right:10};
-		that.counter = 0;
+		that.margin = {top:20, bottom:30, left:25, right:10};
+		that.random = d3.random.normal(0, 2.5);
+		that.n = 1800;
+		that.data = d3.range(that.n).map(function(i) {return that.random()});
 
 
 		that.determineWidthAndHeight = function() {
@@ -38,17 +39,74 @@ define(['jquery',
 		};
 		
 
+
+		that.getGranulation = function() {
+
+			var
+				min = d3.min(that.data),
+				max = d3.max(that.data),
+				granulation = _.range(min, max, 0.1);
+				granulation = granulation.map(function(tick) {
+					return parseFloat(d3.format(".1f")(tick));
+				});
+
+			return granulation;
+		};
+
+
+		that.getDistributionData = function() {
+			var granulation = that.getGranulation();
+			var distribution = [];
+			var distributionObject = {};
+			var adjustedData = that.data.map(function(date) {
+					return parseFloat(d3.format(".1f")(date));
+				});
+			for (var i = 0; i < granulation.length; i++) {
+				var key = granulation[i];
+				distributionObject[key] = 0;
+			}
+
+
+
+			for (var i = 0; i < adjustedData.length; i++) {
+				var key = adjustedData[i];
+				distributionObject[key] += 1;
+			}
+
+			for (var i = 0; i < _.keys(distributionObject).length; i++) {
+				var key = _.keys(distributionObject)[i];
+				var value = distributionObject[key];
+				if (value == NaN || value == "NaN") {
+					console.log(value)
+				} else {
+					distribution.push({"key":key,"value":value});
+				}
+			}
+
+			return distribution;
+		}
+
 		that.createYScale = function() {
-/*			that.y = d3.scale.linear()
-				.domain([0, 1])
-				.range([that.height, 0]);	*/
+			var data = that.getDistributionData();
+			var max = Math.max.apply(Math,data.map(function(o){return o.value;}))
+			console.log(data)
+			console.log(max)
+
+			that.y = d3.scale.linear()
+				.domain([0, 25])
+				.range([that.height, 0]);	
 		};		
 
 
 		that.createXScale = function() {
-/*			that.x = d3.scale.ordinal()
-				.domain(_.range(that.n))
-				.rangeRoundBands([0, that.width], 0.3);	*/
+
+			var granulation = that.getGranulation();
+
+			console.log(granulation);
+
+			that.x = d3.scale.linear()
+				.domain([d3.min(granulation),d3.max(granulation)])
+				.range([0, that.width]);	
 		};
 
 
@@ -62,8 +120,16 @@ define(['jquery',
 			that.axisX = that.svg.append("g")
 				.attr("class", "x axis")
 				.attr("transform", "translate(0," + that.height + ")")
-				.call(d3.svg.axis().scale(that.x).orient("bottom"));
+				.call(d3.svg.axis().scale(that.x).orient("bottom").ticks(15));
 			};
+
+
+		that.createYAxis = function() {
+			that.axisY = that.svg.append("g")
+				.attr("class", "y axis")
+				/*.attr("transform", "translate(0," + that.height + ")")*/
+				.call(d3.svg.axis().scale(that.y).orient("left").ticks(5));
+			};	
 
 
 		that.getRandomData = function(n) {
@@ -76,22 +142,22 @@ define(['jquery',
 
 
 		that.renderBars = function() {
-/*			that.data = that.getRandomData();
+			that.data = that.getDistributionData();
 
 			that.rect = that.svg.selectAll('rect')
-				.data(that.data, function(d) {return d.index});
+				.data(that.data);
 
 			that.rect.enter()
 				.append('rect')
+				.filter(function(d) { return d.value !== NaN })
 				.attr('class','bar')
 				.attr('fill','steelblue')
-				.attr('stroke', '#E6E6E6')
-				.attr('x', function(d,i) {return that.x(i)})
-				.attr('y', function(d) {return that.height - that.y(d.value)})
-				.attr('height', function(d) {return that.y(d.value)})
-				.attr('width', that.x.rangeBand());*/
-
-
+				.attr('x', function(d,i) {return that.x(d.key)})
+				.attr('y', function(d) {return that.y(d.value)})
+				.attr('height', function(d) {return that.height -  that.y(d.value)})
+				.attr('width', 0)
+				.transition().delay(function(d,i) {return i })
+				.attr('width', 1);
 		};
 
 
@@ -101,8 +167,9 @@ define(['jquery',
 			that.createSVG();
 			that.createScales();
 			that.createXAxis();
+			that.createYAxis();
 			that.renderBars();
-			that.animateChart();
+/*			that.animateChart();*/
 		};
 
 

@@ -6,6 +6,8 @@ define(['jquery',
 	'modules/headerController',
 	'modules/charts/barChart',
 	'modules/charts/timeSeriesChart',
+	'modules/charts/histogramChart',
+	'modules/charts/statsChart',
 	'text!modules/streams/templates/streamManipulationTemplate.html'
 ], function($,
 	Backbone,
@@ -14,6 +16,8 @@ define(['jquery',
 	HeaderController,
 	BarChart,
 	TimeSeriesChart,
+	HistogramChart,
+	StatsChart,
 	StreamManipulationTemplate
 	) {
 
@@ -32,12 +36,15 @@ define(['jquery',
 			if (that.model !== undefined) {
 				var html = Mustache.to_html(StreamManipulationTemplate, that.model.toJSON());
 				that.$el.html(html);
-				that.barChart = new BarChart();
-				that.barChart.assignElement(that.$el.find('.stream-manipulation-histogram')[0]);
-				that.barChart.render();
+				that.histogramChart = new HistogramChart();
+				that.histogramChart.assignElement(that.$el.find('.stream-manipulation-histogram')[0]);
+				that.histogramChart.render();
 				that.timeSeriesChart = new TimeSeriesChart();
 				that.timeSeriesChart.assignElement(that.$el.find('.stream-manipulation-timeseries')[0]);
 				that.timeSeriesChart.render();
+				that.statsChart = new StatsChart();
+				that.statsChart.assignElement(that.$el.find('.stream-manipulation-stats')[0])
+				console.log(that.statsChart.getStats());
 			} else {
 				var html = Mustache.to_html(StreamManipulationTemplate, {});
 				that.$el.html(html);
