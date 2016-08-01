@@ -182,7 +182,7 @@ define(['jquery',
 		that.destroy = function() {
 			that.interruptTransition = true;
 			that.svg.selectAll('*').remove();
-			that.$el.html('')
+			that.$el.html('');
 			that.$el.off();
 		};
 

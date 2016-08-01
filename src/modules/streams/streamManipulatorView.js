@@ -26,29 +26,65 @@ define(['jquery',
 		var that = {};
 		that.el ='.stream-manipulation';
 		that.model = undefined;
+		that.histogramChart = new HistogramChart();
+		that.timeSeriesChart = new TimeSeriesChart();
+		that.statsChart = new StatsChart();
+		that.chartsShown = false;
+
 
 		that.assignModel = function(model) {
 			that.model = model;
 		};
 
 
+		that.createCharts = function() {
+			that.histogramChart = new HistogramChart();
+			that.timeSeriesChart = new TimeSeriesChart();
+			that.statsChart = new StatsChart();
+		};
+
+
+		that.destroyCharts = function() {
+			that.histogramChart.destroy();
+			that.histogramChart = undefined;
+			that.timeSeriesChart.destroy();
+			that.timeSeriesChart = undefined;
+			that.statsChart.destroy();
+			that.statsChart = undefined;
+		};
+
+
 		that.render = function() {
 			if (that.model !== undefined) {
+
+				if (that.chartsShown == true) {
+					that.destroyCharts();
+				}
+				that.createCharts();
+
 				var html = Mustache.to_html(StreamManipulationTemplate, that.model.toJSON());
 				that.$el.html(html);
-				that.histogramChart = new HistogramChart();
 				that.histogramChart.assignElement(that.$el.find('.stream-manipulation-histogram')[0]);
 				that.histogramChart.render();
-				that.timeSeriesChart = new TimeSeriesChart();
 				that.timeSeriesChart.assignElement(that.$el.find('.stream-manipulation-timeseries')[0]);
 				that.timeSeriesChart.render();
-				that.statsChart = new StatsChart();
-				that.statsChart.assignElement(that.$el.find('.stream-manipulation-stats')[0])
+				that.statsChart.assignElement(that.$el.find('.stream-manipulation-stats')[0]);
 				that.statsChart.render();
+				that.chartsShown = true;
+
 			} else {
 				var html = Mustache.to_html(StreamManipulationTemplate, {});
 				that.$el.html(html);
 			}
+		};
+
+
+		that.destroy = function() {
+			if (that.chartsShown == true) {
+				that.destroyCharts();
+			}
+			that.$el.html('');
+			that.$el.off();
 		};
 
 
