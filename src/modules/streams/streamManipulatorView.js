@@ -44,7 +44,7 @@ define(['jquery',
 				that.timeSeriesChart.render();
 				that.statsChart = new StatsChart();
 				that.statsChart.assignElement(that.$el.find('.stream-manipulation-stats')[0])
-				console.log(that.statsChart.getStats());
+				that.statsChart.render();
 			} else {
 				var html = Mustache.to_html(StreamManipulationTemplate, {});
 				that.$el.html(html);
