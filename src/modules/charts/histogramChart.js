@@ -93,7 +93,7 @@ define(['jquery',
 			console.log(max)
 
 			that.y = d3.scale.linear()
-				.domain([0, 25])
+				.domain([0, 35])
 				.range([that.height, 0]);	
 		};		
 
