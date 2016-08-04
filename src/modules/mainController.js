@@ -35,7 +35,6 @@ define(['jquery',
 
 		that.init = function() {
 			that.render();
-/*			that.requestController = new RequestController();*/
 			that.modelCollection = new ModelCollection();
 			that.headerController = new HeaderController();
 			that.currentView = new StreamBoardController();

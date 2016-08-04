@@ -8,6 +8,7 @@ define(['jquery',
 	'modules/charts/timeSeriesChart',
 	'modules/charts/histogramChart',
 	'modules/charts/statsChart',
+	'modules/calculatorController',
 	'text!modules/streams/templates/streamManipulationTemplate.html'
 ], function($,
 	Backbone,
@@ -18,6 +19,7 @@ define(['jquery',
 	TimeSeriesChart,
 	HistogramChart,
 	StatsChart,
+	CalculatorController,
 	StreamManipulationTemplate
 	) {
 
@@ -29,6 +31,7 @@ define(['jquery',
 		that.histogramChart = new HistogramChart();
 		that.timeSeriesChart = new TimeSeriesChart();
 		that.statsChart = new StatsChart();
+		that.calculatorController = new CalculatorController();
 		that.chartsShown = false;
 
 
@@ -41,6 +44,7 @@ define(['jquery',
 			that.histogramChart = new HistogramChart();
 			that.timeSeriesChart = new TimeSeriesChart();
 			that.statsChart = new StatsChart();
+			that.calculatorController = new CalculatorController();
 		};
 
 
@@ -51,13 +55,15 @@ define(['jquery',
 			that.timeSeriesChart = undefined;
 			that.statsChart.destroy();
 			that.statsChart = undefined;
+			that.calculatorController.destroy();
+			that.calculatorController = undefined;
 		};
 
 
 		that.render = function() {
 			if (that.model !== undefined) {
 
-				if (that.chartsShown == true) {
+				if (that.chartsShown === true) {
 					that.destroyCharts();
 				}
 				that.createCharts();
@@ -70,6 +76,9 @@ define(['jquery',
 				that.timeSeriesChart.render();
 				that.statsChart.assignElement(that.$el.find('.stream-manipulation-stats')[0]);
 				that.statsChart.render();
+				that.calculatorController.assignElement(that.$el.find('.stream-manipulation-calculator')[0]);
+				that.calculatorController.render();
+
 				that.chartsShown = true;
 
 			} else {
@@ -80,7 +89,7 @@ define(['jquery',
 
 
 		that.destroy = function() {
-			if (that.chartsShown == true) {
+			if (that.chartsShown === true) {
 				that.destroyCharts();
 			}
 			that.$el.html('');

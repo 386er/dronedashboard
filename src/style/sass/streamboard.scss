@@ -1,4 +1,4 @@
-
+/* ignore $*/
 
 .stream-list-item-input {
 	width:98%;
@@ -83,6 +83,7 @@
 	width: calc(82.8% - 8px);
 	height: 30px;
 	padding-left:8px;
+	font-size:16px;
 }
 
 
@@ -107,28 +108,18 @@
 
 .stream-manipulation-apply {
     width: 85px;
-    padding: 5px;
+    padding: 8px;
     height: 20px;
     display: inline-block;
     border-radius: 4px;
     background-color: $mainDark;
-    color:$mainLight;
+	color: $mainLight;
     cursor: pointer;
 }
 
 .stream-manipulation-apply:hover {
 	color:orange;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

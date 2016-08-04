@@ -67,14 +67,14 @@ define(['jquery',
 		that.createYScale = function() {
 			that.y = d3.scale.linear()
 				.domain([that.dataMin, that.dataMax])
-				.range([that.height, 0]);	
+				.range([that.height, 0]);
 		};
 
 
 		that.crateScales = function() {
 			that.createYScale();
 			that.createXScale();
-		}
+		};
 
 
 		that.createSVG = function() {
@@ -88,8 +88,8 @@ define(['jquery',
 
 		that.createLine = function() {
 			that.line = d3.svg.line()
-				.x(function(d, i) { return that.xLine(i); })
-				.y(function(d, i) { return that.y(d); }) 
+				.x(function(d, i) { return that.xLine(i);})
+				.y(function(d, i) { return that.y(d);});
 		};
 
 
