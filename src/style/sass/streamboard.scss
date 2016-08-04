@@ -70,15 +70,21 @@
     color: $mainDark;
 }
 
-.stream-manipulation-input {
-	width: 92.8%;
-    height: 30px;
-}
+
 
 .stream-manipulation-calculator {
 	font-family:arial,sans-sarif;
 	font-weight:bold;
+	float:left;
+	width:100%;
 }
+
+.stream-manipulation-input {
+	width: calc(82.8% - 8px);
+	height: 30px;
+	padding-left:8px;
+}
+
 
 .stream-manipulation-calculator table {
 	margin:2%;
@@ -99,7 +105,20 @@
 }
 
 
+.stream-manipulation-apply {
+    width: 85px;
+    padding: 5px;
+    height: 20px;
+    display: inline-block;
+    border-radius: 4px;
+    background-color: $mainDark;
+    color:$mainLight;
+    cursor: pointer;
+}
 
+.stream-manipulation-apply:hover {
+	color:orange;
+}
 
 
 
