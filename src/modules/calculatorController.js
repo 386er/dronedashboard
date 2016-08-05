@@ -41,16 +41,17 @@ define(['jquery',
 
 /*		that.showCancel = function() {
 			that.$el.find('.stream-list-item-cancel').removeClass('hidden');
-		};
-
-
-		that.hideCancel = function() {
-			that.$el.find('.stream-list-item-cancel').addClass('hidden');
 		};*/
 
 
+		that.clearInput = function() {
+			var input = that.$el.find('.stream-manipulation-input')[0];
+			input.value = 'x';
+		};
+
+
 		that.showValue = function(event) {
-			var 
+			var
 				button = event.target,
 				operator = $(button).data('value'),
 				input = that.$el.find('.stream-manipulation-input')[0],
@@ -59,14 +60,20 @@ define(['jquery',
 				textBefore = v.substring(0,  cursorPos ),
 				textAfter  = v.substring( cursorPos, v.length );
 
+			if (operator === 'AC') {
+				that.clearInput();
+				return;
+			}
+
 			input.value =  textBefore + operator + textAfter;
+			input.selectionStart = cursorPos + 1;
 
 		};
 
 
 		that.render = function() {
-/*			var html = Mustache.to_html(StreamItemTemplate, that.model.toJSON());
-			that.$el.html(html);*/
+			var input = that.$el.find('.stream-manipulation-input')[0];
+			input.selectionStart = 1;
 		};
 
 /*		that.triggerManipulation = function() {
