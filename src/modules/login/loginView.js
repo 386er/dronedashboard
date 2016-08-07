@@ -15,8 +15,8 @@ define(['jquery',
 
 		var that = {};
 
-		that.el = "#login-wrapper-container"
-		that.model = {'login': true}
+		that.el = "#login-wrapper-container";
+		that.model = {'login': true};
 
 		that.events = {
 			'mousedown .button':'buttonDown',
@@ -25,16 +25,37 @@ define(['jquery',
 			'click .login-tab': 'changeLoginView',
 			'click .login-button': 'loginUser',
 			'click .signup-button': 'signupUser'
-		}
+		};
 
 		that.initialize = function() {
 
-		}
+		};
+
+
+		that.destroy = function() {
+			$(window).off('keydown');
+			that.remove();
+		};
+
+
+		that.triggerLogin = function(e) {
+			if(e.keyCode == 13) {
+				if (that.model['login'] === true) {
+					that.loginUser();
+					return;
+				} else {
+					that.signupUser();
+					return;
+				}
+			} else {
+				return;
+			}
+		};
 
 
 		that.assignRequestController = function(requestController) {
 			that.requestController = requestController;
-		}
+		};
 
 
 		that.buttonDown = function(event) {
@@ -53,7 +74,7 @@ define(['jquery',
 		};
 
 		that.loginUser = function() {
-			var inputs = that.$el.find('input')
+			var inputs = that.$el.find('input');
 			var username = inputs[0].value;
 			var password = inputs[1].value;
 			that.requestController.loginUser(username, password);
@@ -61,7 +82,7 @@ define(['jquery',
 
 		
 		that.signupUser = function() {
-			var inputs = that.$el.find('input')
+			var inputs = that.$el.find('input');
 			var username = inputs[0].value;
 			var password = inputs[1].value;
 			that.requestController.signupUser(username, password);
@@ -70,7 +91,8 @@ define(['jquery',
 
 		that.render = function() {
 		var html = Mustache.to_html(LoginViewTemplate, that.model);
-			that.$el.html(html)
+			that.$el.html(html);
+			$(window).on('keydown', function(e) {that.triggerLogin(e);});
 		};
 
 

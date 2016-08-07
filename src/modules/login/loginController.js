@@ -20,7 +20,7 @@ define(['jquery',
 	var LoginController = function() {
 		
 		var that = {};
-		that.el = 'body'
+		that.el = 'body';
 
 		that.init = function() {
 			that.render();
@@ -29,11 +29,11 @@ define(['jquery',
 			that.loginView = new LoginView();
 			that.loginView.assignRequestController(that.requestController);
 			that.loginView.render();
-		}
+		};
 
 		that.assignRequestController = function(requestController) {
 			that.requestController = requestController;
-		}
+		};
 
 
 		that.render = function(model) {
@@ -42,17 +42,18 @@ define(['jquery',
 			}
 			var html = Mustache.to_html(LoginControllerTemplate, model);
 			that.$el.html(html);
-		}
+		};
 
 		that.destroy = function() {
-			that.loginView.remove();
+			that.loginView.destroy();
+			that.loginView = undefined;
 			that.off();
 			that.$el.html('');
 		};
 
 
 		that.renderWrongUserOrPassword = function() {
-			that.loginErrorView.render({'wrongUserOrPassword':true})
+			that.loginErrorView.render({'wrongUserOrPassword':true});
 		};
 
 
@@ -65,7 +66,7 @@ define(['jquery',
 		that = new (Backbone.View.extend(that))();
 		return that;
 
-	}
+	};
 
 	return LoginController;
 
