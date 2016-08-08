@@ -8,12 +8,11 @@
 	font-family: 'Oswald';
 	font-weight: bold;
 	font-size: 28px;
-	padding-top: 10px;
 }
 
 .header-logo {
 	height: 60px;
-	margin-left: 15px;
+	margin-left: 50px;
 	float: left;
 	position: relative;
 }
@@ -38,7 +37,7 @@
 	font-family:'Raleway';
 	position: relative;
 	float: left;
-	height: 33px;
+	height: 37px;
 	width: 150px;
 	margin-top: 3px;
 	margin-left: 100px;
@@ -47,8 +46,6 @@
 	font-size: 16px;
 	padding-top: 18px;
 	border-radius: 5px 5px 0px 0px;
-	border-bottom: 5px solid #BFBFBF;
-	box-shadow: 5px -1px 15px -5px black;
 	cursor:pointer;
 }
 
@@ -58,7 +55,6 @@
 	color: #D8D8D8;
 	border: 1px solid #868686;
 	box-shadow: inset 3px 3px 10px -1px #1B1B1B;
-	border-bottom: 5px solid #D8D8D8;
 }
 
 
@@ -154,12 +150,12 @@
 
 
 .header-menu{
-    margin-top: 5px;
-    width: 35px;
-    margin-right: 100px;
-    float: right;
-    cursor: pointer;
-    font-size: 45px !important;
+	margin-top: 13px;
+	width: 35px;
+	margin-right: 100px;
+	float: right;
+	cursor: pointer;
+	font-size: 35px !important;
 }
 
 .header-menu:hover {
