@@ -24,7 +24,7 @@
 	height: 55px;
 	float: left;
 	margin-top: 5px;
-	margin-left:20px;
+	margin-left:50px;
 }
 
 
@@ -37,24 +37,22 @@
 	font-family:'Raleway';
 	position: relative;
 	float: left;
-	height: 37px;
+	height: 34px;
 	width: 150px;
 	margin-top: 3px;
 	margin-left: 100px;
-	border: 1px solid #C1C0C0;
+	border-bottom: 5px solid $mainDark;
 	text-align: center;
-	font-size: 16px;
+	font-size: 15px;
 	padding-top: 18px;
-	border-radius: 5px 5px 0px 0px;
 	cursor:pointer;
+	color:$mainGray;
 }
 
 
 .tab.selected {
-	background-color: #777777;
-	color: #D8D8D8;
-	border: 1px solid #868686;
-	box-shadow: inset 3px 3px 10px -1px #1B1B1B;
+	color: white;
+	border-bottom: 5px solid orange;
 }
 
 
