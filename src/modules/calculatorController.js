@@ -34,16 +34,6 @@ define(['jquery',
 		};
 
 
-
-/*		that.assignModel = function(model) {
-			that.model = model;
-		};*/
-
-/*		that.showCancel = function() {
-			that.$el.find('.stream-list-item-cancel').removeClass('hidden');
-		};*/
-
-
 		that.clearInput = function() {
 			var input = that.$el.find('.stream-manipulation-input')[0];
 			input.value = 'x';
