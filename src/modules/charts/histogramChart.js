@@ -13,15 +13,15 @@ define(['jquery',
 
 		var that = {};
 
-		that.instanceID = 'histogramChart' + Date.now()
+		that.instanceID = 'histogramChart' + Date.now();
 		that.margin = {top:20, bottom:30, left:25, right:10};
 		that.random = d3.random.normal(0, 2.5);
 		that.n = 1800;
-		that.data = d3.range(that.n).map(function(i) {return that.random()});
+		that.data = d3.range(that.n).map(function(i) {return that.random();});
 
 
 		that.determineWidthAndHeight = function() {
-			var 
+			var
 				height = that.$el.height(),
 				width = that.$el.width();
 
@@ -54,59 +54,72 @@ define(['jquery',
 		};
 
 
-		that.getDistributionData = function() {
-			var granulation = that.getGranulation();
-			var distribution = [];
-			var distributionObject = {};
-			var adjustedData = that.data.map(function(date) {
+		that.getDistributionObject = function(data) {
+			var
+				granulation = that.getGranulation(),
+				zeros =  _.range(granulation.length).map(function () { return 0; }),
+				distributionObject = _.object(granulation, zeros);
+
+			data.forEach(function(date) {
+				var key = date;
+				if (distributionObject[key] !== undefined) {
+					distributionObject[key] += 1;
+				}
+			});
+
+			return distributionObject;
+		};
+
+
+		that.getAdjustedData = function(data) {
+			var adjustedData = data.map(function(date) {
 					return parseFloat(d3.format(".1f")(date));
 				});
-			for (var i = 0; i < granulation.length; i++) {
-				var key = granulation[i];
-				distributionObject[key] = 0;
-			}
+			return adjustedData;
+		};
 
 
 
-			for (var i = 0; i < adjustedData.length; i++) {
-				var key = adjustedData[i];
-				distributionObject[key] += 1;
-			}
 
-			for (var i = 0; i < _.keys(distributionObject).length; i++) {
-				var key = _.keys(distributionObject)[i];
+		that.getDistributionArray = function() {
+			var distribution = [];
+			var adjustedData = that.getAdjustedData(that.data);
+			var distributionObject = that.getDistributionObject(adjustedData);
+			var keys = _.keys(distributionObject);
+
+			keys.forEach(function(key) {
 				var value = distributionObject[key];
-				if (value == NaN || value == "NaN") {
-					console.log(value)
-				} else {
+				if ( !isNaN(value) || value !== undefined) {
 					distribution.push({"key":key,"value":value});
 				}
-			}
+			});
 
 			return distribution;
-		}
+		};
+
+
+
+		that.createDistributionData = function() {
+			that.distributionData = that.getDistributionArray();
+		};
+
 
 		that.createYScale = function() {
-			var data = that.getDistributionData();
-			var max = Math.max.apply(Math,data.map(function(o){return o.value;}))
-			console.log(data)
-			console.log(max)
-
+			var data = that.distributionData;
+			var max = Math.max.apply(Math,data.map(function(o){return o.value;}));
 			that.y = d3.scale.linear()
-				.domain([0, 35])
-				.range([that.height, 0]);	
-		};		
+				.domain([0, max])
+				.range([that.height, 0]);
+		};
 
 
 		that.createXScale = function() {
 
 			var granulation = that.getGranulation();
 
-			console.log(granulation);
-
 			that.x = d3.scale.linear()
 				.domain([d3.min(granulation),d3.max(granulation)])
-				.range([0, that.width]);	
+				.range([0, that.width]);
 		};
 
 
@@ -128,34 +141,33 @@ define(['jquery',
 			that.axisY = that.svg.append("g")
 				.attr("class", "y axis")
 				.call(d3.svg.axis().scale(that.y).orient("left").ticks(5));
-			};	
+			};
 
 
 		that.getRandomData = function(n) {
 			var randomData = [];
 			for (var i=0; i<that.n; i++) {
-				randomData.push({'value': Math.random(), 'index': Math.random() })
+				randomData.push({'value': Math.random(), 'index': Math.random()});
 			}
 			return randomData;
 		};
 
 
 		that.renderBars = function() {
-			that.data = that.getDistributionData();
 
 			that.rect = that.svg.selectAll('rect')
-				.data(that.data);
+				.data(that.distributionData);
 
 			that.rect.enter()
 				.append('rect')
-				.filter(function(d) { return d.value !== NaN })
+				.filter(function(d) { return !isNaN(d.value);})
 				.attr('class','bar')
 				.attr('fill','steelblue')
-				.attr('x', function(d,i) {return that.x(d.key)})
-				.attr('y', function(d) {return that.y(d.value)})
-				.attr('height', function(d) {return that.height -  that.y(d.value)})
+				.attr('x', function(d,i) {return that.x(d.key);})
+				.attr('y', function(d) {return that.y(d.value);})
+				.attr('height', function(d) {return that.height -  that.y(d.value);})
 				.attr('width', 0)
-				.transition().delay(function(d,i) {return i })
+				.transition().delay(function(d,i) {return i;})
 				.attr('width', 1);
 		};
 
@@ -164,6 +176,7 @@ define(['jquery',
 		that.render = function() {
 			that.determineWidthAndHeight();
 			that.createSVG();
+			that.createDistributionData();
 			that.createScales();
 			that.createXAxis();
 			that.createYAxis();
