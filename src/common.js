@@ -12,7 +12,8 @@ require.config({
 		d3: 'library/d3',
 		socket: 'library/socket.io-1.4.0',
 		text: 'library/text',
-		spin: 'library/spin'
+		spin: 'library/spin',
+		jstat: 'library/jstat'
 	},
 	shim:{
 		d3:{
@@ -28,6 +29,15 @@ require.config({
 		gridster: {
 			deps: ['jquery'],
 			exports: 'gridster'
+		},
+		jstat: {
+			exports: ['j$', 'jStat'],
+			init: function () {
+				return {
+					j$: j$,
+					jStat: jStat
+				};
+			}
 		}
 	}
 });

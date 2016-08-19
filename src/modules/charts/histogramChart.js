@@ -8,7 +8,7 @@ define(['jquery',
 	d3
 	) {
 
-	var BarChart = function() {
+	var HistogramChart = function() {
 		
 
 		var that = {};
@@ -210,6 +210,6 @@ define(['jquery',
 	
 
 
-	return BarChart;
+	return HistogramChart;
 
 });

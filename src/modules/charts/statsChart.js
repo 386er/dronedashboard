@@ -4,12 +4,14 @@ define(['jquery',
 	'd3',
 	'mustache',
 	'text!modules/streams/templates/streamStatsTemplate.html',
+	'jstat'
 ], function($,
 	Backbone,
 	_,
 	d3,
 	Mustache,
-	StatsTemplate
+	StatsTemplate,
+	jstat
 	) {
 
 	var StatsChart = function() {
@@ -32,12 +34,15 @@ define(['jquery',
 
 		that.getStats = function() {
 
-			var array = [];
+			that.stats = jStat(that.data);
 
-			that.mean = d3.sum(that.data)/that.n;
-			that.data.forEach(function(date) { array.push(Math.pow((date - that.mean),2)); });
+/*			that.mean = d3.sum(that.data)/that.n;*/
+			that.mean = that.stats.mean();
+			that.variance = that.stats.variance();
+			that.std = that.stats.stdev();
+/*			that.data.forEach(function(date) { array.push(Math.pow((date - that.mean),2)); });
 			that.variance = d3.sum(array);
-			that.std = Math.pow(that.variance,0.5);
+			that.std = Math.pow(that.variance,0.5);*/
 
 			return {'mean':that.mean, 'std': that.std, 'variance':that.variance, 'n':that.n};
 		};
