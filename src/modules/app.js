@@ -19,6 +19,8 @@ define(['jquery',
 
 		var that = {};
 		window.app = {};
+		that.app = window.app;
+		that.app['windowFocued'] = true;
 		that.mainController = new MainController();
 		that.requestController = new RequestController();
 
@@ -53,6 +55,15 @@ define(['jquery',
 			that.requestController.on('userRegistered', function() {
 				that.loginController.renderUserRegistered();
 			})
+
+
+			$(window).focus(function() {
+				that.app['windowFocued'] = true;
+			});
+
+			$(window).blur(function() {
+				that.app['windowFocued'] = false;
+			});
 
 
 		};

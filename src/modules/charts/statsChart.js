@@ -26,24 +26,18 @@ define(['jquery',
 
 
 		that.render = function() {
-			var stats = that.getStats();
-			var html = Mustache.to_html(StatsTemplate, stats);
+			var 
+				stats = that.getStats(); 
+				html = Mustache.to_html(StatsTemplate, stats);
 			that.$el.html(html);
 		};
 
 
 		that.getStats = function() {
-
 			that.stats = jStat(that.data);
-
-/*			that.mean = d3.sum(that.data)/that.n;*/
 			that.mean = that.stats.mean();
 			that.variance = that.stats.variance();
 			that.std = that.stats.stdev();
-/*			that.data.forEach(function(date) { array.push(Math.pow((date - that.mean),2)); });
-			that.variance = d3.sum(array);
-			that.std = Math.pow(that.variance,0.5);*/
-
 			return {'mean':that.mean, 'std': that.std, 'variance':that.variance, 'n':that.n};
 		};
 

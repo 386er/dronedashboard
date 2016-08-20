@@ -14,22 +14,23 @@ define(['jquery',
 
 		that.instanceID = 'timeSeriesChart' + Date.now();
 		that.edges = 15;
-		that.CIRCLE_COORDINATES_COUNT = 3600,
+		that.CIRCLE_COORDINATES_COUNT = 3600;
 		that.n = 80;
 		that.duration = 500;
-		that.random = d3.random.normal(0, 5);		
-		that.data = d3.range(that.n).map(function(i) {return that.random()});
+		that.random = d3.random.normal(0, 5);
+		that.data = d3.range(that.n).map(function(i) {return that.random();});
 		that.dataMin = Math.floor(d3.min(that.data));
 		that.dataMax = Math.ceil(d3.max(that.data));
 		that.currentHeight = 0;
 		that.margin = {top: 10, right: 20, bottom: 10, left: 40};
 		that.now = new Date(Date.now() - that.duration);
 		that.interruptTransition = false;
+		that.app = window.app || {};
 
 
 		that.assignElement = function(el) {
 			that.setElement(el);
-		}
+		};
 
 		that.determineWidthAndHeight = function() {
 			that.width = that.$el.width() - that.margin.left - that.margin.right;
@@ -40,7 +41,7 @@ define(['jquery',
 		that.createXScale = function() {
 			that.xLine = d3.scale.linear()
 				.domain([0, that.n - 1])
-				.range([0, that.width]);	
+				.range([0, that.width]);
 
 			that.x = d3.time.scale()
 				.domain([that.now - (that.n - 2) * that.duration, that.now - that.duration])
@@ -58,9 +59,9 @@ define(['jquery',
 
 
 		that.updateAxes = function() {
-			that.axisX.attr("transform", "translate(0," + that.y(0) + ")")
+			that.axisX.attr("transform", "translate(0," + that.y(0) + ")");
 			that.axisX.call(that.x.axis);
-			that.axisY.call(that.y.axis);		
+			that.axisY.call(that.y.axis);
 		};
 
 
@@ -112,7 +113,7 @@ define(['jquery',
 
 		that.appendAxis = function() {
 			that.createXAxis();
-			that.createYAxis();	
+			that.createYAxis();
 		};
 
 
@@ -127,7 +128,7 @@ define(['jquery',
 				.append("path")
 				.datum(that.data)
 				.attr("class", "line")
-				.attr("d", that.line);	
+				.attr("d", that.line);
 		};
 
 
@@ -150,30 +151,31 @@ define(['jquery',
 
 		that.tick = function() {
 
-			if (that.interruptTransition == true) {
+			if (that.interruptTransition === true) {
 				that.transition = undefined;
 				return;
 			}
 
 			that.transition = that.transition.each(function() {
 
-				that.data.push(that.random());
-				that.path.attr("d", that.line)
-					.attr("transform", null)
-					.transition()
-					.ease('linear')
-					.duration(that.duration)
-					.attr("transform", "translate(" + that.xLine(-1) + ",0)")
+				if (that.app['windowFocued'] === true) {
+					that.data.push(that.random());
+					that.path.attr("d", that.line)
+						.attr("transform", null)
+						.transition()
+						.ease('linear')
+						.duration(that.duration)
+						.attr("transform", "translate(" + that.xLine(-1) + ",0)");
 
-				that.svg.select(".line")
-					.attr("d", that.line)
-					.attr("transform", null);
+					that.svg.select(".line")
+						.attr("d", that.line)
+						.attr("transform", null);
 
-				that.updateDomains();
-				that.updateAxes();
+					that.updateDomains();
+					that.updateAxes();
+					that.data.shift();
+				}
 
-
-				that.data.shift();
 			}).transition().each("start", that.tick);
 
 		};
