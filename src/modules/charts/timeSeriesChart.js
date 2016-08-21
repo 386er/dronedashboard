@@ -1,11 +1,13 @@
 define(['jquery',
 	'backbone',
 	'underscore',
-	'd3'
+	'd3',
+	'spin'
 ], function($,
 	Backbone,
 	_,
-	d3
+	d3,
+	Spinner
 	) {
 
 	var TimeSeriesChart = function() {
@@ -26,6 +28,7 @@ define(['jquery',
 		that.now = new Date(Date.now() - that.duration);
 		that.interruptTransition = false;
 		that.app = window.app || {};
+		that.spinner = new Spinner({'color': 'grey', 'width': 0.5, 'scale':0.75, 'className': 'spinner-timeSeries' });
 
 
 		that.assignElement = function(el) {
@@ -133,19 +136,38 @@ define(['jquery',
 
 
 		that.render = function() {
+			that.spinner.stop();
+			that.$el.html('');
 			that.determineWidthAndHeight();
 			that.crateScales();
 			that.createSVG();
 			that.createLine();
 			that.appendAxis();
 			that.applyPathMagic();
+			that.animateChart();
+		};
+
+
+		that.animateChart = function() {
+			that.interruptTransition = false;
+			that.transition = d3.select({}).transition()
+				.duration(that.duration)
+				.ease("linear");
 			that.tick();
 		};
 
 
-		that.transition = d3.select({}).transition()
-			.duration(that.duration)
-			.ease("linear");
+		that.stopChart = function() {
+			that.interruptTransition = true;
+			that.svg.selectAll('*').remove();
+			that.$el.find('svg').remove();
+			that.svg = undefined;
+			that.path = undefined;
+			that.axisX = undefined;
+			that.axisY = undefined;
+			that.spinner.spin();
+			that.$el.html(that.spinner.el);
+		};
 
 
 

@@ -26,8 +26,8 @@ define(['jquery',
 
 
 		that.render = function() {
-			var 
-				stats = that.getStats(); 
+			var
+				stats = that.getStats(),
 				html = Mustache.to_html(StatsTemplate, stats);
 			that.$el.html(html);
 		};

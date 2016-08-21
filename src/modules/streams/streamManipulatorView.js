@@ -40,11 +40,27 @@ define(['jquery',
 		};
 
 
+		that.initialize = function() {
+			that.bindWindowEvents();
+		};
+
+
 		that.createCharts = function() {
 			that.histogramChart = new HistogramChart();
 			that.timeSeriesChart = new TimeSeriesChart();
 			that.statsChart = new StatsChart();
 			that.calculatorController = new CalculatorController();
+		};
+
+		that.renderCharts = function() {
+			that.histogramChart.assignElement(that.$el.find('.stream-manipulation-histogram')[0]);
+			that.histogramChart.render();
+			that.timeSeriesChart.assignElement(that.$el.find('.stream-manipulation-timeseries')[0]);
+			that.timeSeriesChart.render();
+			that.statsChart.assignElement(that.$el.find('.stream-manipulation-stats')[0]);
+			that.statsChart.render();
+			that.calculatorController.assignElement(that.$el.find('.stream-manipulation-calculator')[0]);
+			that.calculatorController.render();
 		};
 
 
@@ -60,29 +76,42 @@ define(['jquery',
 		};
 
 
-		that.render = function() {
-			if (that.model !== undefined) {
+		that.bindWindowEvents = function() {
+			$(window).on('focus', function() {
+				console.log('Tab Active');
+				if (that.chartsShown === true) {
+					that.renderManipulation();
+				}
+			});
 
+			$(window).on('blur', function() {
+				console.log('Tab Inactive');
 				if (that.chartsShown === true) {
 					that.destroyCharts();
 				}
-				that.createCharts();
+			});
+		};
 
-				var html = Mustache.to_html(StreamManipulationTemplate, that.model.toJSON());
-				that.$el.html(html);
-				that.histogramChart.assignElement(that.$el.find('.stream-manipulation-histogram')[0]);
-				that.histogramChart.render();
-				that.timeSeriesChart.assignElement(that.$el.find('.stream-manipulation-timeseries')[0]);
-				that.timeSeriesChart.render();
-				that.statsChart.assignElement(that.$el.find('.stream-manipulation-stats')[0]);
-				that.statsChart.render();
-				that.calculatorController.assignElement(that.$el.find('.stream-manipulation-calculator')[0]);
-				that.calculatorController.render();
 
-				that.chartsShown = true;
+		that.renderManipulation = function() {
+			that.createCharts();
+			html = Mustache.to_html(StreamManipulationTemplate, that.model.toJSON());
+			that.$el.html(html);
+			that.renderCharts();
+			that.chartsShown = true;
+		};
 
+
+
+		that.render = function() {
+			var html;
+			if (that.model !== undefined) {
+				if (that.chartsShown === true) {
+					that.destroyCharts();
+				}
+				that.renderManipulation();
 			} else {
-				var html = Mustache.to_html(StreamManipulationTemplate, {});
+				html = Mustache.to_html(StreamManipulationTemplate, {});
 				that.$el.html(html);
 			}
 		};
@@ -94,6 +123,8 @@ define(['jquery',
 			}
 			that.$el.html('');
 			that.$el.off();
+			$(window).off('focus');
+			$(window).off('blur');
 		};
 
 

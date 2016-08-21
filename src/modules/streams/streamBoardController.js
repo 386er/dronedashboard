@@ -81,7 +81,7 @@ define(['jquery',
 			that.modelCollection.add(model);
 			that.streamListView.render();
 			that.streamListView.delegateEvents();
-		}
+		};
 
 
 		that.createIDString = function() {

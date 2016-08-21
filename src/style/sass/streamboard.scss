@@ -236,3 +236,10 @@
 	float: right;
 	margin-right: 15px;
 }
+
+
+.spinner-timeSeries {
+	position: relative !important;
+    width: 0px !important;
+    z-index: 2000000000 !important;
+}

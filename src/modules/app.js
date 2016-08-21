@@ -44,26 +44,26 @@ define(['jquery',
 				that.loginController = new LoginController();
 				that.loginController.assignRequestController(that.requestController);
 				that.loginController.init();
-			})
+			});
 
 
 			that.requestController.on('wrongUserOrPassword', function() {
 				that.loginController.renderWrongUserOrPassword();
-			})
+			});
 
 
 			that.requestController.on('userRegistered', function() {
 				that.loginController.renderUserRegistered();
-			})
+			});
 
 
-			$(window).focus(function() {
+/*			$(window).focus(function() {
 				that.app['windowFocued'] = true;
 			});
 
 			$(window).blur(function() {
 				that.app['windowFocued'] = false;
-			});
+			});*/
 
 
 		};
