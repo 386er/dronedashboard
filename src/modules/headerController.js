@@ -14,7 +14,7 @@ define(['jquery',
 
 	var HeaderController = function(numberOfStreams) {
 		
-		var 
+		var
 			that = {}, my = {};
 		
 		that.el ='.header';
@@ -34,13 +34,13 @@ define(['jquery',
 		that.render = function() {
 			var html = Mustache.to_html(HeaderTemplate, {'isDashboard': that.isDashboard});
 			that.$el.html(html);
-		};	
+		};
 
 		
 		that.toggleSwitch = function() {
-			that.$el.find('.launcher-switch').toggleClass('locked')
-			that.$el.find('.launcher-switch-container').toggleClass('locked')
-			that.$el.find('.launcher-icon').toggleClass('locked')
+			that.$el.find('.launcher-switch').toggleClass('locked');
+			that.$el.find('.launcher-switch-container').toggleClass('locked');
+			that.$el.find('.launcher-icon').toggleClass('locked');
 		};
 
 
@@ -67,7 +67,7 @@ define(['jquery',
 
 
 		that.saveDashboard = function() {
-			var sign = that.$el.find('.dashboard-tab-menu-save')[0]
+			var sign = that.$el.find('.dashboard-tab-menu-save')[0];
 			that.trigger('saveDashboard');
 			d3.select(sign)
 				.transition().duration(100).style('color','orange')
@@ -82,7 +82,7 @@ define(['jquery',
 
 		that.logoutUser = function() {
 			that.trigger('logout');
-		}
+		};
 
 
 		that.changeInterfaceView = function(event) {

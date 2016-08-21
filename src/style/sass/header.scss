@@ -49,11 +49,20 @@
 	color:$mainGray;
 }
 
+.tab:hover {
+	color:white;
+	border-bottom: 5px solid $mainGray !important;
+}
 
 .tab.selected {
 	color: white;
 	border-bottom: 5px solid orange;
 }
+.tab.selected:hover {
+	border-bottom: 5px solid orange !important;
+}
+
+
 
 
 
