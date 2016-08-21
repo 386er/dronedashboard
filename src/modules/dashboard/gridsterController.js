@@ -28,7 +28,7 @@ define(['jquery',
 
 	var GridsterController = function() {
 		
-		var 
+		var
 			that = {}, my = {}; // TODO implement that - my logic in every module 
 		
 		
@@ -44,10 +44,10 @@ define(['jquery',
 						min_size: [4, 4]
 						}
 		};
-		
+		that.chartsLocked = false;
 		that.gridster = undefined;
 		that.viewCollection = new ChartViewCollection();
-		that.widgetTemplate = WidgetTemplate; 					
+		that.widgetTemplate = WidgetTemplate;
 		that.events = {
 			'click .cancel-chart': 'cancelWidget',
 		};
@@ -59,10 +59,10 @@ define(['jquery',
 
 
 		
-		that.renderChartView = function() { 
+		that.renderChartView = function() {
 			that.viewCollection.getViews().forEach(function(view) {
 				view.render();
-			})
+			});
 		};
 
 
@@ -77,7 +77,7 @@ define(['jquery',
 
 			var widgets = [];
 			for (var i = 0; i < numberOfModels; i++) {
-				widgets.push([5,6])
+				widgets.push([5,6]);
 			}
 			return widgets;
 		};
@@ -92,7 +92,7 @@ define(['jquery',
 
 		that.setDashboardSegmentation = function(segmentation) {
 			that.dashBoardSegmentation = segmentation;
-		}
+		};
 
 
 		that.bindGridsterToElement = function() {
@@ -104,10 +104,11 @@ define(['jquery',
 			if ( !$('.gridster').length) {
 				return;
 			}
-			that.$el.off();		
+			that.$el.off();
 			that.toggleWidgetStyling();
 			that.gridster.disable();
 			that.renderChartView();
+			that.chartsLocked = true;
 		};
 
 
@@ -115,9 +116,10 @@ define(['jquery',
 			if ( !$('.gridster').length) {
 				return;
 			}
-			that.delegateEvents();		
+			that.delegateEvents();
 			that.toggleWidgetStyling();
 			that.gridster.enable();
+			that.chartsLocked = false;
 		};
 		
 
@@ -129,9 +131,9 @@ define(['jquery',
 		
 		that.toggleWidgetStyling = function() {
 			var elements = $('.gridster')[0];
-			that.toggleElementStyling(elements)
-			$('.gs-w').toggleClass('disabled')
-			$('.gridster ul').toggleClass('disabled')
+			that.toggleElementStyling(elements);
+			$('.gs-w').toggleClass('disabled');
+			$('.gridster ul').toggleClass('disabled');
 		};
 		
 
@@ -140,7 +142,7 @@ define(['jquery',
 			var widget = $(event.target).closest('.gs-w');
 			var id = widget[0].id;
 
-			that.viewCollection.remove(id)
+			that.viewCollection.remove(id);
 			that.gridster.remove_widget(widget, 0);
 
 		};
@@ -157,7 +159,7 @@ define(['jquery',
 				widget[2] = seg[i] ? seg[i].col : undefined;
 				widget[3] = seg[i] ? seg[i].row : undefined;
 				return widget;
-			})
+			});
 
 			return widgets;
 
@@ -166,7 +168,7 @@ define(['jquery',
 
 
 		
-		that.enterWidgets = function() { 
+		that.enterWidgets = function() {
 
 			var widgets = that.getWidgets(that.modelCollection.models.length);
 
@@ -178,17 +180,16 @@ define(['jquery',
 			widgets.forEach( function(widget, i){
 				var chartModel = that.modelCollection.at(i);
 				var html = Mustache.to_html(that.widgetTemplate, chartModel.toJSON());
-				that.gridster.add_widget(html, widget[0], widget[1], widget[2], widget[3])
-			}); 
+				that.gridster.add_widget(html, widget[0], widget[1], widget[2], widget[3]);
+			});
 		};
 
 
 		that.bindChartsToWidgets = function() {
-/*			var widgetIDs = _.range(1, that.modelCollection.models.length + 1);*/
 			var widgetIDs = that.modelCollection.pluck('id');
 
 			widgetIDs.forEach(function(widgetID) {
-				var 
+				var
 					element = $('#' + widgetID).find('.chart-wrapper'),
 					chartModel = that.modelCollection.get(widgetID);
 
@@ -206,12 +207,12 @@ define(['jquery',
 			that.renderTemplate();
 			that.enterWidgets();
 			that.bindChartsToWidgets();
-		}
+		};
 
 
 		that.renderTemplate = function() {
 			that.$el.html(GridsterTemplate);
-		}
+		};
 
 
 		that.destroy = function() {

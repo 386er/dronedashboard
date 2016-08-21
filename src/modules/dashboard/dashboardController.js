@@ -21,10 +21,30 @@ define(['jquery',
 		that.dashboardSegmentation = that.app.dashboardSegmentation;
 
 
+		that.initialize = function() {
+			that.bindWindowEvents();
+		};
+
+
 		that.render = function() {
 			that.$el.html(DashboardTemplate);
 			that.launchDashboard();
-		}
+		};
+
+
+		that.bindWindowEvents = function() {
+			$(window).on('focus', function() {
+				console.log('Tab Active');
+				if (that.gridsterController.chartsLocked === true) {
+					that.headerController.lockDashboard();
+				}
+			});
+
+			$(window).on('blur', function() {
+				console.log('Tab Inactive');
+				that.headerController.unlockDashboard();
+			});
+		};
 
 
 		that.assignHeaderController = function(headerController) {
@@ -72,7 +92,9 @@ define(['jquery',
 			that.headerController.off('dashboardUnLocked');
 			that.headerController.off('saveDashboard');
 			that.headerController = undefined;
-			that.gridsterController = undefined;			
+			that.gridsterController = undefined;
+			$(window).off('focus');
+			$(window).off('blur');
 		};
 		
 

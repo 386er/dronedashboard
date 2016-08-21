@@ -24,7 +24,7 @@ define(['jquery',
 		
 		that.events = {
 			'click .launcher-switch-container': 'lockDashboard',
-			'click .launcher-switch-container.locked': 'unLockDashboard',
+			'click .launcher-switch-container.locked': 'unlockDashboard',
 			'click .tab': 'changeInterfaceView',
 			'click .dashboard-tab-menu-save': 'saveDashboard',
 			'click .header-menu': 'logoutUser'
@@ -55,7 +55,7 @@ define(['jquery',
 		};
 
 
-		that.unLockDashboard = function() {
+		that.unlockDashboard = function() {
 
 			if (that.isLauncherLocked === false) {
 				return;
