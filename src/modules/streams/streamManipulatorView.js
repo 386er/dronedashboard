@@ -33,6 +33,7 @@ define(['jquery',
 		that.statsChart = new StatsChart();
 		that.calculatorController = new CalculatorController();
 		that.chartsShown = false;
+		that.deactivateTimeout = undefined;
 
 
 		that.assignModel = function(model) {
@@ -79,6 +80,8 @@ define(['jquery',
 		that.bindWindowEvents = function() {
 			$(window).on('focus', function() {
 				console.log('Tab Active');
+				clearTimeout(that.deactivateTimeout);
+				that.deactivateTimeout = undefined;
 				if (that.chartsShown === true) {
 					that.renderManipulation();
 				}
@@ -87,7 +90,9 @@ define(['jquery',
 			$(window).on('blur', function() {
 				console.log('Tab Inactive');
 				if (that.chartsShown === true) {
-					that.destroyCharts();
+					that.deactivateTimeout = setTimeout(function() {
+						that.destroyCharts();
+					}, 10000);
 				}
 			});
 		};

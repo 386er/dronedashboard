@@ -19,6 +19,7 @@ define(['jquery',
 		that.instanceID = 'dashboardController' + Date.now();
 		that.app = app || {};
 		that.dashboardSegmentation = that.app.dashboardSegmentation;
+		that.deactivateTimeout = undefined;
 
 
 		that.initialize = function() {
@@ -35,6 +36,8 @@ define(['jquery',
 		that.bindWindowEvents = function() {
 			$(window).on('focus', function() {
 				console.log('Tab Active');
+				clearTimeout(that.deactivateTimeout);
+				that.deactivateTimeout = undefined;
 				if (that.gridsterController.chartsLocked === true) {
 					that.headerController.lockDashboard();
 				}
@@ -42,7 +45,9 @@ define(['jquery',
 
 			$(window).on('blur', function() {
 				console.log('Tab Inactive');
-				that.headerController.unlockDashboard();
+				that.deactivateTimeout = setTimeout(function() {
+					that.headerController.unlockDashboard();
+				}, 10000);
 			});
 		};
 
@@ -95,6 +100,8 @@ define(['jquery',
 			that.gridsterController = undefined;
 			$(window).off('focus');
 			$(window).off('blur');
+			clearTimeout(that.deactivateTimeout);
+			that.deactivateTimeout = undefined;
 		};
 		
 
